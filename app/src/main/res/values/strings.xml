@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Term Manager</string>
+    <string name="terms_label">Terms</string>
+</resources>
