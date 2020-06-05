@@ -49,7 +49,7 @@ public class TermDatabaseTest {
     }
 
     @Test
-    public void createMany(){
+    public void createManyTerms(){
         List<Term> terms = new ArrayList<>();
         for(int i = 0; i < 3; i++){
             Term term = new Term(i + 1, String.valueOf(i), Date.from(Instant.now()), Date.from(Instant.now()));
@@ -60,7 +60,7 @@ public class TermDatabaseTest {
     }
 
     @Test
-    public void createAndModify(){
+    public void createAndModifyTerm(){
         Term term = new Term(10, "Test Term", Date.from(Instant.now()), Date.from(Instant.now()));
         termDao.insertOrUpdateTerm(term);
 
@@ -76,7 +76,7 @@ public class TermDatabaseTest {
     }
     
     @Test
-    public void delete(){
+    public void deleteTerm(){
         
         Term term = new Term(10, "Test Term", Date.from(Instant.now()), Date.from(Instant.now()));
         termDao.insertOrUpdateTerm(term);
@@ -89,5 +89,4 @@ public class TermDatabaseTest {
 
         Assert.assertEquals(0, termDao.getCount());
     }
-
 }

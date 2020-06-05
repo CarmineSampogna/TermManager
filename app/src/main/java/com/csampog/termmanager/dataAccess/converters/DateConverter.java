@@ -1,4 +1,4 @@
-package com.csampog.termmanager.dataAccess;
+package com.csampog.termmanager.dataAccess.converters;
 
 
 import androidx.room.TypeConverter;

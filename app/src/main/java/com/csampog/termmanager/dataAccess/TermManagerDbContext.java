@@ -7,13 +7,15 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.csampog.termmanager.dataAccess.converters.AssessmentTypeConverter;
+import com.csampog.termmanager.dataAccess.converters.DateConverter;
 import com.csampog.termmanager.model.Assessment;
 import com.csampog.termmanager.model.Course;
 import com.csampog.termmanager.model.Note;
 import com.csampog.termmanager.model.Term;
 
-@Database(entities = {Assessment.class, Course.class, Note.class, Term.class}, version = 1)
-@TypeConverters({DateConverter.class})
+@Database(entities = {Assessment.class, Course.class, Note.class, Term.class}, version = 2)
+@TypeConverters({DateConverter.class, AssessmentTypeConverter.class})
 public abstract class TermManagerDbContext extends RoomDatabase {
     public static final String DATABASE_NAME = "TermManager.db";
     private static volatile TermManagerDbContext instance;

@@ -22,7 +22,7 @@ public interface NoteDao {
     void insertOrUpdate(List<Note>notes);
 
     @Delete
-    void deleteTerm(Term term);
+    void deleteNote(Note note);
 
     @Query("SELECT * FROM Notes WHERE noteId = :noteId")
     Note getNoteById(int noteId);

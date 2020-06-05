@@ -21,6 +21,19 @@ public class Course {
     private String mentorEmail;
     private int termId;
 
+    public static final String IN_PROGRESS;
+    public static final String COMPLETED;
+    public static final String DROPPED;
+    public static final String PLAN_TO_TAKE;
+
+    static {
+        IN_PROGRESS = "In progress";
+        COMPLETED = "Completed";
+        DROPPED = "Dropped";
+        PLAN_TO_TAKE = "Plan to take";
+    }
+
+
     @Ignore
     public Course(){
 
