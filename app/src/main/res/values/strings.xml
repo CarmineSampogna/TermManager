@@ -2,4 +2,6 @@
     <string name="app_name">Term Manager</string>
     <string name="terms_label">Terms</string>
     <string name="courses_title">Courses</string>
+    <string name="all_terms_title">All Terms</string>
+    <string name="add_term_label">Add a Term</string>
 </resources>

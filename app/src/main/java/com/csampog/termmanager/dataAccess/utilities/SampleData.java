@@ -16,9 +16,9 @@ public class SampleData {
         for (int i = 0; i < count; i++) {
             int num = i + 1;
             String title = "Term " + num;
-            Date start = Date.from(Instant.now().plus(i * 6, ChronoUnit.MONTHS));
-            Date end = Date.from(start.toInstant().plus(6, ChronoUnit.MONTHS));
-            ret.add(new Term(i, title, start, end));
+            Date start = Date.from(Instant.now().plus(i * 180, ChronoUnit.DAYS));
+            Date end = Date.from(start.toInstant().plus(180, ChronoUnit.DAYS));
+            ret.add(new Term(num, title, start, end));
         }
 
         return ret;

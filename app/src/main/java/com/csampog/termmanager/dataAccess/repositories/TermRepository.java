@@ -4,22 +4,36 @@ import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
-import com.csampog.termmanager.dataAccess.TermManagerDbContext;
-import com.csampog.termmanager.dataAccess.interfaces.TermDao;
+import com.csampog.termmanager.dataAccess.utilities.SampleData;
 import com.csampog.termmanager.model.Term;
 
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class TermRepository extends RepositoryBase {
 
-    public TermRepository(Context context){
+    private static TermRepository instance;
+
+    public static TermRepository getInstance(Context context) {
+        if (instance == null) {
+            instance = new TermRepository(context);
+        }
+        return instance;
+    }
+
+    private TermRepository(Context context) {
         super(context);
+        terms = getAllTerms();
+    }
+
+    public LiveData<List<Term>> terms;
+
+    public void AddSampleData() {
+
+        insertOrUpdateAll(SampleData.getTerms(4));
     }
 
     public void insertOrUpdate(Term term) {
-        if(term == null) throw new NullPointerException(Term.class.getName());
+        if (term == null) throw new NullPointerException(Term.class.getName());
 
         final Term fTerm = term;
         executor.execute(new Runnable() {
@@ -31,7 +45,7 @@ public class TermRepository extends RepositoryBase {
     }
 
     public void insertOrUpdateAll(List<Term> terms) {
-        if(terms == null) throw new NullPointerException(Term.class.getName());
+        if (terms == null) throw new NullPointerException(Term.class.getName());
 
         final List<Term> fTerms = terms;
         executor.execute(new Runnable() {
@@ -44,7 +58,7 @@ public class TermRepository extends RepositoryBase {
 
     public void delete(Term term) {
         final Term dTerm = term;
-        if(term == null) throw new NullPointerException(Term.class.getName());
+        if (term == null) throw new NullPointerException(Term.class.getName());
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -53,7 +67,8 @@ public class TermRepository extends RepositoryBase {
         });
     }
 
-    public LiveData<List<Term>> getAllTerms() {
+    private LiveData<List<Term>> getAllTerms() {
+
         return dbContext.termDao().getAllTerms();
     }
 
