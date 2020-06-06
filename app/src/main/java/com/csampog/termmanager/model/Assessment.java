@@ -1,6 +1,7 @@
 package com.csampog.termmanager.model;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
@@ -18,10 +19,12 @@ public class Assessment {
     public static final String OBJECTIVE = "Objective";
     public static final String PERFORMANCE = "Performance";
 
+    @Ignore
     public Assessment(){
 
     }
 
+    @Ignore
     public Assessment(String title, AssessmentType testType, Date goalDate, int courseId){
 
         this.title = title;
