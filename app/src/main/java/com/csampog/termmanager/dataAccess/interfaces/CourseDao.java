@@ -1,4 +1,4 @@
-package com.csampog.termmanager.dataAccess;
+package com.csampog.termmanager.dataAccess.interfaces;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -12,16 +12,7 @@ import com.csampog.termmanager.model.Course;
 import java.util.List;
 
 @Dao
-public interface CourseDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertOrUpdate(Course course);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertOrUpdateAll(List<Course> courses);
-
-    @Delete
-    void deleteCourse(Course course);
+public interface CourseDao extends EntityDao<Course> {
 
     @Query("SELECT * FROM COURSES WHERE courseId = :courseId")
     Course getCourseById(int courseId);

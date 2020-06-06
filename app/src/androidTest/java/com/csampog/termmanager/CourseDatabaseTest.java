@@ -6,8 +6,7 @@ import android.util.Log;
 import androidx.room.Room;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.csampog.termmanager.dataAccess.CourseDao;
-import com.csampog.termmanager.dataAccess.TermDao;
+import com.csampog.termmanager.dataAccess.interfaces.CourseDao;
 import com.csampog.termmanager.dataAccess.TermManagerDbContext;
 import com.csampog.termmanager.model.Course;
 
@@ -20,7 +19,6 @@ import org.junit.runners.JUnit4;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.Date;
 
 @RunWith(JUnit4.class)
@@ -61,7 +59,7 @@ public class CourseDatabaseTest {
         Course dbCourse = courseDao.getCourseById(1);
         Assert.assertNotNull(dbCourse);
 
-        courseDao.deleteCourse(dbCourse);
+        courseDao.delete(dbCourse);
         dbCourse = courseDao.getCourseById(1);
         Assert.assertNull(dbCourse);
     }

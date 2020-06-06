@@ -1,4 +1,4 @@
-package com.csampog.termmanager.dataAccess;
+package com.csampog.termmanager.dataAccess.interfaces;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -12,16 +12,7 @@ import com.csampog.termmanager.model.Term;
 import java.util.List;
 
 @Dao
-public interface TermDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertOrUpdateTerm(Term term);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<Term> term);
-
-    @Delete
-    void deleteTerm(Term term);
+public interface TermDao extends EntityDao<Term> {
 
     @Query("SELECT * FROM Terms")
     LiveData<List<Term>> getAllTerms();

@@ -3,11 +3,10 @@ package com.csampog.termmanager;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.csampog.termmanager.dataAccess.TermDao;
+import com.csampog.termmanager.dataAccess.interfaces.TermDao;
 import com.csampog.termmanager.dataAccess.TermManagerDbContext;
 import com.csampog.termmanager.model.Term;
 
@@ -19,7 +18,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,20 +53,20 @@ public class TermDatabaseTest {
             Term term = new Term(i + 1, String.valueOf(i), Date.from(Instant.now()), Date.from(Instant.now()));
             terms.add(term);
         }
-        termDao.insertAll(terms);
+        termDao.insertOrUpdateAll(terms);
         Assert.assertEquals(3, termDao.getCount());
     }
 
     @Test
     public void createAndModifyTerm(){
         Term term = new Term(10, "Test Term", Date.from(Instant.now()), Date.from(Instant.now()));
-        termDao.insertOrUpdateTerm(term);
+        termDao.insertOrUpdate(term);
 
         Term dbTerm = termDao.getTermById(10);
         Assert.assertNotNull(dbTerm);
 
         dbTerm.setTitle("Modified");
-        termDao.insertOrUpdateTerm(dbTerm);
+        termDao.insertOrUpdate(dbTerm);
 
         dbTerm = termDao.getTermById(10);
         Assert.assertNotNull(dbTerm);
@@ -79,13 +77,13 @@ public class TermDatabaseTest {
     public void deleteTerm(){
         
         Term term = new Term(10, "Test Term", Date.from(Instant.now()), Date.from(Instant.now()));
-        termDao.insertOrUpdateTerm(term);
+        termDao.insertOrUpdate(term);
 
         Assert.assertTrue(termDao.getCount() > 0);
         
         Term t = termDao.getTermById(10);
 
-        termDao.deleteTerm(t);
+        termDao.delete(t);
 
         Assert.assertEquals(0, termDao.getCount());
     }

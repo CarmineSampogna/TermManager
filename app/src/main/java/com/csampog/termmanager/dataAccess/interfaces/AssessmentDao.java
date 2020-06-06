@@ -1,4 +1,4 @@
-package com.csampog.termmanager.dataAccess;
+package com.csampog.termmanager.dataAccess.interfaces;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -12,16 +12,7 @@ import com.csampog.termmanager.model.Assessment;
 import java.util.List;
 
 @Dao
-public interface AssessmentDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertOrUpdate(Assessment assessment);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertOrUpdate(List<Assessment> assessments);
-
-    @Delete
-    void deleteAssessment(Assessment assessment);
+public interface AssessmentDao extends EntityDao<Assessment>{
 
     @Query("SELECT * FROM Assessments")
     LiveData<List<Assessment>> getAllAssessments();

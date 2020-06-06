@@ -6,8 +6,7 @@ import android.util.Log;
 import androidx.room.Room;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.csampog.termmanager.dataAccess.AssessmentDao;
-import com.csampog.termmanager.dataAccess.NoteDao;
+import com.csampog.termmanager.dataAccess.interfaces.NoteDao;
 import com.csampog.termmanager.dataAccess.TermManagerDbContext;
 import com.csampog.termmanager.model.Course;
 import com.csampog.termmanager.model.Note;
@@ -66,7 +65,7 @@ public class NoteDatabaseTest {
         Note dbNote = noteDao.getNoteById(1);
         Assert.assertNotNull(dbNote);
 
-        noteDao.deleteNote(dbNote);
+        noteDao.delete(dbNote);
         dbNote = noteDao.getNoteById(1);
         Assert.assertNull(dbNote);
     }

@@ -9,6 +9,10 @@ import androidx.room.TypeConverters;
 
 import com.csampog.termmanager.dataAccess.converters.AssessmentTypeConverter;
 import com.csampog.termmanager.dataAccess.converters.DateConverter;
+import com.csampog.termmanager.dataAccess.interfaces.AssessmentDao;
+import com.csampog.termmanager.dataAccess.interfaces.CourseDao;
+import com.csampog.termmanager.dataAccess.interfaces.NoteDao;
+import com.csampog.termmanager.dataAccess.interfaces.TermDao;
 import com.csampog.termmanager.model.Assessment;
 import com.csampog.termmanager.model.Course;
 import com.csampog.termmanager.model.Note;
