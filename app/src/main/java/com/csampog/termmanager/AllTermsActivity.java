@@ -2,6 +2,7 @@ package com.csampog.termmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.View;
 import com.csampog.termmanager.adapters.TermAdapter;
 import com.csampog.termmanager.dataAccess.repositories.TermRepository;
 import com.csampog.termmanager.model.Term;
+import com.csampog.termmanager.viewmodels.AllTermsViewModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -22,49 +24,69 @@ import java.util.List;
 
 public class AllTermsActivity extends AppCompatActivity {
 
-    List<Term> termsData;
-    RecyclerView recyclerView;
-    TermAdapter adapter;
+    private List<Term> termsData;
+    private RecyclerView recyclerView;
+    private TermAdapter adapter;
+    private AllTermsViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_terms);
+
+        setTitle();
+        initRecyclerView();
+        initViewModel();
+        initFAB();
+    }
+
+    private void setTitle() {
+
         CollapsingToolbarLayout toolbarLayout = findViewById(R.id.all_terms_toolbar_layout);
         toolbarLayout.setTitle(getString(R.string.all_terms_title));
+    }
 
+    private void initRecyclerView() {
+
+        initAdapter();
         recyclerView = findViewById(R.id.termsRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
-        termsData = new ArrayList<>();
-
-        adapter = new TermAdapter(AllTermsActivity.this, termsData);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.grid_layout_columns)));
         recyclerView.setAdapter(adapter);
-        final TermRepository repo = TermRepository.getInstance(getApplicationContext());
+    }
+
+    private void initAdapter() {
+
+        termsData = new ArrayList<>();
+        adapter = new TermAdapter(AllTermsActivity.this, termsData);
+    }
+
+    private void initViewModel() {
+
+        viewModel = new ViewModelProvider(getViewModelStore(), new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(AllTermsViewModel.class);
 
         final Observer<List<Term>> termObserver = new Observer<List<Term>>() {
             @Override
             public void onChanged(List<Term> terms) {
-                //termsData.clear();
+                termsData.clear();
                 termsData.addAll(terms);
-                if(adapter == null) {
+                if (adapter == null) {
                     adapter = new TermAdapter(AllTermsActivity.this, termsData);
                     recyclerView.setAdapter(adapter);
-                }
-                else{
+                } else {
                     adapter.notifyDataSetChanged();
                 }
             }
         };
 
-        repo.terms.observe(this, termObserver);
+        viewModel.allTerms.observe(this, termObserver);
+    }
 
+    private void initFAB() {
         FloatingActionButton fab = findViewById(R.id.fab_add_term);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(termsData.size() == 0){
-                    repo.AddSampleData();
-                }
                 Intent intent = new Intent(AllTermsActivity.this, AddTermActivity.class);
                 startActivity(intent);
             }

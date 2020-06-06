@@ -1,12 +1,9 @@
 package com.csampog.termmanager.dataAccess.repositories;
 
 import android.content.Context;
-
 import androidx.lifecycle.LiveData;
-
 import com.csampog.termmanager.dataAccess.utilities.SampleData;
 import com.csampog.termmanager.model.Term;
-
 import java.util.List;
 
 public class TermRepository extends RepositoryBase {
