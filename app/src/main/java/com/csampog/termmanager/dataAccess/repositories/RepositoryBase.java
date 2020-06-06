@@ -19,6 +19,5 @@ public abstract class RepositoryBase {
     public RepositoryBase(Context context){
        // dbContext = TermManagerDbContext.getInstance(context);
         dbContext = Room.inMemoryDatabaseBuilder(context, TermManagerDbContext.class).build();
-        dbContext.termDao().insertOrUpdateAll(SampleData.getTerms(4));
     }
 }

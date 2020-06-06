@@ -1,40 +1,30 @@
 package com.csampog.termmanager.adapters;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-
-import com.csampog.termmanager.model.Term;
 
 import java.util.Arrays;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 
-public abstract class EntityAdapter<TEntity> extends ArrayAdapter<TEntity> {
+public abstract class EntityAdapter<TEntity, TViewHolder extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<TViewHolder> {
 
     protected List<TEntity> entities;
     protected int viewLayoutId;
 
-    public EntityAdapter(@NonNull Context context, int resource, @NonNull TEntity[] objects) {
-        super(context, resource, objects);
+    public EntityAdapter(@NonNull Context context, int resource, @NonNull List<TEntity> entities) {
+        super();
         viewLayoutId = resource;
-        entities = Arrays.asList(objects);
+        this.entities = entities;
     }
 
-    @NonNull
     @Override
-    public  View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
-        TEntity entity = this.entities.get(position);
-        LayoutInflater inflater = (LayoutInflater)parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(viewLayoutId, parent, false);
-        bindEntity(entity, view);
-        return view;
+    public void onBindViewHolder(@NonNull TViewHolder holder, int position) {
+        TEntity entity = entities.get(position);
+        bindEntity(entity, holder);
     }
 
-    protected abstract void bindEntity(TEntity entity, View view);
+    protected abstract void bindEntity(TEntity entity, TViewHolder viewHolder);
 }
