@@ -4,4 +4,10 @@
     <string name="courses_title">Courses</string>
     <string name="all_terms_title">All Terms</string>
     <string name="add_term_label">Add a Term</string>
+    <string name="term_name_hint">Term Name</string>
+    <string name="start_date_hint">Start Date</string>
+    <string name="term_start_picker_title">Term Start Date</string>
+    <string name="term_end_hint">End Date</string>
+    <string name="from_label">From</string>
+    <string name="to_label">To</string>
 </resources>
