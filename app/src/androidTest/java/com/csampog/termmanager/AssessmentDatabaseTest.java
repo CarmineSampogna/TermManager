@@ -6,8 +6,7 @@ import android.util.Log;
 import androidx.room.Room;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.csampog.termmanager.dataAccess.AssessmentDao;
-import com.csampog.termmanager.dataAccess.CourseDao;
+import com.csampog.termmanager.dataAccess.interfaces.AssessmentDao;
 import com.csampog.termmanager.dataAccess.TermManagerDbContext;
 import com.csampog.termmanager.model.Assessment;
 import com.csampog.termmanager.model.Course;
@@ -67,7 +66,7 @@ public class AssessmentDatabaseTest {
 
         Assessment dbAssessment = assessmentDao.getAssessmentById(1);
         Assert.assertNotNull(dbAssessment);
-        assessmentDao.deleteAssessment(dbAssessment);
+        assessmentDao.delete(dbAssessment);
 
         dbAssessment = assessmentDao.getAssessmentById(1);
         Assert.assertNull(dbAssessment);

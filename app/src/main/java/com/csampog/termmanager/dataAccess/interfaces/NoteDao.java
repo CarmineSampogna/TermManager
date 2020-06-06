@@ -1,4 +1,4 @@
-package com.csampog.termmanager.dataAccess;
+package com.csampog.termmanager.dataAccess.interfaces;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -13,16 +13,7 @@ import com.csampog.termmanager.model.Term;
 import java.util.List;
 
 @Dao
-public interface NoteDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertOrUpdate(Note note);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertOrUpdate(List<Note>notes);
-
-    @Delete
-    void deleteNote(Note note);
+public interface NoteDao extends EntityDao<Note> {
 
     @Query("SELECT * FROM Notes WHERE noteId = :noteId")
     Note getNoteById(int noteId);
