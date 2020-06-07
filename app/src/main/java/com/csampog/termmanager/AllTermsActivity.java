@@ -1,26 +1,23 @@
 package com.csampog.termmanager;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.csampog.termmanager.adapters.TermAdapter;
-import com.csampog.termmanager.dataAccess.repositories.TermRepository;
 import com.csampog.termmanager.model.Term;
 import com.csampog.termmanager.viewmodels.AllTermsViewModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class AllTermsActivity extends AppCompatActivity {
 
@@ -87,7 +84,9 @@ public class AllTermsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AllTermsActivity.this, AddTermActivity.class);
+                //Intent intent = new Intent(AllTermsActivity.this, AddTermActivity.class);
+                Intent intent = new Intent(AllTermsActivity.this, TermDetailsActivity.class);
+                intent.putExtra(TermDetailsActivity.TERM_ID_KEY, 1);
                 startActivity(intent);
             }
         });

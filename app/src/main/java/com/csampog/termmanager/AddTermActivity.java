@@ -1,25 +1,23 @@
 package com.csampog.termmanager;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.csampog.termmanager.dataAccess.repositories.CourseRepository;
 import com.csampog.termmanager.viewmodels.AddTermViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 public class AddTermActivity extends AppCompatActivity {
 
@@ -102,13 +100,16 @@ public class AddTermActivity extends AppCompatActivity {
         final Observer<Boolean> canSaveObserver = new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                if(aBoolean){
+                if (aBoolean) {
                     saveButton.show();
-                }else{
+                } else {
                     saveButton.hide();
                 }
             }
         };
+
+        CourseRepository courseRepository = CourseRepository.getInstance(getBaseContext());
+        courseRepository.AddSampleData();
 
         viewModel.formattedStartDate.observe(this, startDateObserver);
         viewModel.formattedEndDate.observe(this, endDateObserver);

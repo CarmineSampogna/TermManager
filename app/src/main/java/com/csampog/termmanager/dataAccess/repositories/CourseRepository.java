@@ -2,33 +2,48 @@ package com.csampog.termmanager.dataAccess.repositories;
 
 import android.content.Context;
 
-import androidx.lifecycle.LiveData;
-
+import com.csampog.termmanager.dataAccess.utilities.SampleData;
 import com.csampog.termmanager.model.Course;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
+
 public class CourseRepository extends RepositoryBase {
 
-    public CourseRepository(Context context) {
+    private static CourseRepository instance;
+
+    public static CourseRepository getInstance(Context context) {
+        if (instance == null) {
+            instance = new CourseRepository(context);
+        }
+        return instance;
+    }
+
+    private CourseRepository(Context context) {
         super(context);
+        courses = getAllCourses();
     }
 
-    public Course getCourseById(final int courseId) {
-        final Course[] ret = {null};
+    public void AddSampleData() {
 
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                ret[0] = dbContext.courseDao().getCourseById(courseId);
-            }
-        });
-
-        return ret[0];
+        insertOrUpdateAll(SampleData.getCourses(1, 4));
     }
 
-    public LiveData<List<Course>> getAllCourses() {
+    public LiveData<List<Course>> courses;
+
+    public LiveData<Course> getCourseById(final int courseId) {
+
+
+        return dbContext.courseDao().getCourseById(courseId);
+    }
+
+    private LiveData<List<Course>> getAllCourses() {
         return dbContext.courseDao().getAllCourses();
+    }
+
+    public LiveData<List<Course>> getCoursesForTerm(int termId) {
+        return dbContext.courseDao().getCoursesForTerm(termId);
     }
 
     public void insertOrUpdate(Course course) {

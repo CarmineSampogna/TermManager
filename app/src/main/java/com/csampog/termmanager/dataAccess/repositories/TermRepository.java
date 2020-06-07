@@ -1,10 +1,13 @@
 package com.csampog.termmanager.dataAccess.repositories;
 
 import android.content.Context;
-import androidx.lifecycle.LiveData;
+
 import com.csampog.termmanager.dataAccess.utilities.SampleData;
 import com.csampog.termmanager.model.Term;
+
 import java.util.List;
+
+import androidx.lifecycle.LiveData;
 
 public class TermRepository extends RepositoryBase {
 
@@ -27,6 +30,12 @@ public class TermRepository extends RepositoryBase {
     public void AddSampleData() {
 
         insertOrUpdateAll(SampleData.getTerms(4));
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                dbContext.courseDao().insertOrUpdateAll(SampleData.getCourses(1, 4));
+            }
+        });
     }
 
     public void insertOrUpdate(Term term) {
@@ -69,17 +78,8 @@ public class TermRepository extends RepositoryBase {
         return dbContext.termDao().getAllTerms();
     }
 
-    public Term getTermById(final int termId) {
+    public LiveData<Term> getTermById(final int termId) {
 
-        final Term[] ret = {null};
-
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                ret[0] = dbContext.termDao().getTermById(termId);
-            }
-        });
-
-        return ret[0];
+        return dbContext.termDao().getTermById(termId);
     }
 }

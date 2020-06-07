@@ -1,13 +1,13 @@
 package com.csampog.termmanager.model;
 
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
-
-import java.time.LocalDate;
 import java.util.Date;
 
-@Entity(tableName = "Courses")
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "Courses", indices = {@Index("termId")})
 public class Course {
 
     @PrimaryKey(autoGenerate = true)
@@ -19,6 +19,7 @@ public class Course {
     private String mentorName;
     private String mentorPhone;
     private String mentorEmail;
+
     private int termId;
 
     public static final String IN_PROGRESS;

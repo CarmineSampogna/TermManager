@@ -3,36 +3,43 @@ package com.csampog.termmanager.viewmodels;
 import android.app.Application;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
-
-import com.csampog.termmanager.dataAccess.repositories.TermRepository;
 import com.csampog.termmanager.model.Term;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddTermViewModel extends AndroidViewModel {
+import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
+public class AddTermViewModel extends TermViewModelBase {
+
+    public MutableLiveData<String> title;
     public MutableLiveData<String> formattedStartDate;
     public MutableLiveData<String> formattedEndDate;
     public MutableLiveData<Boolean> canSave;
 
-    private String title = "";
-    private Date startDate = null;
-    private Date endDate = null;
-    private TermRepository termRepository;
-
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy");
-
     public AddTermViewModel(@NonNull Application application) {
         super(application);
+
+        title = new MutableLiveData<>();
         formattedStartDate = new MutableLiveData<>();
         formattedEndDate = new MutableLiveData<>();
         canSave = new MutableLiveData<>();
-        termRepository = TermRepository.getInstance(application.getBaseContext());
+        canSave.setValue(false);
+    }
+
+    public void createTerm() {
+
+        if(canSave.getValue()){
+            canSave.setValue(false);
+            try {
+                Term newTerm = new Term(title.getValue(), startDate, endDate);
+                termRepository.insertOrUpdate(newTerm);
+            } catch (Exception ex) {
+                Log.e(AddTermViewModel.class.getName(), ex.getMessage());
+                throw ex;
+            }
+        }
     }
 
     public void setDate(int year, int month, int dayOfMonth, boolean isStartDate) {
@@ -54,28 +61,14 @@ public class AddTermViewModel extends AndroidViewModel {
         updateCanSave();
     }
 
-    public void createTerm() {
-
-        if(canSave.getValue()){
-            canSave.setValue(false);
-            try {
-                Term newTerm = new Term(title, startDate, endDate);
-                termRepository.insertOrUpdate(newTerm);
-            }catch (Exception ex){
-                Log.e(AddTermViewModel.class.getName(), ex.getMessage());
-                throw ex;
-            }
-        }
-    }
-
     public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-        updateCanSave();
+
+        this.title.setValue(title);
     }
 
-    private void updateCanSave() {
+    protected void updateCanSave() {
 
-        boolean validTitle = title != null && title.length() > 1;
+        boolean validTitle = title != null && title.getValue().length() > 1;
         boolean validDates = endDate != null &&
                 startDate != null &&
                 endDate.after(startDate);
