@@ -6,7 +6,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.csampog.termmanager.dataAccess.repositories.CourseRepository;
@@ -121,23 +120,20 @@ public class AddTermActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            final MaterialButton fView = (MaterialButton)v;
+            final MaterialButton fView = (MaterialButton) v;
 
-            if(datePickerDialog == null){
+            if (datePickerDialog == null) {
 
                 datePickerDialog = new DatePickerDialog(AddTermActivity.this);
             }
 
-            datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            boolean isStartDate = fView.getId() == R.id.term_start_text;
 
-                    boolean isStartDate = fView.getId() == R.id.term_start_text;
-                    viewModel.setDate(year, month, dayOfMonth, isStartDate);
-                }
-            });
+            datePickerDialog.setOnDateSetListener((view, year, month, dayOfMonth) -> viewModel.setDate(year, month, dayOfMonth, isStartDate));
 
-            datePickerDialog.setTitle(getString(R.string.term_start_picker_title));
+            int titleId = isStartDate ? R.string.term_start_picker_title : R.string.term_end_picker_title;
+
+            datePickerDialog.setTitle(getString(titleId));
             datePickerDialog.show();
         }
     }

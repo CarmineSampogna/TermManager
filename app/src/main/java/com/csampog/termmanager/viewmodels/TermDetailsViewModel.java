@@ -14,7 +14,6 @@ import androidx.lifecycle.Transformations;
 
 public class TermDetailsViewModel extends TermViewModelBase {
 
-
     public LiveData<String> title;
     public LiveData<String> formattedStartDate;
     public LiveData<String> formattedEndDate;
@@ -36,6 +35,11 @@ public class TermDetailsViewModel extends TermViewModelBase {
 
         this.termId = termId;
         termCourses = courseRepository.getCoursesForTerm(this.termId);
+    }
+
+    public int getTermId() {
+
+        return this.termId;
     }
 
     public void refreshTermDetails(int termId) {

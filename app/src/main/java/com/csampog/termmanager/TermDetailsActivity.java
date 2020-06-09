@@ -8,6 +8,7 @@ import com.csampog.termmanager.adapters.CourseAdapter;
 import com.csampog.termmanager.model.Course;
 import com.csampog.termmanager.viewmodels.TermDetailsViewModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class TermDetailsActivity extends AppCompatActivity {
     private RecyclerView termCoursesRecyclerView;
     private CourseAdapter courseAdapter;
     private TextInputEditText titleEditText;
+    private MaterialButton addCourseButton;
 
 
     @Override
@@ -91,6 +93,13 @@ public class TermDetailsActivity extends AppCompatActivity {
         titleEditText = findViewById(R.id.term_title_text);
         startDateText = findViewById(R.id.term_details_start);
         endDateText = findViewById(R.id.term_details_end);
+        addCourseButton = findViewById(R.id.add_course_button);
+        addCourseButton.setOnClickListener(v -> {
+            Intent intent = new Intent(TermDetailsActivity.this, AddCourseActivity.class);
+            intent.putExtra(getString(R.string.param_termId), viewModel.getTermId());
+            startActivity(intent);
+        });
+
         initRecyclerView();
     }
 

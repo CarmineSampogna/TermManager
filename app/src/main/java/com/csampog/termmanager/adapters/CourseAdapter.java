@@ -27,6 +27,7 @@ public class CourseAdapter extends EntityAdapter<Course, CourseAdapter.ViewHolde
         viewHolder.titleTextView.setText(course.getTitle());
         viewHolder.startTextView.setText(df.format(course.getStartDate()));
         viewHolder.endTextView.setText(df.format(course.getAnticipatedEndDate()));
+        viewHolder.statusTextView.setText(course.getStatus());
     }
 
     @NonNull
@@ -47,12 +48,14 @@ public class CourseAdapter extends EntityAdapter<Course, CourseAdapter.ViewHolde
         public TextView titleTextView;
         public TextView startTextView;
         public TextView endTextView;
+        public TextView statusTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.course_list_item_title);
             startTextView = itemView.findViewById(R.id.course_list_item_start);
             endTextView = itemView.findViewById(R.id.course_list_item_end);
+            statusTextView = itemView.findViewById(R.id.course_list_item_status);
         }
     }
 }
