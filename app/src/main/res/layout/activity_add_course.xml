@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:src="@drawable/bookshelf_focus"
+                android:src="@drawable/blue_book"
                 android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.Toolbar
@@ -62,7 +62,7 @@
                     android:id="@+id/course_title_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/term_name_hint" />
+                    android:hint="@string/course_name_hint" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout

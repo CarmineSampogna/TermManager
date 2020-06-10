@@ -12,10 +12,11 @@
     <string name="to_label">To</string>
     <string name="term_name_label">Term Name</string>
     <string name="add_a_course">Add</string>
-    <string name="add_course_title">Add a Course</string>
+    <string name="add_course_title">New Course</string>
     <string name="param_termId">termId</string>
     <string name="term_end_picker_title">Term End Date</string>
     <string name="course_start_picker_title">Course Start Date</string>
     <string name="course_end_picker_title">Course End Date</string>
     <string name="courseTerm_title">Add course to term</string>
+    <string name="course_name_hint">Course name</string>
 </resources>
