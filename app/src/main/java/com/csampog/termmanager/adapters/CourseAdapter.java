@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.csampog.termmanager.R;
+import com.csampog.termmanager.messaging.interfaces.CourseSelectedListener;
 import com.csampog.termmanager.model.Course;
 
 import java.text.SimpleDateFormat;
@@ -16,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CourseAdapter extends EntityAdapter<Course, CourseAdapter.ViewHolder> {
+
+    private CourseSelectedListener courseSelectedListener;
 
     public CourseAdapter(@NonNull Context context, int resource, @NonNull List<Course> courses) {
         super(context, resource, courses);
@@ -28,6 +31,15 @@ public class CourseAdapter extends EntityAdapter<Course, CourseAdapter.ViewHolde
         viewHolder.startTextView.setText(df.format(course.getStartDate()));
         viewHolder.endTextView.setText(df.format(course.getAnticipatedEndDate()));
         viewHolder.statusTextView.setText(course.getStatus());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (CourseAdapter.this.courseSelectedListener != null) {
+                    courseSelectedListener.courseSelected(course);
+                }
+            }
+        });
     }
 
     @NonNull
@@ -57,5 +69,11 @@ public class CourseAdapter extends EntityAdapter<Course, CourseAdapter.ViewHolde
             endTextView = itemView.findViewById(R.id.course_list_item_end);
             statusTextView = itemView.findViewById(R.id.course_list_item_status);
         }
+    }
+
+
+    public void setCourseSelectedListener(CourseSelectedListener listener) {
+
+        courseSelectedListener = listener;
     }
 }

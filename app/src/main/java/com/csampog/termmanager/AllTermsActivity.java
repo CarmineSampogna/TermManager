@@ -55,7 +55,7 @@ public class AllTermsActivity extends AppCompatActivity {
     private void initAdapter() {
 
         termsData = new ArrayList<>();
-        adapter = new TermAdapter(AllTermsActivity.this, termsData);
+        adapter = new TermAdapter(this, termsData, this);
     }
 
     private void initViewModel() {
@@ -68,7 +68,7 @@ public class AllTermsActivity extends AppCompatActivity {
                 termsData.clear();
                 termsData.addAll(terms);
                 if (adapter == null) {
-                    adapter = new TermAdapter(AllTermsActivity.this, termsData);
+                    adapter = new TermAdapter(AllTermsActivity.this, termsData, AllTermsActivity.this);
                     recyclerView.setAdapter(adapter);
                 } else {
                     adapter.notifyDataSetChanged();
@@ -84,9 +84,7 @@ public class AllTermsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(AllTermsActivity.this, AddTermActivity.class);
-                Intent intent = new Intent(AllTermsActivity.this, TermDetailsActivity.class);
-                intent.putExtra(TermDetailsActivity.TERM_ID_KEY, 1);
+                Intent intent = new Intent(AllTermsActivity.this, AddTermActivity.class);
                 startActivity(intent);
             }
         });

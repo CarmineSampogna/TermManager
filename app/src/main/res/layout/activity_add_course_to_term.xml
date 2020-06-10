@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
-
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".AddCourseToTermActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/coursesAppBar"
+        android:id="@+id/courseTermAppBar"
 
         android:layout_height="192dp"
         android:layout_width="match_parent">
@@ -15,14 +15,15 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/coursesToolbar"
+
+            android:id="@+id/courseTerm_toolbar"
             app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|exitUntilCollapsed|snap"
             app:layout_scrollInterpolator="@android:anim/decelerate_interpolator"
 
             app:contentScrim="?attr/colorPrimary">
 
             <ImageView
-                android:id="@+id/app_bar_image"
+                android:id="@+id/courseTerm_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_collapseMode="parallax"
@@ -31,7 +32,6 @@
                 android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/all_courses_toolbar"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"></androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -45,7 +45,7 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/all_courses_recycler"
+            android:id="@+id/courseTerm_recycler"
             android:layout_width="match_parent"
 
             android:layout_height="wrap_content" />
@@ -53,6 +53,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/courseTerm_add_new"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:src="@drawable/baseline_add_black_24"

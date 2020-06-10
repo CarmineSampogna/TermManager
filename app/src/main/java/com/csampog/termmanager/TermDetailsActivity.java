@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.csampog.termmanager.adapters.CourseAdapter;
+import com.csampog.termmanager.messaging.interfaces.CourseSelectedListener;
 import com.csampog.termmanager.model.Course;
 import com.csampog.termmanager.viewmodels.TermDetailsViewModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -26,6 +27,7 @@ public class TermDetailsActivity extends AppCompatActivity {
 
     private TermDetailsViewModel viewModel;
     private List<Course> termCourses;
+    private boolean coursesAvailable = false;
 
     private CollapsingToolbarLayout toolbarLayout;
     private TextView startDateText;
@@ -82,10 +84,14 @@ public class TermDetailsActivity extends AppCompatActivity {
 
         final Observer<String> endDateObserver = s -> endDateText.setText(s);
 
+        final Observer<Boolean> coursesAvailableObserver = b -> coursesAvailable = b;
+
         viewModel.termCourses.observe(this, termCourseObserver);
         viewModel.title.observe(this, titleObserver);
         viewModel.formattedStartDate.observe(this, startDateObserver);
         viewModel.formattedEndDate.observe(this, endDateObserver);
+        viewModel.hasCoursesAvailableToAdd.observe(this, coursesAvailableObserver);
+        viewModel.updateHasCoursesAvailable();
     }
 
     private void initViews() {
@@ -95,8 +101,18 @@ public class TermDetailsActivity extends AppCompatActivity {
         endDateText = findViewById(R.id.term_details_end);
         addCourseButton = findViewById(R.id.add_course_button);
         addCourseButton.setOnClickListener(v -> {
-            Intent intent = new Intent(TermDetailsActivity.this, AddCourseActivity.class);
-            intent.putExtra(getString(R.string.param_termId), viewModel.getTermId());
+
+            viewModel.updateHasCoursesAvailable();
+            Intent intent = null;
+            if (!this.coursesAvailable) {
+
+                intent = new Intent(TermDetailsActivity.this, AddNewCourseActivity.class);
+                intent.putExtra(AddNewCourseActivity.TERM_ID_PARAM, viewModel.getTermId());
+            } else {
+
+                intent = new Intent(TermDetailsActivity.this, AddCourseToTermActivity.class);
+                intent.putExtra(AddCourseToTermActivity.TERM_ID_PARAM, viewModel.getTermId());
+            }
             startActivity(intent);
         });
 
@@ -109,6 +125,14 @@ public class TermDetailsActivity extends AppCompatActivity {
         termCoursesRecyclerView = findViewById(R.id.term_courses_recyclerView);
         termCoursesRecyclerView.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.grid_layout_columns)));
         courseAdapter = new CourseAdapter(this, R.layout.course_list_item, termCourses);
+        courseAdapter.setCourseSelectedListener(new CourseSelectedListener() {
+            @Override
+            public void courseSelected(Course course) {
+                Intent intent = new Intent(TermDetailsActivity.this, CourseDetailsActivity.class);
+                intent.putExtra(CourseDetailsActivity.COURSE_ID_PARAM, course.getCourseId());
+                startActivity(intent);
+            }
+        });
         termCoursesRecyclerView.setAdapter(courseAdapter);
     }
 }

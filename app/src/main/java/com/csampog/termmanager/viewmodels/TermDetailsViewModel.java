@@ -18,17 +18,25 @@ public class TermDetailsViewModel extends TermViewModelBase {
     public LiveData<String> formattedStartDate;
     public LiveData<String> formattedEndDate;
     public LiveData<List<Course>> termCourses;
+    public LiveData<Boolean> hasCoursesAvailableToAdd;
+
 
     private CourseRepository courseRepository;
 
     private int termId;
     private LiveData<Term> term;
+    private LiveData<List<Course>> coursesWithoutTerm;
 
     public TermDetailsViewModel(@NonNull Application application) {
         super(application);
         courseRepository = CourseRepository.getInstance(application.getBaseContext());
         courseRepository.AddSampleData();
+        coursesWithoutTerm = courseRepository.getCoursesWithoutTerm();
+        hasCoursesAvailableToAdd = Transformations.map(coursesWithoutTerm, courses -> !courses.isEmpty());
+    }
 
+    public void updateHasCoursesAvailable() {
+        coursesWithoutTerm = courseRepository.getCoursesWithoutTerm();
     }
 
     public void setTermId(int termId) {

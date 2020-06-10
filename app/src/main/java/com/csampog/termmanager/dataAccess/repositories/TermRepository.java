@@ -33,7 +33,7 @@ public class TermRepository extends RepositoryBase {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                dbContext.courseDao().insertOrUpdateAll(SampleData.getCourses(1, 4));
+               // dbContext.courseDao().insertOrUpdateAll(SampleData.getCourses(1, 4));
             }
         });
     }

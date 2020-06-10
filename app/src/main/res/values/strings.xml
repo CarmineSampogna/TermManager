@@ -17,4 +17,5 @@
     <string name="term_end_picker_title">Term End Date</string>
     <string name="course_start_picker_title">Course Start Date</string>
     <string name="course_end_picker_title">Course End Date</string>
+    <string name="courseTerm_title">Add course to term</string>
 </resources>

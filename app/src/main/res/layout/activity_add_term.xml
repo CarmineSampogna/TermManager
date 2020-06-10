@@ -9,14 +9,14 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
-
+        android:gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="192dp">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/term_details_toolbar"
+            android:id="@+id/add_term_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+            android:layout_height="wrap_content"></androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -46,7 +46,9 @@
                     android:id="@+id/term_title_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/term_name_hint" />
+                    android:hint="@string/term_name_hint"
+                    android:singleLine="true"
+                    android:inputType="textCapWords" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout

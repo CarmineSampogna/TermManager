@@ -39,7 +39,7 @@
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#CCefebe9"
+                android:background="#CCff9800"
                 android:gravity="bottom|start"
                 android:paddingBottom="8dp"
                 android:paddingEnd="8dp"
@@ -56,7 +56,6 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f5f5f5"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -172,7 +171,8 @@
                             android:textColor="@android:color/white"
                             style="@style/Widget.MaterialComponents.Button.TextButton"
                             app:icon="@drawable/baseline_add_black_24"
-                            app:iconTint="@android:color/white" />
+                            app:iconTint="@android:color/white"
+                            app:rippleColor="@color/primaryColor" />
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView

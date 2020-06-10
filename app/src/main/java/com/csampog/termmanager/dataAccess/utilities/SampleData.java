@@ -34,7 +34,7 @@ public class SampleData {
             String title = "Course " + num;
             Date start = Date.from(Instant.now().plus(i * 60, ChronoUnit.DAYS));
             Date end = Date.from(start.toInstant().plus(60, ChronoUnit.DAYS));
-            ret.add(new Course(num, title, start, end, Course.PLAN_TO_TAKE, "", "", ""));
+            ret.add(new Course(title, start, end, Course.PLAN_TO_TAKE, "", "", ""));
         }
 
         return ret;

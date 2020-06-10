@@ -20,4 +20,7 @@ public interface CourseDao extends EntityDao<Course> {
     @Query("SELECT * FROM COURSES WHERE termId = :termId")
     LiveData<List<Course>> getCoursesForTerm(int termId);
 
+    @Query("SELECT * FROM COURSES WHERE termId = 0")
+    LiveData<List<Course>> getCoursesWithoutTerm();
+
 }

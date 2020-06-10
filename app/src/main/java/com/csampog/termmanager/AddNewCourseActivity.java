@@ -21,7 +21,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-public class AddCourseActivity extends AppCompatActivity {
+public class AddNewCourseActivity extends AppCompatActivity {
+
+    public static final String TERM_ID_PARAM = "termId";
 
     private MaterialButton startText;
     private MaterialButton endText;
@@ -42,7 +44,7 @@ public class AddCourseActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.add_course_title);
 
         Intent intent = getIntent();
-        if (intent.hasExtra(getString(R.string.param_termId))) {
+        if (intent.hasExtra(TERM_ID_PARAM)) {
 
             int paramValue = intent.getIntExtra(getString(R.string.param_termId), 0);
             if (paramValue > 0) {
@@ -89,8 +91,8 @@ public class AddCourseActivity extends AppCompatActivity {
         startText = findViewById(R.id.course_start_text);
         endText = findViewById(R.id.course_end_text);
 
-        startText.setOnClickListener(new AddCourseActivity.DateClickListener());
-        endText.setOnClickListener(new AddCourseActivity.DateClickListener());
+        startText.setOnClickListener(new AddNewCourseActivity.DateClickListener());
+        endText.setOnClickListener(new AddNewCourseActivity.DateClickListener());
     }
 
     private void initViewModel() {
@@ -130,7 +132,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
             if (datePickerDialog == null) {
 
-                datePickerDialog = new DatePickerDialog(AddCourseActivity.this);
+                datePickerDialog = new DatePickerDialog(AddNewCourseActivity.this);
             }
 
             boolean isStartDate = fView.getId() == R.id.term_start_text;

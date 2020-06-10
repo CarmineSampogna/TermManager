@@ -28,6 +28,7 @@ public class CourseRepository extends RepositoryBase {
     public void AddSampleData() {
 
         insertOrUpdateAll(SampleData.getCourses(1, 4));
+        insertOrUpdateAll(SampleData.getCourses(0, 2));
     }
 
     public LiveData<List<Course>> courses;
@@ -77,5 +78,10 @@ public class CourseRepository extends RepositoryBase {
                 dbContext.courseDao().delete(course);
             }
         });
+    }
+
+    public LiveData<List<Course>> getCoursesWithoutTerm() {
+
+        return dbContext.courseDao().getCoursesWithoutTerm();
     }
 }

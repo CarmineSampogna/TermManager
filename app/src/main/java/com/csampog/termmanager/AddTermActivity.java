@@ -33,7 +33,7 @@ public class AddTermActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_term);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.add_term_toolbar);
         toolbar.setTitle(getResources().getString(R.string.add_term_label));
 
         saveButton = findViewById(R.id.add_term_save);
