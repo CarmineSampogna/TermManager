@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.csampog.termmanager.adapters.CourseDetailsPagerAdapter;
@@ -15,6 +16,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
 
@@ -37,7 +39,9 @@ public class CourseDetailsActivity extends AppCompatActivity {
     private Toolbar courseDetailsToolbar;
     private TextView startDateText;
     private TextView endDateText;
-    private TextInputEditText statusText;
+    private TextInputLayout statusInputLayout;
+    private TextInputEditText statusTextInput;
+    private TextView statusTextView;
     private TextView mentorNameTextView;
     private TextView mentorEmailTextView;
     private TextView mentorPhoneTextView;
@@ -71,8 +75,9 @@ public class CourseDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if (item.getItemId() == R.id.course_details_edit) {
-            item.setVisible(false);
-            statusText.setEnabled(true);
+           // item.setVisible(false);
+           // statusInputLayout.setVisibility(View.VISIBLE);
+            //statusTextView.setVisibility(View.INVISIBLE);
         }
         return true;
     }
@@ -100,12 +105,15 @@ public class CourseDetailsActivity extends AppCompatActivity {
         final Observer<String> titleObserver = s -> {
 
             toolbarLayout.setTitle(s);
-            titleEditText.setText(s);
+            //titleEditText.setText(s);
         };
 
         final Observer<String> startDateObserver = s -> startDateText.setText(s);
         final Observer<String> endDateObserver = s -> endDateText.setText(s);
-        final Observer<String> statusObserver = s -> statusText.setText(s);
+        final Observer<String> statusObserver = s -> {
+            //statusTextInput.setText(s);
+            statusTextView.setText(s);
+        };
         //final Observer<String> mentorNameObserver = s -> ment
 
         viewModel.title.observe(this, titleObserver);
@@ -137,7 +145,9 @@ public class CourseDetailsActivity extends AppCompatActivity {
         titleEditText = findViewById(R.id.course_title_text);
         startDateText = findViewById(R.id.course_details_start);
         endDateText = findViewById(R.id.course_details_end);
-        statusText = findViewById(R.id.course_details_status);
+        //statusInputLayout = findViewById(R.id.course_details_status_editText_layout);
+        //statusTextInput = findViewById(R.id.course_details_status_editText);
+        statusTextView = findViewById(R.id.course_details_status_textView);
         //mentorNameTextView = findViewById(R.id.men)
         courseTabLayout = findViewById(R.id.courseTabLayout);
         courseViewPager = findViewById(R.id.courseViewPager);
