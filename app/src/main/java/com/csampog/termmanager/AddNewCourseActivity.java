@@ -57,6 +57,13 @@ public class AddNewCourseActivity extends AppCompatActivity {
         saveButton.setOnClickListener(v -> {
             try {
                 viewModel.createCourse();
+                if (termId.isPresent()) {
+
+                    Intent termIntent = new Intent(AddNewCourseActivity.this, TermDetailsActivity.class);
+                    termIntent.putExtra(TermDetailsActivity.TERM_ID_KEY, termId.getAsInt());
+                    startActivity(termIntent);
+                }
+
                 finish();
             } catch (Exception ex) {
                 Log.e(AddTermActivity.class.getName(), ex.getMessage());
@@ -135,7 +142,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
                 datePickerDialog = new DatePickerDialog(AddNewCourseActivity.this);
             }
 
-            boolean isStartDate = fView.getId() == R.id.term_start_text;
+            boolean isStartDate = fView.getId() == R.id.course_start_text;
 
             datePickerDialog.setOnDateSetListener((view, year, month, dayOfMonth) -> viewModel.setDate(year, month, dayOfMonth, isStartDate));
 

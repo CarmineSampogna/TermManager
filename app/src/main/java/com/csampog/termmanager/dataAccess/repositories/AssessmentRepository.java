@@ -2,17 +2,24 @@ package com.csampog.termmanager.dataAccess.repositories;
 
 import android.content.Context;
 
-import androidx.lifecycle.LiveData;
-
-import com.csampog.termmanager.dataAccess.interfaces.AssessmentDao;
 import com.csampog.termmanager.model.Assessment;
-import com.csampog.termmanager.model.Note;
 
 import java.util.List;
 
-public class AssessmentRepository extends RepositoryBase{
+import androidx.lifecycle.LiveData;
 
-    public AssessmentRepository(Context context) {
+public class AssessmentRepository extends RepositoryBase {
+
+    private static AssessmentRepository instance;
+
+    public static AssessmentRepository getInstance(Context context) {
+        if (instance == null) {
+            instance = new AssessmentRepository(context);
+        }
+        return instance;
+    }
+
+    private AssessmentRepository(Context context) {
         super(context);
     }
 

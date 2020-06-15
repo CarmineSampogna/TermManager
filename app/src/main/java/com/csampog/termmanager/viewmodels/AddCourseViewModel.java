@@ -76,8 +76,16 @@ public class AddCourseViewModel extends CourseViewModelBase {
 
         if (canSave.getValue()) {
             canSave.setValue(false);
+
+            String mentorNameValue = mentorName == null ? null : mentorName.getValue();
+            String mentorPhoneValue = mentorPhone == null ? null : mentorPhone.getValue();
+            String mentorEmailValue = mentorEmail == null ? null : mentorEmail.getValue();
+
             try {
-                Course course = new Course(title.getValue(), startDate, endDate, Course.PLAN_TO_TAKE, mentorName.getValue(), mentorPhone.getValue(), mentorEmail.getValue());
+                Course course = new Course(title.getValue(), startDate, endDate, Course.PLAN_TO_TAKE, mentorNameValue, mentorPhoneValue, mentorEmailValue);
+                if (termId.isPresent()) {
+                    course.setTermId(termId.getAsInt());
+                }
                 courseRepository.insertOrUpdate(course);
             } catch (Exception ex) {
                 Log.e(AddTermViewModel.class.getName(), ex.getMessage());

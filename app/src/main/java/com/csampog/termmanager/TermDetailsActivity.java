@@ -129,7 +129,7 @@ public class TermDetailsActivity extends AppCompatActivity {
             @Override
             public void courseSelected(Course course) {
                 Intent intent = new Intent(TermDetailsActivity.this, CourseDetailsActivity.class);
-                intent.putExtra(CourseDetailsActivity.COURSE_ID_PARAM, course.getCourseId());
+                intent.putExtra(CourseDetailsActivity.COURSE_ID_KEY, course.getCourseId());
                 startActivity(intent);
             }
         });

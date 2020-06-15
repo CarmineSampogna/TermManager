@@ -2,15 +2,25 @@ package com.csampog.termmanager.dataAccess.repositories;
 
 import android.content.Context;
 
-import androidx.lifecycle.LiveData;
-
 import com.csampog.termmanager.model.Note;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
+
 public class NoteRepository extends RepositoryBase {
 
-    public NoteRepository(Context context) {
+    private static NoteRepository instance;
+
+    public static NoteRepository getInstance(Context context) {
+        if (instance == null) {
+            instance = new NoteRepository(context);
+        }
+
+        return instance;
+    }
+
+    private NoteRepository(Context context) {
         super(context);
     }
 

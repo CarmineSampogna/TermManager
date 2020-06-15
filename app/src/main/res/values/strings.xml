@@ -19,4 +19,14 @@
     <string name="course_end_picker_title">Course End Date</string>
     <string name="courseTerm_title">Add course to term</string>
     <string name="course_name_hint">Course name</string>
+    <string name="course_remove_text">Remove from term</string>
+    <string name="course_delete_text">Delete</string>
+    <string name="course_name_label">Course name</string>
+    <string name="assessments_title">Assessments</string>
+    <string name="add_assessment">Add assessment</string>
+    <string name="notes_title">Notes</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="status_title">Status</string>
+    <string name="edit_label">Edit</string>
 </resources>

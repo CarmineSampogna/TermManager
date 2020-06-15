@@ -25,7 +25,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/course_list_item_title"
+                    android:id="@+id/assessment_list_item_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:elevation="2dp"
@@ -36,7 +36,7 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
                 <TextView
-                    android:id="@+id/course_list_item_option"
+                    android:id="@+id/assessment_list_item_option"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:padding="8dp"
@@ -49,7 +49,7 @@
             </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/course_list_item_status"
+                android:id="@+id/assessment_list_item_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="8dp"
@@ -82,36 +82,14 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
                 <TextView
-                    android:id="@+id/course_list_item_start"
+                    android:id="@+id/assessment_list_item_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingBottom="16dp"
-                android:paddingTop="16dp">
 
-                <TextView
-                    android:id="@+id/course_list_item_end"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="To"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
-            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

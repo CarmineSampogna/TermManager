@@ -2,11 +2,14 @@ package com.csampog.termmanager.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.csampog.termmanager.R;
+import com.csampog.termmanager.dataAccess.repositories.CourseRepository;
 import com.csampog.termmanager.messaging.interfaces.CourseSelectedListener;
 import com.csampog.termmanager.model.Course;
 
@@ -40,6 +43,28 @@ public class CourseAdapter extends EntityAdapter<Course, CourseAdapter.ViewHolde
                 }
             }
         });
+
+
+        viewHolder.menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(viewHolder.itemView.getContext(), v);
+                popupMenu.inflate(R.menu.course_list_item_menu);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.course_action_remove) {
+                            course.setTermId(0);
+                            CourseRepository.getInstance(v.getContext()).insertOrUpdate(course);
+                        } else {
+                            CourseRepository.getInstance(v.getContext()).delete(course);
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
     }
 
     @NonNull
@@ -61,6 +86,7 @@ public class CourseAdapter extends EntityAdapter<Course, CourseAdapter.ViewHolde
         public TextView startTextView;
         public TextView endTextView;
         public TextView statusTextView;
+        public TextView menuButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -68,6 +94,7 @@ public class CourseAdapter extends EntityAdapter<Course, CourseAdapter.ViewHolde
             startTextView = itemView.findViewById(R.id.course_list_item_start);
             endTextView = itemView.findViewById(R.id.course_list_item_end);
             statusTextView = itemView.findViewById(R.id.course_list_item_status);
+            menuButton = itemView.findViewById(R.id.course_list_item_option);
         }
     }
 
