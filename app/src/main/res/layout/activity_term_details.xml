@@ -31,7 +31,7 @@
                 android:layout_height="match_parent"
 
                 android:scaleType="centerCrop"
-                android:src="@drawable/class_room"
+                android:src="@drawable/pencils_books"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.1" />
 
@@ -39,11 +39,11 @@
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#CCff9800"
+                android:background="#C4FFFFFF"
                 android:gravity="bottom|start"
-                android:paddingBottom="8dp"
-                android:paddingEnd="8dp"
                 android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
             <androidx.appcompat.widget.Toolbar
@@ -69,8 +69,8 @@
                 android:id="@+id/course_primary_details_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:elevation="8dp"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -78,17 +78,17 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginTop="8dp"
+                    android:layout_weight="1"
                     android:orientation="vertical"
                     android:padding="8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/from_label"
-                        android:drawablePadding="8dp"
                         android:drawableStart="@drawable/ic_baseline_calendar_today_24"
+                        android:drawablePadding="8dp"
+                        android:text="@string/from_label"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                     <TextView
@@ -96,6 +96,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
+                        android:paddingBottom="16dp"
+                        android:paddingTop="16dp"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
                 </LinearLayout>
 
@@ -109,17 +111,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/to_label"
-                        android:drawablePadding="8dp"
                         android:drawableStart="@drawable/ic_baseline_calendar_today_24"
+                        android:drawablePadding="8dp"
+                        android:text="@string/to_label"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                     <TextView
                         android:id="@+id/term_details_end"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="32dp"
+                        android:layout_weight="1"
+                        android:paddingBottom="16dp"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
                 </LinearLayout>
             </LinearLayout>
@@ -137,39 +140,39 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:background="#ffe9d0"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="#efffff">
 
                     <LinearLayout
                         android:id="@+id/coursesHeader"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/secondaryColor"
+                        android:background="@color/courseColor"
+                        android:elevation="4dp"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:elevation="4dp">
+                        app:layout_constraintTop_toTopOf="parent">
 
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical|start"
+                            android:layout_marginLeft="8dp"
                             android:layout_weight="1"
                             android:text="@string/courses_title"
-                            android:textColor="#ffffff"
-                            android:layout_marginLeft="8dp"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5" />
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                            android:textColor="#ffffff" />
 
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/add_course_button"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/add_a_course"
                             android:textColor="@android:color/white"
-                            style="@style/Widget.MaterialComponents.Button.TextButton"
                             app:icon="@drawable/baseline_add_black_24"
                             app:iconTint="@android:color/white"
                             app:rippleColor="@color/primaryColor" />

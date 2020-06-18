@@ -34,13 +34,10 @@ public class CourseAdapter extends EntityAdapter<Course, CourseAdapter.ViewHolde
         viewHolder.startTextView.setText(df.format(course.getStartDate()));
         viewHolder.endTextView.setText(df.format(course.getAnticipatedEndDate()));
         viewHolder.statusTextView.setText(course.getStatus());
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        viewHolder.itemView.setOnClickListener(v -> {
 
-                if (CourseAdapter.this.courseSelectedListener != null) {
-                    courseSelectedListener.courseSelected(course);
-                }
+            if (CourseAdapter.this.courseSelectedListener != null) {
+                courseSelectedListener.courseSelected(course);
             }
         });
 

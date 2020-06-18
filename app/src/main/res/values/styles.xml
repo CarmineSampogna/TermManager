@@ -4,8 +4,9 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
-        <item name="colorAccent">@color/secondaryColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <item name="colorSurface">@color/grey_100</item>
     </style>
 
     <style name="Widget.TermManager.Button.DateLaunchButton" parent="Widget.MaterialComponents.Button.OutlinedButton">

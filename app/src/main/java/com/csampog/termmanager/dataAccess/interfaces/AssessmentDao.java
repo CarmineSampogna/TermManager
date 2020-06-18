@@ -13,7 +13,7 @@ public interface AssessmentDao extends EntityDao<Assessment>{
     LiveData<List<Assessment>> getAllAssessments();
 
     @Query("SELECT * FROM Assessments WHERE assessmentId = :assessmentId")
-    Assessment getAssessmentById(int assessmentId);
+    LiveData<Assessment> getAssessmentById(int assessmentId);
 
     @Query("SELECT * FROM Assessments WHERE courseId = :courseId")
     LiveData<List<Assessment>> getAssessmentsForCourse(int courseId);

@@ -12,6 +12,7 @@
         <activity android:name=".AddAssessmentActivity"></activity>
         <activity android:name=".AddCourseToTermActivity" />
         <activity android:name=".AddNewCourseActivity" />
+        <activity android:name=".EditAssessmentActivity"></activity>
         <activity
             android:name=".AddTermActivity"
             android:label="@string/add_term_label"

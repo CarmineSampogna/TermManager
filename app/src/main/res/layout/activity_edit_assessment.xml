@@ -51,12 +51,12 @@
             tools:context=".AddAssessmentActivity">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/assessment_title"
+                android:id="@+id/edit_assessment_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/assessment_title_editText"
+                    android:id="@+id/edit_assessment_title_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -65,7 +65,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/goal_date_button"
+                android:id="@+id/edit_assessment_goal_date_button"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 style="@style/Widget.TermManager.Button.DateLaunchButton"
@@ -94,20 +94,20 @@
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                     <RadioGroup
-                        android:id="@+id/assessment_type_group"
+                        android:id="@+id/edit_assessment_type_group"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp">
 
                         <RadioButton
-                            android:id="@+id/assessment_type_objective_button"
+                            android:id="@+id/edit_assessment_type_objective_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/assessment_type_objective" />
 
                         <RadioButton
-                            android:id="@+id/assessment_type_performance_button"
+                            android:id="@+id/edit_assessment_type_performance_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/assessment_type_performance" />
@@ -121,7 +121,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_assessment_save_button"
+        android:id="@+id/edit_assessment_save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

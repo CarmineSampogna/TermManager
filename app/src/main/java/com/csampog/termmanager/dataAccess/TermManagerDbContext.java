@@ -7,7 +7,6 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.csampog.termmanager.dataAccess.converters.AssessmentTypeConverter;
 import com.csampog.termmanager.dataAccess.converters.DateConverter;
 import com.csampog.termmanager.dataAccess.interfaces.AssessmentDao;
 import com.csampog.termmanager.dataAccess.interfaces.CourseDao;
@@ -18,8 +17,8 @@ import com.csampog.termmanager.model.Course;
 import com.csampog.termmanager.model.Note;
 import com.csampog.termmanager.model.Term;
 
-@Database(entities = {Assessment.class, Course.class, Note.class, Term.class}, version = 2)
-@TypeConverters({DateConverter.class, AssessmentTypeConverter.class})
+@Database(entities = {Assessment.class, Course.class, Note.class, Term.class}, version = 3)
+@TypeConverters({DateConverter.class})
 public abstract class TermManagerDbContext extends RoomDatabase {
     public static final String DATABASE_NAME = "TermManager.db";
     private static volatile TermManagerDbContext instance;
@@ -35,6 +34,7 @@ public abstract class TermManagerDbContext extends RoomDatabase {
             synchronized (LOCK){
                 if(instance == null) {
                     instance = Room.databaseBuilder(context.getApplicationContext(), TermManagerDbContext.class, DATABASE_NAME)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

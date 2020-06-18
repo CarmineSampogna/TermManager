@@ -28,16 +28,9 @@ public class AssessmentRepository extends RepositoryBase {
     }
 
 
-    public Assessment getAssessmentById(final int assessmentId) {
-        final Assessment[] ret = {null};
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-               ret[0] = dbContext.assessmentDao().getAssessmentById(assessmentId);
-            }
-        });
+    public LiveData<Assessment> getAssessmentById(final int assessmentId) {
 
-        return ret[0];
+        return dbContext.assessmentDao().getAssessmentById(assessmentId);
     }
 
 

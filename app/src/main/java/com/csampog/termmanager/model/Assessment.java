@@ -2,22 +2,20 @@ package com.csampog.termmanager.model;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-@Entity(tableName = "Assessments")
+@Entity(tableName = "Assessments", indices = {@Index("courseId")})
 public class Assessment {
 
     @PrimaryKey(autoGenerate = true)
     private int assessmentId;
     private String title;
-    private AssessmentType testType;
+    private String testType;
     private Date goalDate;
     private int courseId;
-
-    public static final String OBJECTIVE = "Objective";
-    public static final String PERFORMANCE = "Performance";
 
     @Ignore
     public Assessment(){
@@ -25,7 +23,7 @@ public class Assessment {
     }
 
     @Ignore
-    public Assessment(String title, AssessmentType testType, Date goalDate, int courseId){
+    public Assessment(String title, String testType, Date goalDate, int courseId){
 
         this.title = title;
         this.testType = testType;
@@ -33,7 +31,7 @@ public class Assessment {
         this.courseId = courseId;
     }
 
-    public Assessment(int assessmentId, String title, AssessmentType testType, Date goalDate, int courseId){
+    public Assessment(int assessmentId, String title, String testType, Date goalDate, int courseId){
         this.assessmentId = assessmentId;
         this.title = title;
         this.testType = testType;
@@ -59,12 +57,12 @@ public class Assessment {
         this.title = title;
     }
 
-    public AssessmentType getTestType(){
+    public String getTestType(){
 
         return  this.testType;
     }
 
-    public void setTestType(AssessmentType testType){
+    public void setTestType(String testType){
 
         this.testType = testType;
     }
@@ -86,8 +84,4 @@ public class Assessment {
         this.courseId = courseId;
     }
 
-    public enum AssessmentType{
-        OBJECTIVE,
-        PERFORMANCE
-    }
 }

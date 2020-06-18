@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|snap|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|snap"
 
             app:layout_scrollInterpolator="@android:anim/decelerate_interpolator"
             app:toolbarId="@+id/toolbar">
@@ -32,7 +32,7 @@
                 android:layout_height="match_parent"
 
                 android:scaleType="centerCrop"
-                android:src="@drawable/class_room"
+                android:src="@drawable/white_desk"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.1" />
 
@@ -40,7 +40,6 @@
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#CCff9800"
                 android:gravity="bottom|start"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
@@ -58,14 +57,13 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:isScrollContainer="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="ifContentScrolls"
-            tools:context=".courseDetailsActivity">
-
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/course_primary_details_layout"
@@ -155,37 +153,44 @@
 
             </LinearLayout>
 
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/courseTabLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/course_primary_details_layout">
+                android:background="#ffe9d0"
+                android:orientation="vertical">
 
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/assessments_tab_item"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:foregroundTint="@color/primaryColor"
-                    android:icon="@drawable/ic_baseline_assignment_turned_in_24"
-                    android:text="@string/assessments_title" />
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/courseTabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:tabGravity="center"
+                    app:tabMode="scrollable"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/course_primary_details_layout">
 
-            </com.google.android.material.tabs.TabLayout>
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/assessments_tab_item"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:foregroundTint="@color/primaryColor"
+                        android:icon="@drawable/ic_baseline_assignment_turned_in_24"
+                        android:text="@string/assessments_title" />
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/courseViewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/courseTabLayout">
+                </com.google.android.material.tabs.TabLayout>
 
-            </androidx.viewpager2.widget.ViewPager2>
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/courseViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ffe9d0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/courseTabLayout">
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.viewpager2.widget.ViewPager2>
+            </LinearLayout>
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 

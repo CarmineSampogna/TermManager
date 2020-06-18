@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/secondaryLightColor"
+            android:background="@color/courseColor"
             android:orientation="vertical">
 
 
@@ -70,33 +70,35 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-
-                android:paddingBottom="16dp"
-                android:paddingTop="16dp">
+                android:padding="16dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="From"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
                 <TextView
                     android:id="@+id/course_list_item_start"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:orientation="vertical"
-                android:paddingBottom="16dp"
-                android:paddingTop="16dp">
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="To"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
                 <TextView
                     android:id="@+id/course_list_item_end"
@@ -105,12 +107,6 @@
                     android:layout_weight="1"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="To"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
             </LinearLayout>
         </LinearLayout>
 
