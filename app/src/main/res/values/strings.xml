@@ -25,8 +25,6 @@
     <string name="assessments_title">Assessments</string>
     <string name="add_assessment">Add</string>
     <string name="notes_title">Notes</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="status_title">Status</string>
     <string name="edit_label">Edit</string>
     <string name="assessment_title_hint">Title</string>
@@ -39,4 +37,10 @@
     <string name="edit_assessment_title">Edit Assessment</string>
     <string name="edit_assessment_text">Edit Assessment</string>
     <string name="goal_date_picker_header">Goal Date</string>
+    <string name="course_in_progress">In Progress</string>
+    <string name="course_completed">Completed</string>
+    <string name="course_dropped">Dropped</string>
+    <string name="course_plan_to_take">Plan to Take</string>
+    <string name="course_status_label">Status</string>
+    <string name="edit_course_title">Edit Course</string>
 </resources>

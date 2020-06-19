@@ -1,5 +1,10 @@
 package com.csampog.termmanager;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,19 +18,16 @@ import android.widget.RadioGroup;
 import com.csampog.termmanager.dataAccess.repositories.CourseRepository;
 import com.csampog.termmanager.model.Course;
 import com.csampog.termmanager.viewmodels.AddCourseViewModel;
+import com.csampog.termmanager.viewmodels.EditCourseViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.OptionalInt;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
-public class AddNewCourseActivity extends AppCompatActivity {
+public class EditCourseActivity extends AppCompatActivity {
 
     public static final String TERM_ID_PARAM = "termId";
+    public static final String COURSE_ID_PARAM = "courseId";
 
     private MaterialButton startText;
     private MaterialButton endText;
@@ -36,7 +38,10 @@ public class AddNewCourseActivity extends AppCompatActivity {
 
 
     private OptionalInt termId = OptionalInt.empty();
-    private AddCourseViewModel viewModel;
+    private EditCourseViewModel viewModel;
+
+    private OptionalInt courseId = OptionalInt.empty();
+
 
 
     @Override
@@ -54,9 +59,12 @@ public class AddNewCourseActivity extends AppCompatActivity {
             }
         }
 
+        if (intent.hasExtra(COURSE_ID_PARAM)) {
+            courseId = OptionalInt.of(intent.getIntExtra(COURSE_ID_PARAM, 0));
+        }
 
         Toolbar toolbar = findViewById(R.id.add_course_toolbar);
-        int activityTitleRes = R.string.add_course_title;
+        int activityTitleRes = courseId.isPresent() ? R.string.edit_course_title : R.string.add_course_title;
         toolbar.setTitle(activityTitleRes);
 
         statusRadioGroup = findViewById(R.id.add_course_status_group);
@@ -78,17 +86,17 @@ public class AddNewCourseActivity extends AppCompatActivity {
                         status = Course.PLAN_TO_TAKE;
                         break;
                 }
-                viewModel.status.setValue(status);
+                viewModel.statusInput = status;
             }
         });
 
         saveButton = findViewById(R.id.add_course_save);
         saveButton.setOnClickListener(v -> {
             try {
-                viewModel.createCourse();
+                viewModel.saveCourse();
                 if (termId.isPresent()) {
 
-                    Intent termIntent = new Intent(AddNewCourseActivity.this, TermDetailsActivity.class);
+                    Intent termIntent = new Intent(EditCourseActivity.this, TermDetailsActivity.class);
                     termIntent.putExtra(TermDetailsActivity.TERM_ID_KEY, termId.getAsInt());
                     startActivity(termIntent);
                 }
@@ -117,7 +125,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                viewModel.setTitle(s.toString());
+                viewModel.titleInput = s.toString();
             }
         });
     }
@@ -127,19 +135,21 @@ public class AddNewCourseActivity extends AppCompatActivity {
         startText = findViewById(R.id.course_start_text);
         endText = findViewById(R.id.course_end_text);
 
-        startText.setOnClickListener(new AddNewCourseActivity.DateClickListener());
-        endText.setOnClickListener(new AddNewCourseActivity.DateClickListener());
+        startText.setOnClickListener(new EditCourseActivity.DateClickListener());
+        endText.setOnClickListener(new EditCourseActivity.DateClickListener());
     }
 
     private void initViewModel() {
 
-        viewModel = new ViewModelProvider(getViewModelStore(), new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(AddCourseViewModel.class);
+        viewModel = new ViewModelProvider(getViewModelStore(), new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(EditCourseViewModel.class);
 
         if (termId.isPresent()) {
-            viewModel.setTermId(termId.getAsInt());
+            viewModel.termId = termId.getAsInt();
         }
 
-
+        if(courseId.isPresent()){
+            viewModel.setCourseId(courseId.getAsInt());
+        }
 
         final Observer<String> titleObserver = s -> titleText.setText(s);
 
@@ -189,7 +199,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
 
             if (datePickerDialog == null) {
 
-                datePickerDialog = new DatePickerDialog(AddNewCourseActivity.this);
+                datePickerDialog = new DatePickerDialog(EditCourseActivity.this);
             }
 
             boolean isStartDate = fView.getId() == R.id.course_start_text;

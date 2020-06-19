@@ -10,7 +10,9 @@ import java.util.Date;
 import java.util.OptionalInt;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 public class AddCourseViewModel extends CourseViewModelBase {
 
@@ -21,6 +23,8 @@ public class AddCourseViewModel extends CourseViewModelBase {
     public MutableLiveData<String> mentorPhone;
     public MutableLiveData<String> mentorEmail;
     public MutableLiveData<Boolean> canSave;
+    public MutableLiveData<String> status;
+
 
     private OptionalInt termId = null;
 
@@ -29,6 +33,10 @@ public class AddCourseViewModel extends CourseViewModelBase {
         title = new MutableLiveData<>();
         formattedStartDate = new MutableLiveData<>();
         formattedEndDate = new MutableLiveData<>();
+        status = new MutableLiveData<>();
+        mentorName = new MutableLiveData<>();
+        mentorPhone = new MutableLiveData<>();
+        mentorEmail = new MutableLiveData<>();
         canSave = new MutableLiveData<>();
         canSave.setValue(false);
     }
@@ -68,8 +76,9 @@ public class AddCourseViewModel extends CourseViewModelBase {
         boolean validDates = endDate != null &&
                 startDate != null &&
                 endDate.after(startDate);
+        boolean validStatus = status != null;
 
-        canSave.setValue(validTitle && validDates);
+        canSave.setValue(validTitle && validDates && validStatus);
     }
 
     public void createCourse() {
@@ -77,15 +86,24 @@ public class AddCourseViewModel extends CourseViewModelBase {
         if (canSave.getValue()) {
             canSave.setValue(false);
 
+
             String mentorNameValue = mentorName == null ? null : mentorName.getValue();
             String mentorPhoneValue = mentorPhone == null ? null : mentorPhone.getValue();
             String mentorEmailValue = mentorEmail == null ? null : mentorEmail.getValue();
 
             try {
-                Course course = new Course(title.getValue(), startDate, endDate, Course.PLAN_TO_TAKE, mentorNameValue, mentorPhoneValue, mentorEmailValue);
+                Course course = new Course(title.getValue(),
+                        startDate,
+                        endDate,
+                        status.getValue(),
+                        mentorNameValue,
+                        mentorPhoneValue,
+                        mentorEmailValue);
+
                 if (termId.isPresent()) {
                     course.setTermId(termId.getAsInt());
                 }
+
                 courseRepository.insertOrUpdate(course);
             } catch (Exception ex) {
                 Log.e(AddTermViewModel.class.getName(), ex.getMessage());

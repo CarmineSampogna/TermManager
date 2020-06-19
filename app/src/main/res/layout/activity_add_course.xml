@@ -42,10 +42,11 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".AddTermActivity">
+            tools:context=".AddTermActivity"
+            android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/course_title_layout"
@@ -81,8 +82,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="@string/from_label" />
+                    android:text="@string/from_label"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/course_start_text"
@@ -104,8 +106,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="@string/to_label" />
+                    android:text="@string/to_label"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/course_end_text"
@@ -115,9 +118,40 @@
                     app:iconPadding="8dp" />
             </LinearLayout>
 
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/course_status_label"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
+<RadioGroup
+    android:id="@+id/add_course_status_group"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/add_course_status_inProgress_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/course_in_progress"/>
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/add_course_status_completed_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/course_completed"/>
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/add_course_status_dropped_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/course_dropped"/>
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/add_course_status_planToTake_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/course_plan_to_take"/>
+</RadioGroup>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 

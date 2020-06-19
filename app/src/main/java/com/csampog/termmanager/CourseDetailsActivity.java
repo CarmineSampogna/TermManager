@@ -67,7 +67,6 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.course_details_menu, menu);
-
         return true;
     }
 
@@ -78,6 +77,9 @@ public class CourseDetailsActivity extends AppCompatActivity {
            // item.setVisible(false);
            // statusInputLayout.setVisibility(View.VISIBLE);
             //statusTextView.setVisibility(View.INVISIBLE);
+            Intent intent = new Intent(this, EditCourseActivity.class);
+            intent.putExtra(EditCourseActivity.COURSE_ID_PARAM, courseId);
+            startActivity(intent);
         }
         return true;
     }
@@ -151,11 +153,6 @@ public class CourseDetailsActivity extends AppCompatActivity {
         //mentorNameTextView = findViewById(R.id.men)
         courseTabLayout = findViewById(R.id.courseTabLayout);
         courseViewPager = findViewById(R.id.courseViewPager);
-//        addAssessmentButton = findViewById(R.id.add_assessment_button);
-//        addAssessmentButton.setOnClickListener(v -> {
-//            Intent addAssessmentIntent = new Intent(CourseDetailsActivity.this, AssessmentDetailsActivity.class);
-//            startActivity(addAssessmentIntent);
-//        });
         initViewPager();
     }
 }
