@@ -2,13 +2,15 @@ package com.csampog.termmanager.model;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Notes")
+@Entity(tableName = "Notes", indices = {@Index("courseId")})
 public class Note {
 
     @PrimaryKey(autoGenerate = true)
     private int noteId;
+    private String title;
     private String text;
     private int courseId;
 
@@ -18,12 +20,14 @@ public class Note {
     }
 
     @Ignore
-    public Note(String text, int courseId){
+    public Note(String title, String text, int courseId){
+        this.title = title;
         this.text = text;
         this.courseId = courseId;
     }
 
-    public Note(int noteId, String text, int courseId){
+    public Note(int noteId, String title, String text, int courseId){
+        this.title = title;
         this.noteId = noteId;
         this.text = text;
         this.courseId = courseId;
@@ -35,6 +39,14 @@ public class Note {
 
     public void setNoteId(int noteId) {
         this.noteId = noteId;
+    }
+
+    public String getTitle(){
+        return this.title;
+    }
+
+    public void setTitle(String title){
+        this.title = title;
     }
 
     public String getText() {

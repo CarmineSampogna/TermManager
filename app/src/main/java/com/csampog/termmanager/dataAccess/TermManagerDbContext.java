@@ -17,7 +17,7 @@ import com.csampog.termmanager.model.Course;
 import com.csampog.termmanager.model.Note;
 import com.csampog.termmanager.model.Term;
 
-@Database(entities = {Assessment.class, Course.class, Note.class, Term.class}, version = 3)
+@Database(entities = {Assessment.class, Course.class, Note.class, Term.class}, version = 5)
 @TypeConverters({DateConverter.class})
 public abstract class TermManagerDbContext extends RoomDatabase {
     public static final String DATABASE_NAME = "TermManager.db";

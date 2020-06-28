@@ -34,6 +34,9 @@ public class EditCourseActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private FloatingActionButton saveButton;
     private EditText titleText;
+    private EditText mentorNameText;
+    private EditText mentorEmailText;
+    private EditText mentorPhoneText;
     private RadioGroup statusRadioGroup;
 
 
@@ -87,6 +90,60 @@ public class EditCourseActivity extends AppCompatActivity {
                         break;
                 }
                 viewModel.statusInput = status;
+            }
+        });
+
+        mentorNameText = findViewById(R.id.course_mentorName_text);
+        mentorNameText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                viewModel.mentorNameInput = s.toString();
+            }
+        });
+
+        mentorEmailText = findViewById(R.id.course_mentorEmail_text);
+        mentorEmailText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                viewModel.mentorEmailInput = s.toString();
+            }
+        });
+
+        mentorPhoneText = findViewById(R.id.course_mentorPhone_text);
+        mentorPhoneText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                viewModel.mentorPhoneInput = s.toString();
             }
         });
 
@@ -178,9 +235,6 @@ public class EditCourseActivity extends AppCompatActivity {
                 saveButton.hide();
             }
         };
-
-        CourseRepository courseRepository = CourseRepository.getInstance(getBaseContext());
-        courseRepository.AddSampleData();
 
         viewModel.title.observe(this, titleObserver);
         viewModel.formattedStartDate.observe(this, startDateObserver);

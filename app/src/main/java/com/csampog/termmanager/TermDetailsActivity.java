@@ -1,7 +1,10 @@
 package com.csampog.termmanager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.csampog.termmanager.adapters.CourseAdapter;
@@ -15,7 +18,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -30,13 +36,43 @@ public class TermDetailsActivity extends AppCompatActivity {
     private boolean coursesAvailable = false;
 
     private CollapsingToolbarLayout toolbarLayout;
+    private Toolbar toolbar;
     private TextView startDateText;
     private TextView endDateText;
     private RecyclerView termCoursesRecyclerView;
     private CourseAdapter courseAdapter;
     private TextInputEditText titleEditText;
     private MaterialButton addCourseButton;
+    private int termId;
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.term_details_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.term_details_edit){
+            Intent i = new Intent(this, EditTermActivity.class);
+            i.putExtra(EditTermActivity.TERM_ID_PARAM, termId);
+            startActivity(i);
+        }else if(item.getItemId() == R.id.term_delete_button){
+
+            if(viewModel.hasCoursesAssigned()){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(R.string.term_courses_error);
+                builder.setNeutralButton(R.string.ok_button_text, (dialog, which) -> dialog.dismiss());
+                builder.show();
+            }else{
+                viewModel.deleteTerm();
+                termId = 0;
+                finish();
+            }
+        }
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +87,17 @@ public class TermDetailsActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(getViewModelStore(), new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(TermDetailsViewModel.class);
         Intent intent = getIntent();
 
-        int termId = 0;
+        termId = 0;
+
         if (intent.hasExtra(TERM_ID_KEY)) {
             termId = intent.getIntExtra(TERM_ID_KEY, 0);
             if (termId > 0) {
                 viewModel.refreshTermDetails(termId);
             }
-        } else {
-            //Show error about loading term details
+        }
+
+        if(termId == 0){
+            finish();
         }
 
         final Observer<List<Course>> termCourseObserver = courses -> {
@@ -96,6 +135,8 @@ public class TermDetailsActivity extends AppCompatActivity {
 
     private void initViews() {
         toolbarLayout = findViewById(R.id.term_details_toolbar_layout);
+        toolbar = findViewById(R.id.term_details_toolbar);
+        setSupportActionBar(toolbar);
         titleEditText = findViewById(R.id.term_title_text);
         startDateText = findViewById(R.id.term_details_start);
         endDateText = findViewById(R.id.term_details_end);

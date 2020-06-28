@@ -107,9 +107,6 @@ public class AddTermActivity extends AppCompatActivity {
             }
         };
 
-        CourseRepository courseRepository = CourseRepository.getInstance(getBaseContext());
-        courseRepository.AddSampleData();
-
         viewModel.formattedStartDate.observe(this, startDateObserver);
         viewModel.formattedEndDate.observe(this, endDateObserver);
         viewModel.canSave.observe(this, canSaveObserver);

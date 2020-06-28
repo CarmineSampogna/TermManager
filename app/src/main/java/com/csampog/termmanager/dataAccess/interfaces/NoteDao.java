@@ -10,7 +10,7 @@ import java.util.List;
 public interface NoteDao extends EntityDao<Note> {
 
     @Query("SELECT * FROM Notes WHERE noteId = :noteId")
-    Note getNoteById(int noteId);
+    LiveData<Note> getNoteById(int noteId);
 
     @Query("SELECT * FROM Notes WHERE courseId = :courseId")
     LiveData<List<Note>> getNotesForCourse(int courseId);

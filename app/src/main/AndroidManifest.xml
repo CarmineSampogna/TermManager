@@ -9,7 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditCourseActivity"></activity>
+        <activity
+            android:name=".HomeScreenActivity"
+            android:label="@string/title_activity_home_screen"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".EditTermActivity" />
+        <activity android:name=".NoteActivity" />
+        <activity android:name=".EditCourseActivity" />
         <activity android:name=".AddAssessmentActivity" />
         <activity android:name=".AddCourseToTermActivity" />
         <activity android:name=".AddNewCourseActivity" />
@@ -25,12 +37,8 @@
         <activity
             android:name=".TermDetailsActivity"
             android:parentActivityName=".AllTermsActivity" />
-        <activity android:name=".AllTermsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".AllTermsActivity" android:parentActivityName=".HomeScreenActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
     </application>

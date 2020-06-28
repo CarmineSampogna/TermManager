@@ -1,0 +1,106 @@
+package com.csampog.termmanager;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Menu;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.csampog.termmanager.model.Course;
+import com.csampog.termmanager.model.Term;
+import com.csampog.termmanager.viewmodels.HomeScreenViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import java.text.SimpleDateFormat;
+import java.util.Optional;
+
+public class HomeScreenActivity extends AppCompatActivity {
+
+    private AppBarConfiguration mAppBarConfiguration;
+    private HomeScreenViewModel viewModel;
+
+    private Term latestTerm;
+    private View latestTermView;
+    private FrameLayout latestTermFrame;
+    private LinearLayout noLatestTermLayout;
+    private Button viewAllTermsButton;
+
+    private Course currentCourse;
+    private View currentCourseView;
+    private FrameLayout currentCourseFrame;
+    private LinearLayout currentCourseLayout;
+    private Button viewAllCoursesButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home_screen);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        latestTermView = findViewById(R.id.latest_term_view);
+        latestTermFrame = findViewById(R.id.latest_term_frame);
+        noLatestTermLayout = findViewById(R.id.no_latest_term_layout);
+        viewAllTermsButton = findViewById(R.id.view_all_terms);
+
+        viewAllTermsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeScreenActivity.this, AllTermsActivity.class);
+            startActivity(intent);
+        });
+
+        viewModel = new ViewModelProvider(getViewModelStore(), new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(HomeScreenViewModel.class);
+        viewModel.init();
+
+        initTermObserver();
+
+    }
+
+    private void initTermObserver() {
+
+        final Observer<Optional<Term>> latestTermObserver = t -> {
+
+            latestTerm = t.isPresent() ? t.get() : null;
+            if (latestTerm != null) {
+
+                latestTermView = getLayoutInflater().inflate(R.layout.term_list_item, latestTermFrame);
+                TextView titleView = latestTermView.findViewById(R.id.term_list_item_title);
+                titleView.setText(latestTerm.getTitle());
+                TextView start = latestTermView.findViewById(R.id.term_list_item_start);
+                TextView end = latestTermView.findViewById(R.id.term_list_item_end);
+                latestTermView.setOnClickListener(v -> {
+
+                    Intent intent = new Intent(this, TermDetailsActivity.class);
+                    intent.putExtra(TermDetailsActivity.TERM_ID_KEY, latestTerm.getTermId());
+                    startActivity(intent);
+                });
+
+                SimpleDateFormat df = new SimpleDateFormat("MMM d, yyyy");
+                start.setText(df.format(latestTerm.getStart()));
+                end.setText(df.format(latestTerm.getEnd()));
+
+                noLatestTermLayout.setVisibility(View.INVISIBLE);
+                latestTermView.setVisibility(View.VISIBLE);
+            }else{
+                latestTermView.setVisibility(View.INVISIBLE);
+                noLatestTermLayout.setVisibility(View.VISIBLE);
+            }
+        };
+        viewModel.latestTerm.observe(this, latestTermObserver);
+    }
+
+
+}

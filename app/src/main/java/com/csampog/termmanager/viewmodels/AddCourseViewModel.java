@@ -70,7 +70,7 @@ public class AddCourseViewModel extends CourseViewModelBase {
         updateCanSave();
     }
 
-    protected void updateCanSave() {
+    public void updateCanSave() {
 
         boolean validTitle = title != null && title.getValue().length() > 1;
         boolean validDates = endDate != null &&

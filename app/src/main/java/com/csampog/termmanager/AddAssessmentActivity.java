@@ -1,6 +1,8 @@
 package com.csampog.termmanager;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -80,15 +82,45 @@ public class AddAssessmentActivity extends AppCompatActivity {
 
         viewModel.setCourseId(courseId);
 
-        viewModel.canSave.observe(this, canSaveObserver);
+      //  viewModel.canSave.observe(this, canSaveObserver);
         viewModel.formattedGoalDate.observe(this, formattedGoalDateObserver);
     }
 
     private void initSaveButton() {
         saveButton = findViewById(R.id.add_assessment_save_button);
         saveButton.setOnClickListener(v -> {
-            viewModel.saveAssessment();
-            finish();
+
+            StringBuilder errorBuilder = new StringBuilder();
+            boolean canSave = true;
+
+            if(titleEditText.getText() == null ||
+            titleEditText.getText().toString().length() < 3){
+                canSave = false;
+                errorBuilder.append(getString(R.string.title_error) + "\n");
+            }
+
+            if(goalDateButton.getText() == getString(R.string.goal_date_text)){
+                canSave = false;
+                errorBuilder.append("Goal date must be set.");
+            }
+
+            if(canSave) {
+
+                viewModel.saveAssessment();
+                finish();
+            }else{
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle(R.string.caourse_save_error_title);
+                alertDialogBuilder.setMessage(errorBuilder.toString());
+                alertDialogBuilder.setPositiveButton(R.string.ok_button_text, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alertDialogBuilder.show();
+            }
         });
     }
 

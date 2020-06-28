@@ -32,6 +32,9 @@ public class AddNewCourseActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private FloatingActionButton saveButton;
     private EditText titleText;
+    private EditText mentorNameText;
+    private EditText mentorEmailText;
+    private EditText mentorPhoneText;
     private RadioGroup statusRadioGroup;
 
 
@@ -60,26 +63,24 @@ public class AddNewCourseActivity extends AppCompatActivity {
         toolbar.setTitle(activityTitleRes);
 
         statusRadioGroup = findViewById(R.id.add_course_status_group);
-        statusRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                String status = "";
-                switch (checkedId) {
-                    case R.id.add_course_status_completed_option:
-                        status = Course.COMPLETED;
-                        break;
-                    case R.id.add_course_status_dropped_option:
-                        status = Course.DROPPED;
-                        break;
-                    case R.id.add_course_status_inProgress_option:
-                        status = Course.IN_PROGRESS;
-                        break;
-                    case R.id.add_course_status_planToTake_option:
-                        status = Course.PLAN_TO_TAKE;
-                        break;
-                }
-                viewModel.status.setValue(status);
+        statusRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            String status = "";
+            switch (checkedId) {
+                case R.id.add_course_status_completed_option:
+                    status = Course.COMPLETED;
+                    break;
+                case R.id.add_course_status_dropped_option:
+                    status = Course.DROPPED;
+                    break;
+                case R.id.add_course_status_inProgress_option:
+                    status = Course.IN_PROGRESS;
+                    break;
+                case R.id.add_course_status_planToTake_option:
+                    status = Course.PLAN_TO_TAKE;
+                    break;
             }
+            viewModel.status.setValue(status);
+            viewModel.updateCanSave();
         });
 
         saveButton = findViewById(R.id.add_course_save);
@@ -99,6 +100,59 @@ public class AddNewCourseActivity extends AppCompatActivity {
             }
         });
         initTitleText();
+        mentorNameText = findViewById(R.id.course_mentorName_text);
+        mentorNameText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                viewModel.mentorName.setValue(s.toString());
+            }
+        });
+
+        mentorEmailText = findViewById(R.id.course_mentorEmail_text);
+        mentorEmailText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                viewModel.mentorEmail.setValue(s.toString());
+            }
+        });
+
+        mentorPhoneText = findViewById(R.id.course_mentorPhone_text);
+        mentorPhoneText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                viewModel.mentorPhone.setValue(s.toString());
+            }
+        });
 
         initDateButtons();
         initViewModel();
@@ -139,27 +193,9 @@ public class AddNewCourseActivity extends AppCompatActivity {
             viewModel.setTermId(termId.getAsInt());
         }
 
-
-
-        final Observer<String> titleObserver = s -> titleText.setText(s);
-
         final Observer<String> startDateObserver = s -> startText.setText(s);
 
         final Observer<String> endDateObserver = s -> endText.setText(s);
-
-        final Observer<String> statusObserver = s -> {
-
-            if (s == getString(R.string.course_completed)) {
-                statusRadioGroup.check(R.id.add_course_status_completed_option);
-            }else if(s == getString(R.string.course_dropped)){
-                statusRadioGroup.check(R.id.add_course_status_dropped_option);
-            }else if (s == getString(R.string.course_in_progress)){
-                statusRadioGroup.check(R.id.add_course_status_inProgress_option);
-            }else{
-                statusRadioGroup.check(R.id.add_course_status_planToTake_option);
-            }
-        };
-
 
         final Observer<Boolean> canSaveObserver = aBoolean -> {
             if (aBoolean) {
@@ -169,13 +205,8 @@ public class AddNewCourseActivity extends AppCompatActivity {
             }
         };
 
-        CourseRepository courseRepository = CourseRepository.getInstance(getBaseContext());
-        courseRepository.AddSampleData();
-
-        viewModel.title.observe(this, titleObserver);
         viewModel.formattedStartDate.observe(this, startDateObserver);
         viewModel.formattedEndDate.observe(this, endDateObserver);
-        viewModel.status.observe(this, statusObserver);
         viewModel.canSave.observe(this, canSaveObserver);
 
     }

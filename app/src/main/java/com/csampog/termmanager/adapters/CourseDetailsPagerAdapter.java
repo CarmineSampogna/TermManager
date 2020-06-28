@@ -1,6 +1,7 @@
 package com.csampog.termmanager.adapters;
 
 import com.csampog.termmanager.fragments.CourseAssessmentsFragment;
+import com.csampog.termmanager.fragments.CourseNotesFragment;
 import com.csampog.termmanager.viewmodels.CourseDetailsViewModel;
 
 import androidx.annotation.NonNull;
@@ -26,14 +27,16 @@ public class CourseDetailsPagerAdapter extends FragmentStateAdapter {
             case 0:
                 CourseAssessmentsFragment caf = CourseAssessmentsFragment.newInstance(courseId, viewModel);
                 caf.setViewModel(viewModel);
-
                 return caf;
+            case 1:
+                CourseNotesFragment cnf = CourseNotesFragment.newInstance(courseId);
+                return cnf;
         }
         return null;
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return 2;
     }
 }

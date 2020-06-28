@@ -19,7 +19,7 @@
             android:id="@+id/term_details_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="@color/termColor"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
 
             app:layout_scrollInterpolator="@android:anim/decelerate_interpolator"
@@ -49,7 +49,8 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/term_details_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"></androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

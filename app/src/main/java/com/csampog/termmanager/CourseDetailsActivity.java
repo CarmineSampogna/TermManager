@@ -42,9 +42,9 @@ public class CourseDetailsActivity extends AppCompatActivity {
     private TextInputLayout statusInputLayout;
     private TextInputEditText statusTextInput;
     private TextView statusTextView;
-    private TextView mentorNameTextView;
-    private TextView mentorEmailTextView;
-    private TextView mentorPhoneTextView;
+    private TextInputEditText mentorNameTextView;
+    private TextInputEditText mentorEmailTextView;
+    private TextInputEditText mentorPhoneTextView;
     private TextInputEditText titleEditText;
     private TabLayout courseTabLayout;
     private ViewPager2 courseViewPager;
@@ -116,12 +116,15 @@ public class CourseDetailsActivity extends AppCompatActivity {
             //statusTextInput.setText(s);
             statusTextView.setText(s);
         };
-        //final Observer<String> mentorNameObserver = s -> ment
+        final Observer<String> mentorNameObserver = s -> mentorNameTextView.setText(s);
+        final Observer<String> mentorPhoneObserver = s -> mentorPhoneTextView.setText(s);
+        final Observer<String> mentorEmailObserver = s -> mentorEmailTextView.setText(s);
 
         viewModel.title.observe(this, titleObserver);
         viewModel.formattedStartDate.observe(this, startDateObserver);
         viewModel.formattedEndDate.observe(this, endDateObserver);
         viewModel.status.observe(this, statusObserver);
+        viewModel.mentorName.observe(this, mentorNameObserver);
     }
 
     private void initViewModel() {
@@ -150,7 +153,9 @@ public class CourseDetailsActivity extends AppCompatActivity {
         //statusInputLayout = findViewById(R.id.course_details_status_editText_layout);
         //statusTextInput = findViewById(R.id.course_details_status_editText);
         statusTextView = findViewById(R.id.course_details_status_textView);
-        //mentorNameTextView = findViewById(R.id.men)
+        mentorNameTextView = findViewById(R.id.course_details_mentorName_text);
+        mentorPhoneTextView = findViewById(R.id.course_details_mentorPhone_text);
+        mentorEmailTextView = findViewById(R.id.course_details_mentorEmail_text);
         courseTabLayout = findViewById(R.id.courseTabLayout);
         courseViewPager = findViewById(R.id.courseViewPager);
         initViewPager();

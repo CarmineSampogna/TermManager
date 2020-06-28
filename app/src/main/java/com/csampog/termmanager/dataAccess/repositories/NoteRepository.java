@@ -24,17 +24,9 @@ public class NoteRepository extends RepositoryBase {
         super(context);
     }
 
-    public Note getNoteById(final int noteId) {
-        final Note[] ret = {null};
+    public LiveData<Note> getNoteById(final int noteId) {
 
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                ret[0] = dbContext.noteDao().getNoteById(noteId);
-            }
-        });
-
-        return ret[0];
+        return dbContext.noteDao().getNoteById(noteId);
     }
 
     public LiveData<List<Note>> getNotesForCourse(int courseId) {

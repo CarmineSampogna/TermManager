@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -26,11 +27,13 @@ public class AllTermsActivity extends AppCompatActivity {
     private TermAdapter adapter;
     private AllTermsViewModel viewModel;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_terms);
+
 
         setTitle();
         initRecyclerView();
@@ -42,6 +45,9 @@ public class AllTermsActivity extends AppCompatActivity {
 
         CollapsingToolbarLayout toolbarLayout = findViewById(R.id.all_terms_toolbar_layout);
         toolbarLayout.setTitle(getString(R.string.all_terms_title));
+        Toolbar toolbar = findViewById(R.id.all_terms_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initRecyclerView() {
