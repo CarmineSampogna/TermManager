@@ -70,6 +70,8 @@ public class TermDetailsActivity extends AppCompatActivity {
                 termId = 0;
                 finish();
             }
+        }else{
+            finish();
         }
         return true;
     }
@@ -136,7 +138,9 @@ public class TermDetailsActivity extends AppCompatActivity {
     private void initViews() {
         toolbarLayout = findViewById(R.id.term_details_toolbar_layout);
         toolbar = findViewById(R.id.term_details_toolbar);
+
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         titleEditText = findViewById(R.id.term_title_text);
         startDateText = findViewById(R.id.term_details_start);
         endDateText = findViewById(R.id.term_details_end);
