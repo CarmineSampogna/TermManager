@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.csampog.termmanager.adapters.CourseDetailsPagerAdapter;
@@ -42,8 +43,13 @@ public class CourseDetailsActivity extends AppCompatActivity {
     private TextInputLayout statusInputLayout;
     private TextInputEditText statusTextInput;
     private TextView statusTextView;
+    private LinearLayout noMentorInfoLayout;
+    private LinearLayout mentorInfoLayout;
+    private TextInputLayout mentorNameLayout;
     private TextInputEditText mentorNameTextView;
+    private TextInputLayout mentorEmailLayout;
     private TextInputEditText mentorEmailTextView;
+    private TextInputLayout mentorPhoneLayout;
     private TextInputEditText mentorPhoneTextView;
     private TextInputEditText titleEditText;
     private TabLayout courseTabLayout;
@@ -113,18 +119,55 @@ public class CourseDetailsActivity extends AppCompatActivity {
         final Observer<String> startDateObserver = s -> startDateText.setText(s);
         final Observer<String> endDateObserver = s -> endDateText.setText(s);
         final Observer<String> statusObserver = s -> {
-            //statusTextInput.setText(s);
+
             statusTextView.setText(s);
         };
-        final Observer<String> mentorNameObserver = s -> mentorNameTextView.setText(s);
-        final Observer<String> mentorPhoneObserver = s -> mentorPhoneTextView.setText(s);
-        final Observer<String> mentorEmailObserver = s -> mentorEmailTextView.setText(s);
+
+        final Observer<Boolean> hasMentorInfoObserver = hasInfo ->{
+          if(hasInfo){
+              noMentorInfoLayout.setVisibility(View.GONE);
+              mentorInfoLayout.setVisibility(View.VISIBLE);
+          }else{
+              noMentorInfoLayout.setVisibility(View.VISIBLE);
+              mentorInfoLayout.setVisibility(View.GONE);
+          }
+        };
+
+        final Observer<String> mentorNameObserver = s -> {
+
+            mentorNameTextView.setText(s);
+            int visibility = s != null && !s.isEmpty() ?
+                    View.VISIBLE : View.GONE;
+
+            mentorNameLayout.setVisibility(visibility);
+        };
+
+        final Observer<String> mentorPhoneObserver = s -> {
+            mentorPhoneTextView.setText(s);
+
+            int visibility = s != null && !s.isEmpty() ?
+                    View.VISIBLE : View.GONE;
+
+            mentorPhoneLayout.setVisibility(visibility);
+        };
+
+        final Observer<String> mentorEmailObserver = s -> {
+            mentorEmailTextView.setText(s);
+
+            int visibility = s != null && !s.isEmpty() ?
+                    View.VISIBLE : View.GONE;
+
+            mentorEmailLayout.setVisibility(visibility);
+        };
 
         viewModel.title.observe(this, titleObserver);
         viewModel.formattedStartDate.observe(this, startDateObserver);
         viewModel.formattedEndDate.observe(this, endDateObserver);
         viewModel.status.observe(this, statusObserver);
         viewModel.mentorName.observe(this, mentorNameObserver);
+        viewModel.mentorEmail.observe(this, mentorEmailObserver);
+        viewModel.mentorPhone.observe(this, mentorPhoneObserver);
+        viewModel.hasMentorInfo.observe(this, hasMentorInfoObserver);
     }
 
     private void initViewModel() {
@@ -153,8 +196,13 @@ public class CourseDetailsActivity extends AppCompatActivity {
         //statusInputLayout = findViewById(R.id.course_details_status_editText_layout);
         //statusTextInput = findViewById(R.id.course_details_status_editText);
         statusTextView = findViewById(R.id.course_details_status_textView);
+        noMentorInfoLayout = findViewById(R.id.noMentorInfo_layout);
+        mentorInfoLayout = findViewById(R.id.mentorInfo_layout);
+        mentorNameLayout = findViewById(R.id.course_mentorName_layout);
         mentorNameTextView = findViewById(R.id.course_details_mentorName_text);
+        mentorPhoneLayout = findViewById(R.id.course_mentorPhone_layout);
         mentorPhoneTextView = findViewById(R.id.course_details_mentorPhone_text);
+        mentorEmailLayout = findViewById(R.id.course_mentorEmail_layout);
         mentorEmailTextView = findViewById(R.id.course_details_mentorEmail_text);
         courseTabLayout = findViewById(R.id.courseTabLayout);
         courseViewPager = findViewById(R.id.courseViewPager);

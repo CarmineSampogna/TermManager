@@ -14,21 +14,21 @@
         android:layout_height="192dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/add_assessment_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:foregroundTint="#CCFF8A65"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
-            app:layout_scrollInterpolator="@android:anim/decelerate_interpolator"
 
-            android:id="@+id/add_assessment_toolbar">
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            app:layout_scrollInterpolator="@android:anim/decelerate_interpolator">
 
             <ImageView
                 android:id="@+id/app_bar_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:scaleType="centerCrop"
-                android:src="@drawable/phone_books" />
+                android:src="@drawable/pencils_books" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -75,28 +75,28 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:elevation="8dp"
                 android:layout_marginTop="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/primaryColor"
+                        android:background="@color/assessmentColorDark"
                         android:text="Assessment Type"
-
+android:textColor="@android:color/white"
                         android:padding="8dp"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                     <RadioGroup
                         android:id="@+id/assessment_type_group"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp">
 

@@ -29,7 +29,7 @@ public class HomeScreenViewModel extends AndroidViewModel {
     public LiveData<Optional<Course>> latestCourse;
     public LiveData<Boolean> hasCourses;
 
-    public LiveData<Assessment> latestAssessment;
+    public LiveData<Optional<Assessment>> nextAssessment;
     public LiveData<Boolean> hasAssessments;
 
     private List<Term> terms;
@@ -52,43 +52,66 @@ public class HomeScreenViewModel extends AndroidViewModel {
         assessmentRepository = AssessmentRepository.getInstance(application);
     }
 
-    public void init(){
+    public void init() {
 
         initTerm();
 
-        latestCourse = Transformations.map(courseRepository.courses, c -> c.stream().sorted((o1, o2) -> {
-            if(o1.getStartDate().before(o2.getStartDate())){
-                return -1;
-            }
+        initCourse();
 
-            if(o1.getStartDate().after(o2.getStartDate())){
-                return 1;
-            }
-
-            return 0;
-        }).filter(t2 -> t2.getStatus() == Course.IN_PROGRESS)
-                .findFirst());
-
-        hasCourses = Transformations.map(courseRepository.courses, c -> !c.isEmpty());
+        initAssessment();
 
         Transformations.map(courseRepository.courses, c -> courses.addAll(c));
 
         Transformations.map(assessmentRepository.getAllAssessments(), a -> assessments.addAll(a));
     }
 
-    private void initTerm() {
-        latestTerm = Transformations.map(termRepository.terms, t -> t.stream().sorted((o1, o2) -> {
-            if(o1.getStart().before(o2.getStart())){
+    private void initAssessment() {
+
+        nextAssessment = Transformations.map(assessmentRepository.getAllAssessments(), a -> a.stream()
+                .filter(a2 -> !a2.getGoalDate().before(Date.from(Instant.now())))
+                .sorted((o1, o2) -> {
+                    if (o1.getGoalDate().before(o2.getGoalDate())) {
+                        return -1;
+                    }
+
+                    if (o1.getGoalDate().after(o2.getGoalDate())) {
+                        return 1;
+                    }
+
+                    return 0;
+                }).findFirst());
+    }
+
+    private void initCourse() {
+        latestCourse = Transformations.map(courseRepository.courses, c -> c.stream().sorted((o1, o2) -> {
+            if (o1.getStartDate().before(o2.getStartDate())) {
                 return -1;
             }
 
-            if(o1.getStart().after(o2.getStart())){
+            if (o1.getStartDate().after(o2.getStartDate())) {
+                return 1;
+            }
+
+            return 0;
+        }).filter(t2 -> !t2.getAnticipatedEndDate().before(Date.from(Instant.now())))
+                .findFirst());
+
+        hasCourses = Transformations.map(courseRepository.courses, c -> !c.isEmpty());
+    }
+
+    private void initTerm() {
+        latestTerm = Transformations.map(termRepository.terms, t -> t.stream().sorted((o1, o2) -> {
+            if (o1.getStart().before(o2.getStart())) {
+                return -1;
+            }
+
+            if (o1.getStart().after(o2.getStart())) {
                 return 1;
             }
 
             return 0;
         }).filter(t2 -> !t2.getEnd().before(Date.from(Instant.now())))
-        .findFirst());
+                .findFirst());
 
         hasTerms = Transformations.map(termRepository.terms, t -> !t.isEmpty());
     }

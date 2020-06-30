@@ -1,20 +1,25 @@
 package com.csampog.termmanager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.csampog.termmanager.viewmodels.NoteViewModel;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class NoteActivity extends AppCompatActivity {
@@ -37,6 +42,36 @@ public class NoteActivity extends AppCompatActivity {
     private Button deleteButton;
 
     private NoteViewModel viewModel;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(!isNewNote){
+
+            getMenuInflater().inflate(R.menu.note_details_menu, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int selectedId = item.getItemId();
+        if(selectedId == R.id.assessment_delete_menu_item){
+            viewModel.deleteNote();
+            finish();
+        }else if(selectedId == R.id.note_details_share){
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.setData(Uri.parse("smsto:"));
+            intent.putExtra("sms_body", noteTextInput.getText().toString());
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        }
+
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,19 +133,20 @@ public class NoteActivity extends AppCompatActivity {
 
         deleteButton = findViewById(R.id.note_delete_button);
 
-        if(!isNewNote) {
-            deleteButton.setOnClickListener(v -> {
-                viewModel.deleteNote();
-                finish();
-            });
-        }else{
-            deleteButton.setVisibility(View.INVISIBLE);
-        }
+//        if(!isNewNote) {
+//            deleteButton.setOnClickListener(v -> {
+//                viewModel.deleteNote();
+//                finish();
+//            });
+//        }else{
+//            deleteButton.setVisibility(View.INVISIBLE);
+//        }
 
         if(isNewNote){
             courseId = intent.getIntExtra(COURSE_ID_PARAM, 0);
             viewModel.setCourseId(courseId);
         }else{
+
             noteId = intent.getIntExtra(NOTE_ID_PARAM,0);
             viewModel.setNoteId(noteId);
         }
@@ -127,7 +163,10 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        TextView tb = findViewById(R.id.titleText);
+
+        Toolbar toolbar = findViewById(R.id.note_toolbar);
+
+        TextView tb = findViewById(R.id.note_title);
 
         if(isNewNote){
             tb.setText(R.string.new_note_title);
@@ -136,5 +175,8 @@ public class NoteActivity extends AppCompatActivity {
         }else{
             tb.setText(R.string.note_details_title);
         }
+
+        toolbar.setTitle("TESTING");
+        setSupportActionBar(toolbar);
     }
 }

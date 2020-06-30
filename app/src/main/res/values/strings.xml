@@ -79,4 +79,10 @@
     <string name="latest_term_label">Latest Term</string>
     <string name="no_terms_yet">No Terms yet</string>
     <string name="latest_term_view_all">View all</string>
+    <string name="current_course_title">Current Course</string>
+    <string name="no_courses_added">No Courses added yet</string>
+    <string name="to">To</string>
+    <string name="next_assessment_title">Next Assessment</string>
+    <string name="mentor_label">Mentor</string>
+    <string name="share_note">Share your note</string>
 </resources>

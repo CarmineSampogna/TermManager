@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/term_delete_button"
-        android:title="@string/term_delete_text" />
+        android:title="@string/term_delete_text"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/term_details_edit"
         android:icon="@drawable/ic_baseline_edit_24"

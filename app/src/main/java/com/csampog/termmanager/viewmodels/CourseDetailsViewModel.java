@@ -20,6 +20,7 @@ public class CourseDetailsViewModel extends CourseViewModelBase {
     public LiveData<String> formattedStartDate;
     public LiveData<String> formattedEndDate;
     public LiveData<String> status;
+    public LiveData<Boolean> hasMentorInfo;
     public LiveData<String> mentorName;
     public LiveData<String> mentorPhone;
     public LiveData<String> mentorEmail;
@@ -59,6 +60,15 @@ public class CourseDetailsViewModel extends CourseViewModelBase {
         formattedStartDate = Transformations.map(course, c -> dateFormat.format(c.getStartDate()));
         formattedEndDate = Transformations.map(course, c -> dateFormat.format(c.getAnticipatedEndDate()));
         status = Transformations.map(course, c -> c.getStatus());
+        hasMentorInfo = Transformations.map(course, c -> {
+            String mName = c.getMentorName();
+            String mPhone = c.getMentorPhone();
+            String mEmail = c.getMentorEmail();
+
+            return (mName != null && !mName.isEmpty()) ||
+                    (mPhone != null && !mPhone.isEmpty()) ||
+                    (mEmail != null && !mEmail.isEmpty());
+        } );
         mentorName = Transformations.map(course, c -> c.getMentorName());
         mentorPhone = Transformations.map(course, c -> c.getMentorPhone());
         mentorEmail = Transformations.map(course, c -> c.getMentorEmail());
