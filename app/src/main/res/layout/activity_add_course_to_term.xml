@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
 
             android:id="@+id/courseTerm_toolbar"
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|exitUntilCollapsed|snap"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:layout_scrollInterpolator="@android:anim/decelerate_interpolator"
 
             app:contentScrim="?attr/colorPrimary">
@@ -32,8 +32,10 @@
                 android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.Toolbar
+                android:id="@+id/add_to_term_toolbar"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_width="match_parent"></androidx.appcompat.widget.Toolbar>
+                android:layout_width="match_parent"
+                app:layout_collapseMode="pin"></androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

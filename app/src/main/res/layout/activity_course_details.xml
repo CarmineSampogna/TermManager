@@ -44,8 +44,8 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="8dp"
-                app:layout_collapseMode="pin"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                app:layout_collapseMode="pin" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/course_details_toolbar"
@@ -155,10 +155,10 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="8dp"
-                    android:elevation="8dp"
                     android:layout_marginTop="16dp"
-                    android:background="?attr/colorSurface">
+                    android:elevation="8dp"
+                    app:cardElevation="8dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -168,10 +168,10 @@
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="@color/courseColor"
                             android:padding="8dp"
                             android:text="@string/mentor_label"
-                            android:background="@color/primaryColor"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"/>
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                         <FrameLayout
                             android:id="@+id/mentorContentFrame"
@@ -183,18 +183,19 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
+
                                 <com.google.android.material.textview.MaterialTextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:padding="8dp"
-                                    android:text="No mentor info"/>
+                                    android:text="No mentor info" />
 
                                 <com.google.android.material.button.MaterialButton
+                                    style="@style/Widget.MaterialComponents.Button.TextButton"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Add mentor info"
-                                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
+                                    android:text="Add mentor info" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -202,61 +203,102 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/course_mentorName_layout"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:startIconDrawable="@drawable/ic_baseline_person_24">
 
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/course_details_mentorName_text"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:hint="@string/mentor_name_hint"
-                                        android:inputType="textPersonName"
-                                        android:enabled="false"
-                                        android:textColor="@android:color/black"
-                                        android:maxLines="1" />
-                                </com.google.android.material.textfield.TextInputLayout>
+                                <!--                                <com.google.android.material.textfield.TextInputLayout-->
+                                <!--                                    android:id="@+id/course_mentorName_layout"-->
+                                <!--                                    android:layout_width="match_parent"-->
+                                <!--                                    android:layout_height="match_parent"-->
+                                <!--                                    app:layout_constraintEnd_toEndOf="parent"-->
+                                <!--                                    app:layout_constraintStart_toStartOf="parent"-->
+                                <!--                                    app:layout_constraintTop_toTopOf="parent"-->
+                                <!--                                    app:startIconDrawable="@drawable/ic_baseline_person_24">-->
 
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/course_mentorEmail_layout"
+                                <!--                                    <com.google.android.material.textfield.TextInputEditText-->
+                                <!--                                        android:id="@+id/course_details_mentorName_text"-->
+                                <!--                                        android:layout_width="match_parent"-->
+                                <!--                                        android:layout_height="wrap_content"-->
+                                <!--                                        android:hint="@string/mentor_name_hint"-->
+                                <!--                                        android:inputType="textPersonName"-->
+                                <!--                                        android:enabled="false"-->
+                                <!--                                        android:textColor="@android:color/black"-->
+                                <!--                                        android:maxLines="1" />-->
+                                <!--                                </com.google.android.material.textfield.TextInputLayout>-->
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/course_details_mentorName_text"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawableStart="@drawable/ic_baseline_person_24"
+                                    android:drawablePadding="8dp"
+                                    android:gravity="center_vertical"
+                                    android:hint="@string/mentor_name_hint"
+                                    android:maxLines="1"
                                     android:layout_marginTop="8dp"
-                                    app:startIconDrawable="@drawable/ic_baseline_email_24">
+                                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                                    android:textColor="@android:color/black" />
 
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/course_details_mentorEmail_text"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:hint="@string/mentor_email_hint"
-                                        android:inputType="textEmailAddress"
-                                        android:maxLines="1" />
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/course_mentorPhone_layout"
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/course_details_mentorEmail_text"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginTop="8dp"
-                                    android:layout_marginBottom="16dp"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:startIconDrawable="@drawable/ic_baseline_phone_24">
+                                    android:layout_height="wrap_content"
+                                    android:drawableStart="@drawable/ic_baseline_email_24"
+                                    android:drawablePadding="8dp"
+                                    android:gravity="center_vertical"
+                                    android:hint="@string/mentor_email_hint"
+                                    android:maxLines="1"
+                                    android:layout_marginTop="16dp"
+                                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                                    android:textColor="@android:color/black" />
 
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/course_details_mentorPhone_text"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:hint="@string/mentor_phone_hint"
-                                        android:inputType="phone"
-                                        android:maxLines="1" />
-                                </com.google.android.material.textfield.TextInputLayout>
+<!--                                <com.google.android.material.textfield.TextInputLayout-->
+<!--                                    android:id="@+id/course_mentorEmail_layout"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="match_parent"-->
+<!--                                    android:layout_marginTop="8dp"-->
+<!--                                    app:startIconDrawable="@drawable/ic_baseline_email_24">-->
+
+<!--                                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                                        android:id="@+id/course_details_mentorEmail_text"-->
+<!--                                        android:layout_width="match_parent"-->
+<!--                                        android:layout_height="wrap_content"-->
+<!--                                        android:hint="@string/mentor_email_hint"-->
+<!--                                        android:inputType="textEmailAddress"-->
+<!--                                        android:maxLines="1" />-->
+<!--                                </com.google.android.material.textfield.TextInputLayout>-->
+
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/course_details_mentorPhone_text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawableStart="@drawable/ic_baseline_phone_24"
+                                    android:drawablePadding="8dp"
+                                    android:gravity="center_vertical"
+                                    android:hint="@string/mentor_phone_hint"
+                                    android:maxLines="1"
+                                    android:layout_marginTop="16dp"
+                                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                                    android:textColor="@android:color/black" />
+
+<!--                                <com.google.android.material.textfield.TextInputLayout-->
+<!--                                    android:id="@+id/course_mentorPhone_layout"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="match_parent"-->
+<!--                                    android:layout_marginTop="8dp"-->
+<!--                                    android:layout_marginBottom="16dp"-->
+<!--                                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                                    app:startIconDrawable="@drawable/ic_baseline_phone_24">-->
+
+<!--                                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                                        android:id="@+id/course_details_mentorPhone_text"-->
+<!--                                        android:layout_width="match_parent"-->
+<!--                                        android:layout_height="wrap_content"-->
+<!--                                        android:hint="@string/mentor_phone_hint"-->
+<!--                                        android:inputType="phone"-->
+<!--                                        android:maxLines="1" />-->
+<!--                                </com.google.android.material.textfield.TextInputLayout>-->
 
                             </LinearLayout>
 
@@ -268,32 +310,25 @@
                 </com.google.android.material.card.MaterialCardView>
 
 
-
-
-
-
-
-
-
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#ffe9d0"
                 android:layout_marginTop="16dp"
+                android:background="#ffe9d0"
                 android:orientation="vertical">
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/courseTabLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:tabGravity="center"
-                    app:tabMode="scrollable"
-                    app:tabIndicatorColor="@color/primaryLightColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/course_primary_details_layout">
+                    app:layout_constraintTop_toBottomOf="@+id/course_primary_details_layout"
+                    app:tabGravity="center"
+                    app:tabIndicatorColor="@color/courseColorLight"
+                    app:tabMode="scrollable">
 
                     <com.google.android.material.tabs.TabItem
                         android:id="@+id/assessments_tab_item"
@@ -309,7 +344,6 @@
                     android:id="@+id/courseViewPager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#ffe9d0"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/courseTabLayout">

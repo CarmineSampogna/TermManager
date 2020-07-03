@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 
@@ -46,11 +47,11 @@ public class CourseDetailsActivity extends AppCompatActivity {
     private LinearLayout noMentorInfoLayout;
     private LinearLayout mentorInfoLayout;
     private TextInputLayout mentorNameLayout;
-    private TextInputEditText mentorNameTextView;
+    private TextView mentorNameTextView;
     private TextInputLayout mentorEmailLayout;
-    private TextInputEditText mentorEmailTextView;
+    private TextView mentorEmailTextView;
     private TextInputLayout mentorPhoneLayout;
-    private TextInputEditText mentorPhoneTextView;
+    private TextView mentorPhoneTextView;
     private TextInputEditText titleEditText;
     private TabLayout courseTabLayout;
     private ViewPager2 courseViewPager;
@@ -139,7 +140,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
             int visibility = s != null && !s.isEmpty() ?
                     View.VISIBLE : View.GONE;
 
-            mentorNameLayout.setVisibility(visibility);
+            mentorNameTextView.setVisibility(visibility);
         };
 
         final Observer<String> mentorPhoneObserver = s -> {
@@ -148,7 +149,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
             int visibility = s != null && !s.isEmpty() ?
                     View.VISIBLE : View.GONE;
 
-            mentorPhoneLayout.setVisibility(visibility);
+            mentorPhoneTextView.setVisibility(visibility);
         };
 
         final Observer<String> mentorEmailObserver = s -> {
@@ -157,7 +158,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
             int visibility = s != null && !s.isEmpty() ?
                     View.VISIBLE : View.GONE;
 
-            mentorEmailLayout.setVisibility(visibility);
+            mentorEmailTextView.setVisibility(visibility);
         };
 
         viewModel.title.observe(this, titleObserver);
@@ -198,11 +199,11 @@ public class CourseDetailsActivity extends AppCompatActivity {
         statusTextView = findViewById(R.id.course_details_status_textView);
         noMentorInfoLayout = findViewById(R.id.noMentorInfo_layout);
         mentorInfoLayout = findViewById(R.id.mentorInfo_layout);
-        mentorNameLayout = findViewById(R.id.course_mentorName_layout);
+        //mentorNameLayout = findViewById(R.id.course_mentorName_layout);
         mentorNameTextView = findViewById(R.id.course_details_mentorName_text);
-        mentorPhoneLayout = findViewById(R.id.course_mentorPhone_layout);
+        //mentorPhoneLayout = findViewById(R.id.course_mentorPhone_layout);
         mentorPhoneTextView = findViewById(R.id.course_details_mentorPhone_text);
-        mentorEmailLayout = findViewById(R.id.course_mentorEmail_layout);
+        //mentorEmailLayout = findViewById(R.id.course_mentorEmail_layout);
         mentorEmailTextView = findViewById(R.id.course_details_mentorEmail_text);
         courseTabLayout = findViewById(R.id.courseTabLayout);
         courseViewPager = findViewById(R.id.courseViewPager);

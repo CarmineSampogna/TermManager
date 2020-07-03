@@ -2,6 +2,8 @@ package com.csampog.termmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.csampog.termmanager.adapters.CourseAdapter;
 import com.csampog.termmanager.messaging.CoursesFilter;
@@ -9,11 +11,14 @@ import com.csampog.termmanager.messaging.interfaces.CourseSelectedListener;
 import com.csampog.termmanager.model.Course;
 import com.csampog.termmanager.viewmodels.AllCoursesViewModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,16 +32,26 @@ public class AllCoursesActivity extends AppCompatActivity {
     private CourseAdapter adapter;
     private CoursesFilter coursesFilter = CoursesFilter.ALL;
     private RecyclerView coursesRecyclerView;
+    private FloatingActionButton addCourseButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_courses);
 
-        Intent intent = getIntent();
-
         CollapsingToolbarLayout toolbarLayout = findViewById(R.id.coursesToolbar);
         toolbarLayout.setTitle(getString(R.string.courses_title));
+
+        Toolbar toolbar = findViewById(R.id.all_courses_toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        addCourseButton = findViewById(R.id.all_courses_add);
+        addCourseButton.setOnClickListener(v -> {
+            Intent i = new Intent(AllCoursesActivity.this, AddNewCourseActivity.class);
+            startActivity(i);
+        });
 
         coursesRecyclerView = findViewById(R.id.all_courses_recycler);
         coursesRecyclerView.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.grid_layout_columns)));
@@ -73,4 +88,9 @@ public class AllCoursesActivity extends AppCompatActivity {
         viewModel.courses.observe(this, courseObserver);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return true;
+    }
 }

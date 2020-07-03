@@ -133,15 +133,6 @@ public class NoteActivity extends AppCompatActivity {
 
         deleteButton = findViewById(R.id.note_delete_button);
 
-//        if(!isNewNote) {
-//            deleteButton.setOnClickListener(v -> {
-//                viewModel.deleteNote();
-//                finish();
-//            });
-//        }else{
-//            deleteButton.setVisibility(View.INVISIBLE);
-//        }
-
         if(isNewNote){
             courseId = intent.getIntExtra(COURSE_ID_PARAM, 0);
             viewModel.setCourseId(courseId);
@@ -176,7 +167,6 @@ public class NoteActivity extends AppCompatActivity {
             tb.setText(R.string.note_details_title);
         }
 
-        toolbar.setTitle("TESTING");
         setSupportActionBar(toolbar);
     }
 }

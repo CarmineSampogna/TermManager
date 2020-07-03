@@ -61,12 +61,11 @@ public class HomeScreenActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
 
-        latestTermView = findViewById(R.id.latest_term_view);
+
         latestTermFrame = findViewById(R.id.latest_term_frame);
         noLatestTermLayout = findViewById(R.id.no_latest_term_layout);
         viewAllTermsButton = findViewById(R.id.view_all_terms);
 
-        currentCourseView = findViewById(R.id.latest_course_view);
         currentCourseFrame = findViewById(R.id.latest_course_frame);
         noCurrentCourseLayout = findViewById(R.id.no_latest_course_layout);
         viewAllCoursesButton = findViewById(R.id.view_all_courses);
@@ -75,9 +74,12 @@ public class HomeScreenActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        nextAssessmentView = findViewById(R.id.next_assessment);
+
         nextAssessmentFrame = findViewById(R.id.next_assessment_frame);
+
         noAssessmentLayout = findViewById(R.id.no_assessment_layout);
+
+
         viewAllAssessmentsButton = findViewById(R.id.view_all_assessments);
         viewAllAssessmentsButton.setOnClickListener(v -> {
             Intent intent = new Intent(HomeScreenActivity.this, AllAssessmentsActivity.class);
@@ -101,7 +103,11 @@ public class HomeScreenActivity extends AppCompatActivity {
             nextAssessment = a.isPresent() ? a.get() : null;
             if (nextAssessment != null) {
 
-                nextAssessmentView = getLayoutInflater().inflate(R.layout.assessment_list_item, nextAssessmentFrame);
+                if(nextAssessmentView == null){
+
+                    nextAssessmentView = findViewById(R.id.next_assessment);
+                    nextAssessmentView = getLayoutInflater().inflate(R.layout.assessment_list_item, nextAssessmentFrame);
+                }
                 TextView titleTextView = nextAssessmentView.findViewById(R.id.assessment_list_item_title);
                 titleTextView.setText(nextAssessment.getTitle());
 
@@ -117,7 +123,9 @@ public class HomeScreenActivity extends AppCompatActivity {
                 noAssessmentLayout.setVisibility(View.INVISIBLE);
             } else {
                 noAssessmentLayout.setVisibility(View.VISIBLE);
-                nextAssessmentView.setVisibility(View.INVISIBLE);
+                if(nextAssessmentView != null) {
+                    nextAssessmentView.setVisibility(View.INVISIBLE);
+                }
             }
         };
 
@@ -130,7 +138,18 @@ public class HomeScreenActivity extends AppCompatActivity {
             currentCourse = c.isPresent() ? c.get() : null;
             if (currentCourse != null) {
 
-                currentCourseView = getLayoutInflater().inflate(R.layout.course_list_item, currentCourseFrame);
+                if (currentCourseView == null) {
+
+                    currentCourseView = findViewById(R.id.latest_course_view);
+                    currentCourseView = getLayoutInflater().inflate(R.layout.course_list_item, currentCourseFrame);
+                    currentCourseView.setOnClickListener(v -> {
+
+                        Intent intent = new Intent(HomeScreenActivity.this, CourseDetailsActivity.class);
+                        intent.putExtra(CourseDetailsActivity.COURSE_ID_KEY, currentCourse.getCourseId());
+                        startActivity(intent);
+                    });
+                }
+
                 TextView courseTitleText = currentCourseView.findViewById(R.id.course_list_item_title);
                 courseTitleText.setText(currentCourse.getTitle());
 
@@ -144,19 +163,15 @@ public class HomeScreenActivity extends AppCompatActivity {
                 TextView endText = currentCourseView.findViewById(R.id.course_list_item_end);
                 endText.setText(df.format(currentCourse.getAnticipatedEndDate()));
 
-                currentCourseView.setOnClickListener(v -> {
-
-                    Intent intent = new Intent(HomeScreenActivity.this, CourseDetailsActivity.class);
-                    intent.putExtra(CourseDetailsActivity.COURSE_ID_KEY, currentCourse.getCourseId());
-                    startActivity(intent);
-                });
 
                 currentCourseView.setVisibility(View.VISIBLE);
                 noCurrentCourseLayout.setVisibility(View.INVISIBLE);
             } else {
 
                 noCurrentCourseLayout.setVisibility(View.VISIBLE);
-                currentCourseView.setVisibility(View.INVISIBLE);
+                if(currentCourseView != null) {
+                    currentCourseView.setVisibility(View.INVISIBLE);
+                }
             }
         };
 
@@ -170,18 +185,21 @@ public class HomeScreenActivity extends AppCompatActivity {
 
             latestTerm = t.isPresent() ? t.get() : null;
             if (latestTerm != null) {
+                if (latestTermView == null) {
+                    latestTermView = findViewById(R.id.latest_term_view);
+                    latestTermView = getLayoutInflater().inflate(R.layout.term_list_item, latestTermFrame);
+                    latestTermView.setOnClickListener(v -> {
 
-                latestTermView = getLayoutInflater().inflate(R.layout.term_list_item, latestTermFrame);
+                        Intent intent = new Intent(this, TermDetailsActivity.class);
+                        intent.putExtra(TermDetailsActivity.TERM_ID_KEY, latestTerm.getTermId());
+                        startActivity(intent);
+                    });
+                }
                 TextView titleView = latestTermView.findViewById(R.id.term_list_item_title);
                 titleView.setText(latestTerm.getTitle());
                 TextView start = latestTermView.findViewById(R.id.term_list_item_start);
                 TextView end = latestTermView.findViewById(R.id.term_list_item_end);
-                latestTermView.setOnClickListener(v -> {
 
-                    Intent intent = new Intent(this, TermDetailsActivity.class);
-                    intent.putExtra(TermDetailsActivity.TERM_ID_KEY, latestTerm.getTermId());
-                    startActivity(intent);
-                });
 
                 SimpleDateFormat df = new SimpleDateFormat("MMM d, yyyy");
                 start.setText(df.format(latestTerm.getStart()));
@@ -190,7 +208,9 @@ public class HomeScreenActivity extends AppCompatActivity {
                 noLatestTermLayout.setVisibility(View.INVISIBLE);
                 latestTermView.setVisibility(View.VISIBLE);
             } else {
-                latestTermView.setVisibility(View.INVISIBLE);
+                if (latestTermView != null) {
+                    latestTermView.setVisibility(View.INVISIBLE);
+                }
                 noLatestTermLayout.setVisibility(View.VISIBLE);
             }
         };

@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:layout_scrollInterpolator="@android:anim/decelerate_interpolator"
 
             app:toolbarId="@+id/toolbar">
@@ -33,7 +33,8 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/add_course_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"></androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -121,107 +122,143 @@
             </LinearLayout>
 
 
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="@string/course_status_label"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-
-            <RadioGroup
-                android:id="@+id/add_course_status_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/add_course_status_inProgress_option"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/course_in_progress" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/add_course_status_completed_option"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/course_completed" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/add_course_status_dropped_option"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/course_dropped" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/add_course_status_planToTake_option"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/course_plan_to_take" />
-            </RadioGroup>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/course_mentorName_layout"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:startIconDrawable="@drawable/ic_baseline_person_24">
+                android:layout_margin="8dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="8dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/course_mentorName_text"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/mentor_name_hint"
-                    android:inputType="textPersonName"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/course_mentorEmail_layout"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/primaryColor"
+                        android:padding="8dp"
+                        android:text="@string/course_status_label"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:id="@+id/add_course_status_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/add_course_status_planToTake_option"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/course_plan_to_take" />
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/add_course_status_inProgress_option"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/course_in_progress" />
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/add_course_status_completed_option"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/course_completed" />
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/add_course_status_dropped_option"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/course_dropped" />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:startIconDrawable="@drawable/ic_baseline_email_24">
+                android:layout_margin="8dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="8dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/course_mentorEmail_text"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/mentor_email_hint"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/course_mentorPhone_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:startIconDrawable="@drawable/ic_baseline_phone_24">
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/primaryColor"
+                        android:padding="8dp"
+                        android:text="@string/mentor_info"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textStyle="bold" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/course_mentorPhone_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/mentor_phone_hint"
-                    android:inputType="phone"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/course_mentorName_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:startIconDrawable="@drawable/ic_baseline_person_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/course_mentorName_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/mentor_name_hint"
+                            android:inputType="textPersonName"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/course_mentorEmail_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:startIconDrawable="@drawable/ic_baseline_email_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/course_mentorEmail_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/mentor_email_hint"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/course_mentorPhone_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:startIconDrawable="@drawable/ic_baseline_phone_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/course_mentorPhone_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/mentor_phone_hint"
+                            android:inputType="phone"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 

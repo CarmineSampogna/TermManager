@@ -68,15 +68,37 @@ public class EditCourseViewModel extends AndroidViewModel {
         course = courseRepository.getCourseById(this.courseId);
         title = Transformations.map(course, c -> {
             formattedStartDate.setValue(dateFormat.format(c.getStartDate()));
+            startDateInput = c.getStartDate();
             formattedEndDate.setValue(dateFormat.format(c.getAnticipatedEndDate()));
+            endDateInput = c.getAnticipatedEndDate();
             termId = c.getTermId();
+            titleInput = c.getTitle();
             return c.getTitle();
         });
+
+        status = Transformations.map(course, c -> {
+            statusInput = c.getStatus();
+            return c.getStatus();
+        });
+
+        mentorName = Transformations.map(course, c -> {
+            mentorNameInput = c.getMentorName();
+            return c.getMentorName();
+        });
+        mentorEmail = Transformations.map(course, c -> {
+            mentorEmailInput = c.getMentorEmail();
+            return c.getMentorEmail();
+        });
+        mentorPhone = Transformations.map(course, c -> {
+            mentorPhoneInput = c.getMentorPhone();
+            return c.getMentorPhone();
+        });
+
         status = Transformations.map(course, c -> c.getStatus());
     }
 
     public void saveCourse() {
-
+        updateCanSave();
         if (canSave.getValue()) {
             canSave.setValue(false);
 

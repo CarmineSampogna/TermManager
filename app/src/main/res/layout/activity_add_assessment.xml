@@ -20,7 +20,7 @@
             android:foregroundTint="#CCFF8A65"
             app:contentScrim="?attr/colorPrimary"
 
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            app:layout_scrollFlags="noScroll"
             app:layout_scrollInterpolator="@android:anim/decelerate_interpolator">
 
             <ImageView
@@ -31,7 +31,7 @@
                 android:src="@drawable/pencils_books" />
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/assessment_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -48,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_marginTop="8dp"
             tools:context=".AddAssessmentActivity">
 
             <com.google.android.material.textfield.TextInputLayout

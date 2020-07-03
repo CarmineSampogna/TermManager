@@ -16,7 +16,7 @@
             android:id="@+id/coursesHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/assessmentColor"
+            android:background="@color/courseColor"
             android:elevation="8dp">
 
 

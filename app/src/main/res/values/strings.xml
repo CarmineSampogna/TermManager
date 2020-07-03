@@ -11,7 +11,7 @@
     <string name="from_label">Start</string>
     <string name="to_label">End</string>
     <string name="term_name_label">Term Name</string>
-    <string name="add_a_course">Add</string>
+    <string name="add_a_course">Add a Course</string>
     <string name="add_course_title">New Course</string>
     <string name="param_termId">termId</string>
     <string name="term_end_picker_title">Term End Date</string>
@@ -23,7 +23,7 @@
     <string name="course_delete_text">Delete</string>
     <string name="course_name_label">Course name</string>
     <string name="assessments_title">Assessments</string>
-    <string name="add_assessment">Add</string>
+    <string name="add_assessment">Add Assessment</string>
     <string name="notes_title">Notes</string>
     <string name="status_title">Status</string>
     <string name="edit_label">Edit</string>
@@ -43,9 +43,9 @@
     <string name="course_plan_to_take">Plan to Take</string>
     <string name="course_status_label">Status</string>
     <string name="edit_course_title">Edit Course</string>
-    <string name="mentor_name_hint">Mentor name</string>
-    <string name="mentor_phone_hint">Mentor phone</string>
-    <string name="mentor_email_hint">Mentor email</string>
+    <string name="mentor_name_hint">Name</string>
+    <string name="mentor_phone_hint">Phone number</string>
+    <string name="mentor_email_hint">Email address</string>
     <string name="note_title_hint">Title</string>
     <string name="note_text_hint">Note</string>
     <string name="new_note_title">New Note</string>
@@ -85,4 +85,5 @@
     <string name="next_assessment_title">Next Assessment</string>
     <string name="mentor_label">Mentor</string>
     <string name="share_note">Share your note</string>
+    <string name="mentor_info">Mentor Info</string>
 </resources>

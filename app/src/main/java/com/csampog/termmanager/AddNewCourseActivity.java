@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -18,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.OptionalInt;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
@@ -41,6 +43,11 @@ public class AddNewCourseActivity extends AppCompatActivity {
     private OptionalInt termId = OptionalInt.empty();
     private AddCourseViewModel viewModel;
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +65,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
         }
 
 
-        Toolbar toolbar = findViewById(R.id.add_course_toolbar);
-        int activityTitleRes = R.string.add_course_title;
-        toolbar.setTitle(activityTitleRes);
+        initToolbar();
 
         statusRadioGroup = findViewById(R.id.add_course_status_group);
         statusRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -83,6 +88,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
             viewModel.updateCanSave();
         });
 
+
         saveButton = findViewById(R.id.add_course_save);
         saveButton.setOnClickListener(v -> {
             try {
@@ -100,6 +106,22 @@ public class AddNewCourseActivity extends AppCompatActivity {
             }
         });
         initTitleText();
+        initMentorFields();
+
+        initDateButtons();
+        initViewModel();
+        statusRadioGroup.check(R.id.add_course_status_planToTake_option);
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.add_course_toolbar);
+        int activityTitleRes = R.string.add_course_title;
+        toolbar.setTitle(activityTitleRes);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void initMentorFields() {
         mentorNameText = findViewById(R.id.course_mentorName_text);
         mentorNameText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -153,9 +175,6 @@ public class AddNewCourseActivity extends AppCompatActivity {
                 viewModel.mentorPhone.setValue(s.toString());
             }
         });
-
-        initDateButtons();
-        initViewModel();
     }
 
     private void initTitleText() {

@@ -72,11 +72,12 @@ public class AddCourseViewModel extends CourseViewModelBase {
 
     public void updateCanSave() {
 
-        boolean validTitle = title != null && title.getValue().length() > 1;
+        boolean validTitle = title.getValue() != null &&
+                title.getValue().length() > 1;
         boolean validDates = endDate != null &&
                 startDate != null &&
                 endDate.after(startDate);
-        boolean validStatus = status != null;
+        boolean validStatus = status.getValue() != null;
 
         canSave.setValue(validTitle && validDates && validStatus);
     }

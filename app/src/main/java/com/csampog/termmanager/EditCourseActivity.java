@@ -71,26 +71,23 @@ public class EditCourseActivity extends AppCompatActivity {
         toolbar.setTitle(activityTitleRes);
 
         statusRadioGroup = findViewById(R.id.add_course_status_group);
-        statusRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                String status = "";
-                switch (checkedId) {
-                    case R.id.add_course_status_completed_option:
-                        status = Course.COMPLETED;
-                        break;
-                    case R.id.add_course_status_dropped_option:
-                        status = Course.DROPPED;
-                        break;
-                    case R.id.add_course_status_inProgress_option:
-                        status = Course.IN_PROGRESS;
-                        break;
-                    case R.id.add_course_status_planToTake_option:
-                        status = Course.PLAN_TO_TAKE;
-                        break;
-                }
-                viewModel.statusInput = status;
+        statusRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            String status = "";
+            switch (checkedId) {
+                case R.id.add_course_status_completed_option:
+                    status = Course.COMPLETED;
+                    break;
+                case R.id.add_course_status_dropped_option:
+                    status = Course.DROPPED;
+                    break;
+                case R.id.add_course_status_inProgress_option:
+                    status = Course.IN_PROGRESS;
+                    break;
+                case R.id.add_course_status_planToTake_option:
+                    status = Course.PLAN_TO_TAKE;
+                    break;
             }
+            viewModel.statusInput = status;
         });
 
         mentorNameText = findViewById(R.id.course_mentorName_text);
@@ -151,18 +148,19 @@ public class EditCourseActivity extends AppCompatActivity {
         saveButton.setOnClickListener(v -> {
             try {
                 viewModel.saveCourse();
-                if (termId.isPresent()) {
-
-                    Intent termIntent = new Intent(EditCourseActivity.this, TermDetailsActivity.class);
-                    termIntent.putExtra(TermDetailsActivity.TERM_ID_KEY, termId.getAsInt());
-                    startActivity(termIntent);
-                }
+//                if (termId.isPresent()) {
+//
+//                    Intent termIntent = new Intent(EditCourseActivity.this, TermDetailsActivity.class);
+//                    termIntent.putExtra(TermDetailsActivity.TERM_ID_KEY, termId.getAsInt());
+//                    startActivity(termIntent);
+//                }
 
                 finish();
             } catch (Exception ex) {
                 Log.e(AddTermActivity.class.getName(), ex.getMessage());
             }
         });
+        saveButton.setVisibility(View.VISIBLE);
         initTitleText();
 
         initDateButtons();
@@ -214,17 +212,40 @@ public class EditCourseActivity extends AppCompatActivity {
 
         final Observer<String> endDateObserver = s -> endText.setText(s);
 
-        final Observer<String> statusObserver = s -> {
+        final Observer<String> mentorNameObserver = s -> mentorNameText.setText(s);
 
-            if (s == getString(R.string.course_completed)) {
-                statusRadioGroup.check(R.id.add_course_status_completed_option);
-            }else if(s == getString(R.string.course_dropped)){
-                statusRadioGroup.check(R.id.add_course_status_dropped_option);
-            }else if (s == getString(R.string.course_in_progress)){
-                statusRadioGroup.check(R.id.add_course_status_inProgress_option);
+        final Observer<String> mentorEmailObserver = s -> mentorEmailText.setText(s);
+
+        final Observer<String> mentorPhoneObserver = s -> mentorPhoneText.setText(s);
+
+//        final Observer<String> statusObserver = s -> {
+//
+//            if (s == getString(R.string.course_completed)) {
+//                statusRadioGroup.check(R.id.add_course_status_completed_option);
+//            }else if(s == getString(R.string.course_dropped)){
+//                statusRadioGroup.check(R.id.add_course_status_dropped_option);
+//            }else if (s == getString(R.string.course_in_progress)){
+//                statusRadioGroup.check(R.id.add_course_status_inProgress_option);
+//            }else{
+//                statusRadioGroup.check(R.id.add_course_status_planToTake_option);
+//            }
+//        };
+
+
+
+        final Observer<String> statusObserver = s -> {
+            int checkedId = 0;
+
+            if(s.contentEquals(Course.PLAN_TO_TAKE)){
+                checkedId = R.id.add_course_status_planToTake_option;
+            }else if( s.contentEquals(Course.IN_PROGRESS)){
+                checkedId = R.id.add_course_status_inProgress_option;
+            }else if(s.contentEquals(Course.COMPLETED)){
+                checkedId = R.id.add_course_status_completed_option;
             }else{
-                statusRadioGroup.check(R.id.add_course_status_planToTake_option);
+                checkedId = R.id.add_course_status_dropped_option;
             }
+            statusRadioGroup.check(checkedId);
         };
 
 
@@ -237,10 +258,13 @@ public class EditCourseActivity extends AppCompatActivity {
         };
 
         viewModel.title.observe(this, titleObserver);
+        viewModel.mentorName.observe(this, mentorNameObserver);
+        viewModel.mentorEmail.observe(this, mentorEmailObserver);
+        viewModel.mentorPhone.observe(this, mentorPhoneObserver);
         viewModel.formattedStartDate.observe(this, startDateObserver);
         viewModel.formattedEndDate.observe(this, endDateObserver);
         viewModel.status.observe(this, statusObserver);
-        viewModel.canSave.observe(this, canSaveObserver);
+        //viewModel.canSave.observe(this, canSaveObserver);
 
     }
 

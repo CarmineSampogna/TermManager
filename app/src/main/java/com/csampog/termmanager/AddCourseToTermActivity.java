@@ -2,6 +2,7 @@ package com.csampog.termmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.csampog.termmanager.adapters.CourseAdapter;
@@ -14,7 +15,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -33,22 +36,23 @@ public class AddCourseToTermActivity extends AppCompatActivity {
     private int termId;
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course_to_term);
-
         parseTermId();
-
         initToolbar();
 
         addNewButton = findViewById(R.id.courseTerm_add_new);
-        addNewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddCourseToTermActivity.this, AddNewCourseActivity.class);
-                intent.putExtra(AddCourseToTermActivity.TERM_ID_PARAM, termId);
-                startActivity(intent);
-            }
+        addNewButton.setOnClickListener(v -> {
+            Intent intent = new Intent(AddCourseToTermActivity.this, AddNewCourseActivity.class);
+            intent.putExtra(AddCourseToTermActivity.TERM_ID_PARAM, termId);
+            startActivity(intent);
         });
 
         initRecyclerView();
@@ -93,6 +97,10 @@ public class AddCourseToTermActivity extends AppCompatActivity {
     private void initToolbar() {
         CollapsingToolbarLayout toolbarLayout = findViewById(R.id.courseTerm_toolbar);
         toolbarLayout.setTitle(getString(R.string.courseTerm_title));
+
+        Toolbar toolbar = findViewById(R.id.add_to_term_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void parseTermId() {
