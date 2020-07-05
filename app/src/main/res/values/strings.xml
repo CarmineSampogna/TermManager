@@ -86,4 +86,5 @@
     <string name="mentor_label">Mentor</string>
     <string name="share_note">Share your note</string>
     <string name="mentor_info">Mentor Info</string>
+    <string name="alerts_label">Alerts</string>
 </resources>

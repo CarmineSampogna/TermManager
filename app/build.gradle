@@ -47,4 +47,8 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
 testImplementation 'android.arch.core:core-testing:1.1.1'
     testImplementation 'android.arch.persistence.room:testing:1.1.1'
+    def work_version = "2.3.4"
+
+    // (Java only)
+    implementation "androidx.work:work-runtime:$work_version"
 }

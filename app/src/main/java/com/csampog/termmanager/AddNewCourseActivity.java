@@ -93,6 +93,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
         saveButton.setOnClickListener(v -> {
             try {
                 viewModel.createCourse();
+
                 if (termId.isPresent()) {
 
                     Intent termIntent = new Intent(AddNewCourseActivity.this, TermDetailsActivity.class);

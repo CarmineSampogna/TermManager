@@ -19,6 +19,9 @@ public class Course {
     private String mentorName;
     private String mentorPhone;
     private String mentorEmail;
+    private Boolean alertsEnabled;
+    private Boolean startAlertPending;
+    private Boolean endAlertPending;
 
     private int termId;
 
@@ -41,7 +44,7 @@ public class Course {
     }
 
     @Ignore
-    public Course(String title, Date startDate, Date anticipatedEndDate, String status, String mentorName, String mentorPhone, String mentorEmail){
+    public Course(String title, Date startDate, Date anticipatedEndDate, String status, String mentorName, String mentorPhone, String mentorEmail, Boolean alertsEnabled, Boolean startAlertPending, Boolean endAlertPending){
 
         this.title = title;
         this.startDate = startDate;
@@ -50,9 +53,12 @@ public class Course {
         this.mentorName = mentorName;
         this.mentorPhone = mentorPhone;
         this.mentorEmail = mentorEmail;
+        this.alertsEnabled = alertsEnabled;
+        this.startAlertPending = startAlertPending;
+        this.endAlertPending = endAlertPending;
     }
 
-    public Course(int courseId, String title, Date startDate, Date anticipatedEndDate, String status, String mentorName, String mentorPhone, String mentorEmail){
+    public Course(int courseId, String title, Date startDate, Date anticipatedEndDate, String status, String mentorName, String mentorPhone, String mentorEmail, Boolean alertsEnabled, Boolean startAlertPending, Boolean endAlertPending){
         this.courseId = courseId;
         this.title = title;
         this.startDate = startDate;
@@ -61,6 +67,9 @@ public class Course {
         this.mentorName = mentorName;
         this.mentorPhone = mentorPhone;
         this.mentorEmail = mentorEmail;
+        this.alertsEnabled = alertsEnabled;
+        this.startAlertPending = startAlertPending;
+        this.endAlertPending = endAlertPending;
     }
 
     public int getTermId() {
@@ -133,5 +142,29 @@ public class Course {
 
     public void setCourseId(int courseId) {
         this.courseId = courseId;
+    }
+
+    public Boolean getAlertsEnabled(){
+        return this.alertsEnabled;
+    }
+
+    public void setAlertsEnabled(Boolean alertsEnabled){
+        this.alertsEnabled = alertsEnabled;
+    }
+
+    public Boolean getStartAlertPending(){
+        return this.startAlertPending;
+    }
+
+    public void setStartAlertPending(Boolean startAlertPending){
+        this.startAlertPending = startAlertPending;
+    }
+
+    public  Boolean getEndAlertPending(){
+        return this.endAlertPending;
+    }
+
+    public void setEndAlertPending(Boolean endAlertPending){
+        this.endAlertPending = endAlertPending;
     }
 }

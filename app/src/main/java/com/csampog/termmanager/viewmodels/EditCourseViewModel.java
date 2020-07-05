@@ -41,6 +41,12 @@ public class EditCourseViewModel extends AndroidViewModel {
 
     public MutableLiveData<Boolean> canSave;
 
+    public LiveData<Boolean> alertsEnabled;
+    public Boolean alertsEnabledInput;
+
+    private boolean startAlertPending;
+    private boolean endAlertPending;
+
     private LiveData<Course> course;
     private int courseId;
 
@@ -94,7 +100,12 @@ public class EditCourseViewModel extends AndroidViewModel {
             return c.getMentorPhone();
         });
 
-        status = Transformations.map(course, c -> c.getStatus());
+        alertsEnabled = Transformations.map(course, c-> {
+           startAlertPending = c.getStartAlertPending();
+           endAlertPending = c.getEndAlertPending();
+           alertsEnabledInput = c.getAlertsEnabled();
+           return c.getAlertsEnabled();
+        });
     }
 
     public void saveCourse() {
@@ -110,7 +121,10 @@ public class EditCourseViewModel extends AndroidViewModel {
                         statusInput,
                         mentorNameInput,
                         mentorPhoneInput,
-                        mentorEmailInput);
+                        mentorEmailInput,
+                        alertsEnabledInput,
+                        alertsEnabledInput && startAlertPending,
+                        alertsEnabledInput && endAlertPending);
 
                 modifiedCourse.setTermId(termId);
                 courseRepository.insertOrUpdate(modifiedCourse);

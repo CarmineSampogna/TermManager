@@ -47,6 +47,10 @@ public class CourseRepository extends RepositoryBase {
         return dbContext.courseDao().getCoursesForTerm(termId);
     }
 
+    public List<Course> getCoursesForAlerts(){
+        return dbContext.courseDao().getCoursesForAlerts();
+    }
+
     public void insertOrUpdate(Course course) {
         if (course == null) throw new NullPointerException(Course.class.getName());
         final Course fCourse = course;

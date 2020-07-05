@@ -20,6 +20,5 @@ public class AllTermsViewModel extends AndroidViewModel {
         super(application);
         repository = TermRepository.getInstance(application.getBaseContext());
         allTerms = repository.terms;
-        repository.AddSampleData();
     }
 }

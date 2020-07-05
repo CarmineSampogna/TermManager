@@ -1,5 +1,8 @@
 package com.csampog.termmanager;
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -26,9 +29,13 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
@@ -56,6 +63,25 @@ public class HomeScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        JobScheduler mScheduler;
+        mScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+//        int jobId = 1;
+//        JobInfo existingJob = mScheduler.getPendingJob(jobId);
+//        if(existingJob == null){
+//            ComponentName serviceName = new ComponentName(getPackageName(),
+//                    NotificationJobService.class.getName());
+//            JobInfo.Builder builder = new JobInfo.Builder(jobId, serviceName);
+//            builder.
+//        }
+//        WorkManager wm = WorkManager.getInstance(this);
+//        PeriodicWorkRequest saveRequest =
+//                new PeriodicWorkRequest.Builder(NotificationWorkManager.class, 10, TimeUnit.MINUTES)
+//                        .setInitialDelay(1, TimeUnit.MINUTES)
+//                        .build();
+//        wm.enqueue(saveRequest);
+
         setContentView(R.layout.activity_home_screen);
         Toolbar toolbar = findViewById(R.id.home_toolbar);
         toolbar.setTitle(R.string.app_name);

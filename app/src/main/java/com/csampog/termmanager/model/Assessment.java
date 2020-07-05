@@ -16,6 +16,7 @@ public class Assessment {
     private String testType;
     private Date goalDate;
     private int courseId;
+    private Boolean alertsEnabled;
 
     @Ignore
     public Assessment(){
@@ -23,20 +24,22 @@ public class Assessment {
     }
 
     @Ignore
-    public Assessment(String title, String testType, Date goalDate, int courseId){
+    public Assessment(String title, String testType, Date goalDate, int courseId, Boolean alertsEnabled){
 
         this.title = title;
         this.testType = testType;
         this.goalDate = goalDate;
         this.courseId = courseId;
+        this.alertsEnabled = alertsEnabled;
     }
 
-    public Assessment(int assessmentId, String title, String testType, Date goalDate, int courseId){
+    public Assessment(int assessmentId, String title, String testType, Date goalDate, int courseId, Boolean alertsEnabled){
         this.assessmentId = assessmentId;
         this.title = title;
         this.testType = testType;
         this.goalDate = goalDate;
         this.courseId = courseId;
+        this.alertsEnabled = alertsEnabled;
     }
 
     public int getAssessmentId() {
@@ -82,6 +85,14 @@ public class Assessment {
 
     public void setCourseId(int courseId) {
         this.courseId = courseId;
+    }
+
+    public Boolean getAlertsEnabled(){
+        return this.alertsEnabled;
+    }
+
+    public void setAlertsEnabled(Boolean alertsEnabled){
+        this.alertsEnabled = alertsEnabled;
     }
 
 }

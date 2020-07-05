@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".HomeScreenActivity"
             android:label="@string/title_activity_home_screen">
@@ -36,7 +37,9 @@
         <activity
             android:name=".TermDetailsActivity"
             android:parentActivityName=".AllTermsActivity" />
-        <activity android:name=".AllTermsActivity" android:parentActivityName=".HomeScreenActivity">
+        <activity
+            android:name=".AllTermsActivity"
+            android:parentActivityName=".HomeScreenActivity">
 
         </activity>
         <activity android:name=".MainActivity" />
