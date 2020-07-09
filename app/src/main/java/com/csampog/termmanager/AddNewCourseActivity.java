@@ -1,5 +1,6 @@
 package com.csampog.termmanager;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,22 +9,23 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-
-import com.csampog.termmanager.dataAccess.repositories.CourseRepository;
-import com.csampog.termmanager.model.Course;
-import com.csampog.termmanager.viewmodels.AddCourseViewModel;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.OptionalInt;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.csampog.termmanager.model.Course;
+import com.csampog.termmanager.viewmodels.AddCourseViewModel;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.OptionalInt;
 
 public class AddNewCourseActivity extends AppCompatActivity {
 
@@ -38,6 +40,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
     private EditText mentorEmailText;
     private EditText mentorPhoneText;
     private RadioGroup statusRadioGroup;
+    private Switch alertSwitch;
 
 
     private OptionalInt termId = OptionalInt.empty();
@@ -84,34 +87,57 @@ public class AddNewCourseActivity extends AppCompatActivity {
                     status = Course.PLAN_TO_TAKE;
                     break;
             }
-            viewModel.status.setValue(status);
-            viewModel.updateCanSave();
+            viewModel.setStatus(status);
         });
 
 
         saveButton = findViewById(R.id.add_course_save);
         saveButton.setOnClickListener(v -> {
             try {
-                viewModel.createCourse();
 
-                if (termId.isPresent()) {
+                StringBuilder errorBuilder = new StringBuilder();
+                boolean canSave = true;
 
-                    Intent termIntent = new Intent(AddNewCourseActivity.this, TermDetailsActivity.class);
-                    termIntent.putExtra(TermDetailsActivity.TERM_ID_KEY, termId.getAsInt());
-                    startActivity(termIntent);
+                if (titleText.getText() == null || titleText.getText().length() < 3) {
+                    canSave = false;
+                    errorBuilder.append("Title must be at least 3 characters");
                 }
 
-                finish();
+                if (viewModel.formattedStartDate.getValue() == null) {
+                    canSave = false;
+                    errorBuilder.append("Start date must be set");
+                }
+
+                if (canSave) {
+
+                    viewModel.createCourse();
+                    finish();
+                } else {
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                    alertDialogBuilder.setTitle(R.string.course_save_error_title);
+                    alertDialogBuilder.setMessage(errorBuilder.toString());
+                    alertDialogBuilder.setPositiveButton(R.string.ok_button_text, (dialog, which) -> dialog.dismiss());
+                    alertDialogBuilder.show();
+                }
+
             } catch (Exception ex) {
                 Log.e(AddTermActivity.class.getName(), ex.getMessage());
             }
         });
         initTitleText();
+
+        alertSwitch = findViewById(R.id.course_alerts_switch);
+        alertSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                viewModel.alertsEnabled.setValue(isChecked);
+            }
+        });
         initMentorFields();
 
         initDateButtons();
         initViewModel();
-        statusRadioGroup.check(R.id.add_course_status_planToTake_option);
     }
 
     private void initToolbar() {
@@ -208,8 +234,9 @@ public class AddNewCourseActivity extends AppCompatActivity {
     private void initViewModel() {
 
         viewModel = new ViewModelProvider(getViewModelStore(), new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(AddCourseViewModel.class);
+        viewModel.setStatus(Course.PLAN_TO_TAKE);
 
-        if (termId.isPresent()) {
+        if (termId.isPresent() && termId.getAsInt() > 0) {
             viewModel.setTermId(termId.getAsInt());
         }
 

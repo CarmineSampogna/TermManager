@@ -4,9 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 
 import com.csampog.termmanager.dataAccess.repositories.AssessmentRepository;
 import com.csampog.termmanager.model.Assessment;
@@ -23,6 +21,7 @@ public class AddAssessmentViewModel extends AndroidViewModel {
     public MutableLiveData<String> formattedGoalDate;
     public MutableLiveData<Boolean> canSave;
     public MutableLiveData<Boolean> isReadOnly;
+    public MutableLiveData<Boolean> alertsEnabled;
 
     private int courseId;
     private AssessmentRepository assessmentRepository;
@@ -37,6 +36,7 @@ public class AddAssessmentViewModel extends AndroidViewModel {
         titleInput = new MutableLiveData<>();
         canSave = new MutableLiveData<>();
         isReadOnly = new MutableLiveData<>();
+        alertsEnabled = new MutableLiveData<>();
         assessmentRepository = AssessmentRepository.getInstance(application);
     }
 
@@ -92,6 +92,7 @@ public class AddAssessmentViewModel extends AndroidViewModel {
         target.setGoalDate(goalDate);
         target.setTestType(assessmentType);
         target.setCourseId(courseId);
+        target.setAlertsEnabled(alertsEnabled.getValue());
         assessmentRepository.insertOrUpdate(target);
     }
 }

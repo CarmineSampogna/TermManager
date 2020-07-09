@@ -61,11 +61,9 @@ public class EditCourseViewModel extends AndroidViewModel {
         formattedStartDate = new MutableLiveData<>();
         formattedEndDate = new MutableLiveData<>();
         status = new MutableLiveData<>();
-        mentorName = new MutableLiveData<>();
-        mentorEmail = new MutableLiveData<>();
-        mentorPhone = new MutableLiveData<>();
         canSave = new MutableLiveData<>();
         courseRepository = CourseRepository.getInstance(application);
+        alertsEnabledInput = true;
     }
 
     public void setCourseId(int courseId){
@@ -79,6 +77,9 @@ public class EditCourseViewModel extends AndroidViewModel {
             endDateInput = c.getAnticipatedEndDate();
             termId = c.getTermId();
             titleInput = c.getTitle();
+            mentorNameInput = c.getMentorName();
+            mentorPhoneInput = c.getMentorPhone();
+            mentorEmailInput = c.getMentorEmail();
             return c.getTitle();
         });
 

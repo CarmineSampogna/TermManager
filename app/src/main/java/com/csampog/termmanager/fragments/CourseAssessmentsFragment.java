@@ -6,8 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.csampog.termmanager.AddAssessmentActivity;
-import com.csampog.termmanager.AssessmentDetailsActivity;
 import com.csampog.termmanager.R;
 import com.csampog.termmanager.adapters.AssessmentAdapter;
 import com.csampog.termmanager.model.Assessment;
@@ -16,11 +21,6 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +48,7 @@ public class CourseAssessmentsFragment extends Fragment {
         Bundle args = new Bundle();
         args.putInt(COURSE_ID_PARAM, courseId);
         fragment.setArguments(args);
+        fragment.viewModel = viewModel;
         return fragment;
     }
 
@@ -61,17 +62,31 @@ public class CourseAssessmentsFragment extends Fragment {
 
     public void setViewModel(CourseDetailsViewModel viewModel) {
         this.viewModel = viewModel;
+        initViewModel();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        viewModel = new ViewModelProvider(getViewModelStore(), new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(CourseDetailsViewModel.class);
+        viewModel.setCourseId(courseId);
         View view = initView(inflater, container);
 
         initRecyclerView(view);
+        final Observer<List<Assessment>> assessmentsObserver = assessments -> {
+            this.assessments.clear();
+            this.assessments.addAll(assessments);
 
-        initViewModel();
+            if (assessmentAdapter == null) {
+                assessmentAdapter = new AssessmentAdapter(getContext(), R.layout.assessment_list_item, assessments, getActivity());
+                courseAssessmentsRecyclerView.setAdapter(assessmentAdapter);
+            } else {
+                assessmentAdapter.notifyDataSetChanged();
+            }
+        };
+        viewModel.courseAssessments.observe(getViewLifecycleOwner(), assessmentsObserver);
+
+
         return view;
     }
 
@@ -98,18 +113,7 @@ public class CourseAssessmentsFragment extends Fragment {
     }
 
     private void initViewModel() {
-        final Observer<List<Assessment>> assessmentsObserver = assessments -> {
-            this.assessments.clear();
-            this.assessments.addAll(assessments);
 
-            if (assessmentAdapter == null) {
-                assessmentAdapter = new AssessmentAdapter(getContext(), R.layout.assessment_list_item, assessments, getActivity());
-                courseAssessmentsRecyclerView.setAdapter(assessmentAdapter);
-            } else {
-                assessmentAdapter.notifyDataSetChanged();
-            }
-        };
 
-        viewModel.courseAssessments.observe(getViewLifecycleOwner(), assessmentsObserver);
     }
 }

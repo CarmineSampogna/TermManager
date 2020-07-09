@@ -3,24 +3,14 @@ package com.csampog.termmanager.viewmodels;
 import android.app.Application;
 import android.util.Log;
 
-import com.csampog.termmanager.NotificationWorkManager;
-import com.csampog.termmanager.dataAccess.converters.DateConverter;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
+
 import com.csampog.termmanager.model.Course;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.OptionalInt;
-import java.util.concurrent.TimeUnit;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
 public class AddCourseViewModel extends CourseViewModelBase {
 
@@ -39,6 +29,7 @@ public class AddCourseViewModel extends CourseViewModelBase {
 
     public AddCourseViewModel(@NonNull Application application) {
         super(application);
+        termId = OptionalInt.empty();
         title = new MutableLiveData<>();
         formattedStartDate = new MutableLiveData<>();
         formattedEndDate = new MutableLiveData<>();
@@ -60,6 +51,13 @@ public class AddCourseViewModel extends CourseViewModelBase {
     public void setTitle(String title) {
 
         this.title.setValue(title);
+        updateCanSave();
+    }
+
+    public void setStatus(String status) {
+        this.status.setValue(status);
+        updateCanSave();
+        ;
     }
 
     public void setDate(int year, int month, int dayOfMonth, boolean isStartDate) {
@@ -122,15 +120,8 @@ public class AddCourseViewModel extends CourseViewModelBase {
                 courseRepository.insertOrUpdate(course);
                 int size = courseRepository.courses.getValue().size();
 
-                long ts = startDate.toInstant().minus(1, ChronoUnit.DAYS).toEpochMilli();
-                DateConverter.fromTimestamp(ts);
-
-                    WorkManager wm = WorkManager.getInstance(getApplication());
-                    PeriodicWorkRequest saveRequest =
-                            new PeriodicWorkRequest.Builder(NotificationWorkManager.class, 15, TimeUnit.MINUTES)
-                                    .setInitialDelay(1, TimeUnit.MINUTES)
-                                    .build();
-                    wm.enqueue(saveRequest);
+                //long ts = startDate.toInstant().minus(1, ChronoUnit.DAYS).toEpochMilli();
+                //DateConverter.fromTimestamp(ts);
 
 
             } catch (Exception ex) {

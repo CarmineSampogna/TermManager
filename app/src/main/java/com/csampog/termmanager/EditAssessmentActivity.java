@@ -5,17 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.csampog.termmanager.model.Assessment;
-import com.csampog.termmanager.viewmodels.AddAssessmentViewModel;
 import com.csampog.termmanager.viewmodels.EditAssessmentViewModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.button.MaterialButton;
@@ -60,6 +61,10 @@ public class EditAssessmentActivity extends AppCompatActivity {
     private void initToolbar() {
         CollapsingToolbarLayout toolbarLayout = findViewById(R.id.add_assessment_toolbar);
         toolbarLayout.setTitle(getString(R.string.edit_assessment_text));
+
+        Toolbar toolbar = findViewById(R.id.edit_assessment_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initViews() {
@@ -68,6 +73,12 @@ public class EditAssessmentActivity extends AppCompatActivity {
         initSaveButton();
         initDateButton();
         initTestTypeGroup();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return true;
     }
 
     private void initViewModel() {

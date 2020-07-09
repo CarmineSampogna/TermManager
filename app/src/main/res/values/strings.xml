@@ -56,7 +56,7 @@
     <string name="cancel_button_text">Cancel</string>
     <string name="note_delete_label">Delete</string>
     <string name="title_error">Title must be at least 3 characters.</string>
-    <string name="caourse_save_error_title">Can\'t save course</string>
+    <string name="course_save_error_title">Can\'t save course</string>
     <string name="ok_button_text">OK</string>
     <string name="term_delete_text">Delete</string>
     <string name="term_courses_error">This Term has courses assigned to it. Please remove the courses before deleting the Term.</string>
@@ -80,11 +80,16 @@
     <string name="no_terms_yet">No Terms yet</string>
     <string name="latest_term_view_all">View all</string>
     <string name="current_course_title">Current Course</string>
-    <string name="no_courses_added">No Courses added yet</string>
+    <string name="no_courses_added">No Courses yet</string>
     <string name="to">To</string>
     <string name="next_assessment_title">Next Assessment</string>
     <string name="mentor_label">Mentor</string>
     <string name="share_note">Share your note</string>
     <string name="mentor_info">Mentor Info</string>
     <string name="alerts_label">Alerts</string>
+    <string name="add_text">Add</string>
+    <string name="no_assessments_upcoming">No Assessments upcoming</string>
+    <string name="note_text">Note text</string>
+    <string name="assessment_save_error_title">Can\'t save Assessment</string>
+    <string name="course_title_text">Course Title</string>
 </resources>

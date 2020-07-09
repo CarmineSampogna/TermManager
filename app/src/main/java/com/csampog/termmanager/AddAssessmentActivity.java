@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +38,7 @@ public class AddAssessmentActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private FloatingActionButton saveButton;
     private EditText titleEditText;
+    private Switch alertsSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +49,12 @@ public class AddAssessmentActivity extends AppCompatActivity {
         courseId = intent.getIntExtra(COURSE_ID_PARAM, 0);
 
         assessmentId = intent.getIntExtra(ASSESSMENT_ID_PARAM, 0);
-
+        initViewModel();
         initToolbar();
 
         initViews();
 
-        initViewModel();
+
     }
 
     @Override
@@ -73,10 +75,16 @@ public class AddAssessmentActivity extends AppCompatActivity {
 
     private void initViews() {
 
+        initAlertSwitch();
         initTitleTextView();
         initSaveButton();
         initDateButton();
         initTestTypeGroup();
+    }
+
+    private void initAlertSwitch() {
+        alertsSwitch = findViewById(R.id.assessment_alerts_switch);
+        alertsSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> viewModel.alertsEnabled.setValue(isChecked));
     }
 
     private void initViewModel() {
@@ -85,7 +93,7 @@ public class AddAssessmentActivity extends AppCompatActivity {
         final Observer<String> titleObserver = new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                    titleEditText.setText(s);
+                titleEditText.setText(s);
             }
         };
 
@@ -95,8 +103,8 @@ public class AddAssessmentActivity extends AppCompatActivity {
         final Observer<String> formattedGoalDateObserver = formattedDate -> goalDateButton.setText(formattedDate);
 
         viewModel.setCourseId(courseId);
-
-      //  viewModel.canSave.observe(this, canSaveObserver);
+        viewModel.alertsEnabled.setValue(true);
+        //  viewModel.canSave.observe(this, canSaveObserver);
         viewModel.formattedGoalDate.observe(this, formattedGoalDateObserver);
     }
 
@@ -107,25 +115,25 @@ public class AddAssessmentActivity extends AppCompatActivity {
             StringBuilder errorBuilder = new StringBuilder();
             boolean canSave = true;
 
-            if(titleEditText.getText() == null ||
-            titleEditText.getText().toString().length() < 3){
+            if (titleEditText.getText() == null ||
+                    titleEditText.getText().toString().length() < 3) {
                 canSave = false;
                 errorBuilder.append(getString(R.string.title_error) + "\n");
             }
 
-            if(goalDateButton.getText() == getString(R.string.goal_date_text)){
+            if (goalDateButton.getText() == getString(R.string.goal_date_text)) {
                 canSave = false;
                 errorBuilder.append("Goal date must be set.");
             }
 
-            if(canSave) {
+            if (canSave) {
 
                 viewModel.saveAssessment();
                 finish();
-            }else{
+            } else {
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                alertDialogBuilder.setTitle(R.string.caourse_save_error_title);
+                alertDialogBuilder.setTitle(R.string.assessment_save_error_title);
                 alertDialogBuilder.setMessage(errorBuilder.toString());
                 alertDialogBuilder.setPositiveButton(R.string.ok_button_text, new DialogInterface.OnClickListener() {
                     @Override
@@ -175,6 +183,7 @@ public class AddAssessmentActivity extends AppCompatActivity {
             }
             viewModel.setAssessmentType(selection);
         });
+        testTypeGroup.check(R.id.assessment_type_performance_button);
     }
 
     private void initDateButton() {

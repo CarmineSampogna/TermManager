@@ -20,13 +20,14 @@
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
-<com.google.android.material.textview.MaterialTextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_marginStart="8dp"
-    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-    android:id="@+id/note_title"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/note_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/note_toolbar"
@@ -64,8 +65,8 @@
             android:layout_weight="1"
             android:background="@color/grey_100"
             android:ems="10"
-            android:hint="@string/note_text"
             android:gravity="start|top"
+            android:hint="@string/note_text"
             android:inputType="textMultiLine|textCapSentences" />
 
         <LinearLayout

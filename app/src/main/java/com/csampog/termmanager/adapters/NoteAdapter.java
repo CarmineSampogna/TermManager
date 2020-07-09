@@ -30,6 +30,7 @@ public class NoteAdapter extends EntityAdapter<Note, NoteAdapter.ViewHolder> {
     @Override
     protected void bindEntity(Note note, ViewHolder viewHolder) {
         viewHolder.titleTextView.setText(note.getTitle());
+        viewHolder.contentTextView.setText(note.getText());
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,10 +61,12 @@ public class NoteAdapter extends EntityAdapter<Note, NoteAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView titleTextView;
+        public TextView contentTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.note_list_item_title_text);
+            contentTextView = itemView.findViewById(R.id.note_list_item_content_text);
         }
     }
 }

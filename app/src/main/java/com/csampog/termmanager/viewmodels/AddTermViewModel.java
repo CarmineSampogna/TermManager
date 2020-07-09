@@ -3,13 +3,13 @@ package com.csampog.termmanager.viewmodels;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
+
 import com.csampog.termmanager.model.Term;
 
 import java.util.Calendar;
 import java.util.Date;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 
 public class AddTermViewModel extends TermViewModelBase {
 
@@ -68,7 +68,7 @@ public class AddTermViewModel extends TermViewModelBase {
 
     protected void updateCanSave() {
 
-        boolean validTitle = title != null && title.getValue().length() > 1;
+        boolean validTitle = title != null && title.getValue() != null && title.getValue().length() > 2;
         boolean validDates = endDate != null &&
                 startDate != null &&
                 endDate.after(startDate);

@@ -1,23 +1,23 @@
 package com.csampog.termmanager;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
-import com.csampog.termmanager.dataAccess.repositories.CourseRepository;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.csampog.termmanager.model.Course;
-import com.csampog.termmanager.viewmodels.AddCourseViewModel;
 import com.csampog.termmanager.viewmodels.EditCourseViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,6 +46,11 @@ public class EditCourseActivity extends AppCompatActivity {
     private OptionalInt courseId = OptionalInt.empty();
 
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +74,8 @@ public class EditCourseActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.add_course_toolbar);
         int activityTitleRes = courseId.isPresent() ? R.string.edit_course_title : R.string.add_course_title;
         toolbar.setTitle(activityTitleRes);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         statusRadioGroup = findViewById(R.id.add_course_status_group);
         statusRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -148,13 +155,6 @@ public class EditCourseActivity extends AppCompatActivity {
         saveButton.setOnClickListener(v -> {
             try {
                 viewModel.saveCourse();
-//                if (termId.isPresent()) {
-//
-//                    Intent termIntent = new Intent(EditCourseActivity.this, TermDetailsActivity.class);
-//                    termIntent.putExtra(TermDetailsActivity.TERM_ID_KEY, termId.getAsInt());
-//                    startActivity(termIntent);
-//                }
-
                 finish();
             } catch (Exception ex) {
                 Log.e(AddTermActivity.class.getName(), ex.getMessage());
@@ -217,21 +217,6 @@ public class EditCourseActivity extends AppCompatActivity {
         final Observer<String> mentorEmailObserver = s -> mentorEmailText.setText(s);
 
         final Observer<String> mentorPhoneObserver = s -> mentorPhoneText.setText(s);
-
-//        final Observer<String> statusObserver = s -> {
-//
-//            if (s == getString(R.string.course_completed)) {
-//                statusRadioGroup.check(R.id.add_course_status_completed_option);
-//            }else if(s == getString(R.string.course_dropped)){
-//                statusRadioGroup.check(R.id.add_course_status_dropped_option);
-//            }else if (s == getString(R.string.course_in_progress)){
-//                statusRadioGroup.check(R.id.add_course_status_inProgress_option);
-//            }else{
-//                statusRadioGroup.check(R.id.add_course_status_planToTake_option);
-//            }
-//        };
-
-
 
         final Observer<String> statusObserver = s -> {
             int checkedId = 0;

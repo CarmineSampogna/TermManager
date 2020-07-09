@@ -1,11 +1,5 @@
 package com.csampog.termmanager;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,13 +7,17 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.csampog.termmanager.viewmodels.NoteViewModel;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class NoteActivity extends AppCompatActivity {
@@ -56,10 +54,10 @@ public class NoteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         int selectedId = item.getItemId();
-        if(selectedId == R.id.assessment_delete_menu_item){
+        if (selectedId == R.id.note_delete_button) {
             viewModel.deleteNote();
             finish();
-        }else if(selectedId == R.id.note_details_share){
+        } else if (selectedId == R.id.note_details_share) {
 
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");

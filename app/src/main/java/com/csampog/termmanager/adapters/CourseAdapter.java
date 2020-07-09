@@ -2,11 +2,13 @@ package com.csampog.termmanager.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.csampog.termmanager.R;
 import com.csampog.termmanager.dataAccess.repositories.CourseRepository;
@@ -15,9 +17,6 @@ import com.csampog.termmanager.model.Course;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class CourseAdapter extends EntityAdapter<Course, CourseAdapter.ViewHolder> {
 
@@ -42,25 +41,19 @@ public class CourseAdapter extends EntityAdapter<Course, CourseAdapter.ViewHolde
         });
 
 
-        viewHolder.menuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(viewHolder.itemView.getContext(), v);
-                popupMenu.inflate(R.menu.course_list_item_menu);
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getItemId() == R.id.course_action_remove) {
-                            course.setTermId(0);
-                            CourseRepository.getInstance(v.getContext()).insertOrUpdate(course);
-                        } else {
-                            CourseRepository.getInstance(v.getContext()).delete(course);
-                        }
-                        return false;
-                    }
-                });
-                popupMenu.show();
-            }
+        viewHolder.menuButton.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(viewHolder.itemView.getContext(), v);
+            popupMenu.inflate(R.menu.course_list_item_menu);
+            popupMenu.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.course_action_remove) {
+                    course.setTermId(0);
+                    CourseRepository.getInstance(v.getContext()).insertOrUpdate(course);
+                } else {
+                    CourseRepository.getInstance(v.getContext()).delete(course);
+                }
+                return false;
+            });
+            popupMenu.show();
         });
     }
 
@@ -94,7 +87,6 @@ public class CourseAdapter extends EntityAdapter<Course, CourseAdapter.ViewHolde
             menuButton = itemView.findViewById(R.id.course_list_item_option);
         }
     }
-
 
     public void setCourseSelectedListener(CourseSelectedListener listener) {
 

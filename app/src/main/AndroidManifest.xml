@@ -30,7 +30,6 @@
             android:name=".AddTermActivity"
             android:label="@string/add_term_label"
             android:parentActivityName=".AllTermsActivity" />
-        <activity android:name=".AssessmentDetailsActivity" />
         <activity android:name=".AllAssessmentsActivity" />
         <activity android:name=".CourseDetailsActivity" />
         <activity android:name=".AllCoursesActivity" />
@@ -42,7 +41,6 @@
             android:parentActivityName=".HomeScreenActivity">
 
         </activity>
-        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

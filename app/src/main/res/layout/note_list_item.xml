@@ -11,19 +11,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/assessmentColor"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <FrameLayout
-            android:layout_width="match_parent"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/note_list_item_title_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/assessmentColor">
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@android:color/white" />
 
-            <TextView
-                android:id="@+id/note_list_item_title_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:textColor="@android:color/white" />
-        </FrameLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/note_list_item_content_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

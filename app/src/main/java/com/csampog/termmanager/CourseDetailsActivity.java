@@ -2,25 +2,10 @@ package com.csampog.termmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.csampog.termmanager.adapters.CourseDetailsPagerAdapter;
-import com.csampog.termmanager.model.Assessment;
-import com.csampog.termmanager.model.Note;
-import com.csampog.termmanager.viewmodels.CourseDetailsViewModel;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textview.MaterialTextView;
-
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +13,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.csampog.termmanager.adapters.CourseDetailsPagerAdapter;
+import com.csampog.termmanager.model.Assessment;
+import com.csampog.termmanager.model.Note;
+import com.csampog.termmanager.viewmodels.CourseDetailsViewModel;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.List;
 
 public class CourseDetailsActivity extends AppCompatActivity {
 
@@ -39,6 +37,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
     private CollapsingToolbarLayout toolbarLayout;
     private Toolbar courseDetailsToolbar;
+    private TextView titleTextView;
     private TextView startDateText;
     private TextView endDateText;
     private TextInputLayout statusInputLayout;
@@ -55,6 +54,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
     private TextInputEditText titleEditText;
     private TabLayout courseTabLayout;
     private ViewPager2 courseViewPager;
+    private FloatingActionButton editButton;
 
     private int courseId = 0;
 
@@ -64,30 +64,21 @@ public class CourseDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
 
+
+        Toolbar toolbar = findViewById(R.id.course_details_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initViewModel();
         initViews();
         initObservers();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
 
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.course_details_menu, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.course_details_edit) {
-           // item.setVisible(false);
-           // statusInputLayout.setVisibility(View.VISIBLE);
-            //statusTextView.setVisibility(View.INVISIBLE);
-            Intent intent = new Intent(this, EditCourseActivity.class);
-            intent.putExtra(EditCourseActivity.COURSE_ID_PARAM, courseId);
-            startActivity(intent);
-        }
+        finish();
         return true;
     }
 
@@ -99,9 +90,11 @@ public class CourseDetailsActivity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     tab.setText(getResources().getString(R.string.assessments_title));
+                    tab.setIcon(R.drawable.ic_baseline_assignment_turned_in_24);
                     break;
                 case 1:
                     tab.setText(R.string.notes_title);
+                    tab.setIcon(R.drawable.ic_baseline_notes_24);
                     break;
             }
         });
@@ -114,9 +107,8 @@ public class CourseDetailsActivity extends AppCompatActivity {
         final Observer<String> titleObserver = s -> {
 
             toolbarLayout.setTitle(s);
-            //titleEditText.setText(s);
+            titleTextView.setText(s);
         };
-
         final Observer<String> startDateObserver = s -> startDateText.setText(s);
         final Observer<String> endDateObserver = s -> endDateText.setText(s);
         final Observer<String> statusObserver = s -> {
@@ -181,29 +173,29 @@ public class CourseDetailsActivity extends AppCompatActivity {
             if (courseId > 0) {
                 viewModel.refreshCourseDetails(courseId);
             }
-        } else {
-            //Show error about loading course details
         }
-
     }
 
     private void initViews() {
         toolbarLayout = findViewById(R.id.course_details_toolbar_layout);
         courseDetailsToolbar = findViewById(R.id.course_details_toolbar);
         setSupportActionBar(courseDetailsToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        editButton = findViewById(R.id.course_details_edit_button);
+        editButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, EditCourseActivity.class);
+            intent.putExtra(EditCourseActivity.COURSE_ID_PARAM, courseId);
+            startActivity(intent);
+        });
         titleEditText = findViewById(R.id.course_title_text);
+        titleTextView = findViewById(R.id.course_details_title_textView);
         startDateText = findViewById(R.id.course_details_start);
         endDateText = findViewById(R.id.course_details_end);
-        //statusInputLayout = findViewById(R.id.course_details_status_editText_layout);
-        //statusTextInput = findViewById(R.id.course_details_status_editText);
         statusTextView = findViewById(R.id.course_details_status_textView);
         noMentorInfoLayout = findViewById(R.id.noMentorInfo_layout);
         mentorInfoLayout = findViewById(R.id.mentorInfo_layout);
-        //mentorNameLayout = findViewById(R.id.course_mentorName_layout);
         mentorNameTextView = findViewById(R.id.course_details_mentorName_text);
-        //mentorPhoneLayout = findViewById(R.id.course_mentorPhone_layout);
         mentorPhoneTextView = findViewById(R.id.course_details_mentorPhone_text);
-        //mentorEmailLayout = findViewById(R.id.course_mentorEmail_layout);
         mentorEmailTextView = findViewById(R.id.course_details_mentorEmail_text);
         courseTabLayout = findViewById(R.id.courseTabLayout);
         courseViewPager = findViewById(R.id.courseViewPager);

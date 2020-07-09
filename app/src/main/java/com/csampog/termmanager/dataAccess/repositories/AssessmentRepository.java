@@ -2,11 +2,11 @@ package com.csampog.termmanager.dataAccess.repositories;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
+
 import com.csampog.termmanager.model.Assessment;
 
 import java.util.List;
-
-import androidx.lifecycle.LiveData;
 
 public class AssessmentRepository extends RepositoryBase {
 
@@ -38,9 +38,13 @@ public class AssessmentRepository extends RepositoryBase {
         return dbContext.assessmentDao().getAssessmentsForCourse(courseId);
     }
 
+    public List<Assessment> getAssessmentsForAlerts() {
+        return dbContext.assessmentDao().getAssessmentsForAlerts();
+    }
+
 
     public void insertOrUpdate(final Assessment assessment) {
-        if(assessment == null) throw new NullPointerException(Assessment.class.getName());
+        if (assessment == null) throw new NullPointerException(Assessment.class.getName());
 
         final Assessment fAssessment = assessment;
         executor.execute(new Runnable() {
