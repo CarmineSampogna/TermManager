@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +42,7 @@ public class EditAssessmentActivity extends AppCompatActivity {
     private EditText titleEditText;
     private RadioButton performanceButton;
     private RadioButton objectiveButton;
+    private Switch alertSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +72,15 @@ public class EditAssessmentActivity extends AppCompatActivity {
     private void initViews() {
 
         initTitleTextView();
+        initAlertSwitch();
         initSaveButton();
         initDateButton();
         initTestTypeGroup();
+    }
+
+    private void initAlertSwitch() {
+        alertSwitch = findViewById(R.id.edit_assessment_alerts_switch);
+        alertSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> viewModel.setAlertsEnabled(isChecked));
     }
 
     @Override
@@ -88,6 +96,7 @@ public class EditAssessmentActivity extends AppCompatActivity {
         viewModel.setCourseId(courseId);
 
         final Observer<String> titleObserver = s -> titleEditText.setText(s);
+        final Observer<Boolean> alertsObserver = b -> alertSwitch.setChecked(b);
 
         final Observer<Boolean> canSaveObserver = aBoolean -> {
             saveButton.setEnabled(aBoolean);
@@ -96,17 +105,14 @@ public class EditAssessmentActivity extends AppCompatActivity {
 
         viewModel.canSave.observe(this, canSaveObserver);
         viewModel.formattedGoalDate.observe(this, formattedGoalDateObserver);
-
+        viewModel.alertsEnabled.observe(this, alertsObserver);
         viewModel.title.observe(this, titleObserver);
-        viewModel.assessmentType.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                if (s == getString(R.string.assessment_type_objective)) {
-                    objectiveButton.setChecked(true);
-                } else {
+        viewModel.assessmentType.observe(this, s -> {
+            if (s == getString(R.string.assessment_type_objective)) {
+                objectiveButton.setChecked(true);
+            } else {
 
-                    performanceButton.setChecked(true);
-                }
+                performanceButton.setChecked(true);
             }
         });
     }

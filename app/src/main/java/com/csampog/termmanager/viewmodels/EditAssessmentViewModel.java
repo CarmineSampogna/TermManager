@@ -12,7 +12,6 @@ import com.csampog.termmanager.dataAccess.repositories.AssessmentRepository;
 import com.csampog.termmanager.model.Assessment;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -29,6 +28,9 @@ public class EditAssessmentViewModel extends AndroidViewModel {
     public LiveData<String> assessmentType;
     private String assessmentTypeInput;
 
+    public LiveData<Boolean> alertsEnabled;
+    private boolean alertsEnabledInput;
+
     private int assessmentId;
     private int courseId;
     private AssessmentRepository assessmentRepository;
@@ -44,11 +46,16 @@ public class EditAssessmentViewModel extends AndroidViewModel {
 
     }
 
-    public Date getGoalDate(){
+    public Date getGoalDate() {
         return dateInput;
     }
 
+    public void setAlertsEnabled(boolean alertsEnabled) {
+        this.alertsEnabledInput = alertsEnabled;
+    }
+
     public void setTitle(String titleInput) {
+
         this.titleInput = titleInput;
     }
 
@@ -68,7 +75,15 @@ public class EditAssessmentViewModel extends AndroidViewModel {
             return a != null ? a.getTitle() : "";
         });
 
-        assessmentType = Transformations.map(assessment, a -> a.getTestType());
+        alertsEnabled = Transformations.map(assessment, a -> {
+            alertsEnabledInput = a != null ? a.getAlertsEnabled() : false;
+            return a != null ? a.getAlertsEnabled() : false;
+        });
+
+        assessmentType = Transformations.map(assessment, a -> {
+            assessmentTypeInput = a.getTestType();
+            return a.getTestType();
+        });
     }
 
     public void setDate(int year, int month, int dayOfMonth) {
@@ -116,6 +131,7 @@ public class EditAssessmentViewModel extends AndroidViewModel {
         target.setTestType(assessmentTypeInput);
         target.setCourseId(courseId);
         target.setAssessmentId(assessmentId);
+        target.setAlertsEnabled(alertsEnabledInput);
         assessmentRepository.insertOrUpdate(target);
     }
 }

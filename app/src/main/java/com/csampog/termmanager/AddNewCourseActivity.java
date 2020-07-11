@@ -25,6 +25,7 @@ import com.csampog.termmanager.viewmodels.AddCourseViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.temporal.ChronoUnit;
 import java.util.OptionalInt;
 
 public class AddNewCourseActivity extends AppCompatActivity {
@@ -33,7 +34,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
 
     private MaterialButton startText;
     private MaterialButton endText;
-    private DatePickerDialog datePickerDialog;
+
     private FloatingActionButton saveButton;
     private EditText titleText;
     private EditText mentorNameText;
@@ -264,20 +265,28 @@ public class AddNewCourseActivity extends AppCompatActivity {
         public void onClick(View v) {
 
             final MaterialButton fView = (MaterialButton) v;
-
-            if (datePickerDialog == null) {
-
-                datePickerDialog = new DatePickerDialog(AddNewCourseActivity.this);
-            }
+            DatePickerDialog datePickerDialog = new DatePickerDialog(AddNewCourseActivity.this);
 
             boolean isStartDate = fView.getId() == R.id.course_start_text;
+            if (isStartDate) {
 
+                if (viewModel.endDate != null) {
+                    datePickerDialog.getDatePicker().setMaxDate(viewModel.endDate.toInstant().minus(1, ChronoUnit.DAYS).toEpochMilli());
+                }
+            } else {
+
+                if (viewModel.startDate != null) {
+                    datePickerDialog.getDatePicker().setMinDate(viewModel.startDate.toInstant().plus(1, ChronoUnit.DAYS).toEpochMilli());
+                }
+            }
+            
             datePickerDialog.setOnDateSetListener((view, year, month, dayOfMonth) -> viewModel.setDate(year, month, dayOfMonth, isStartDate));
 
             int titleId = isStartDate ? R.string.course_start_picker_title : R.string.course_end_picker_title;
 
             datePickerDialog.setTitle(getString(titleId));
             datePickerDialog.show();
+
         }
     }
 }

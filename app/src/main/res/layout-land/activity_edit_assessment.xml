@@ -72,17 +72,37 @@
                 android:orientation="horizontal">
 
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/edit_assessment_goal_date_button"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:text="@string/goal_date_text"
-                    app:icon="@drawable/ic_baseline_calendar_today_24"
-                    app:iconPadding="8dp" />
+                    android:orientation="vertical">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/edit_assessment_goal_date_button"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/goal_date_text"
+                        app:icon="@drawable/ic_baseline_calendar_today_24"
+                        app:iconPadding="8dp" />
+
+                    <Switch
+                        android:id="@+id/edit_assessment_alerts_switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:paddingStart="8dp"
+                        android:paddingTop="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="16dp"
+                        android:text="@string/alerts_label"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"

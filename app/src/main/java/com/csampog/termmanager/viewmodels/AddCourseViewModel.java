@@ -24,6 +24,9 @@ public class AddCourseViewModel extends CourseViewModelBase {
     public MutableLiveData<String> status;
     public MutableLiveData<Boolean> alertsEnabled;
 
+    public Date startDate;
+    public Date endDate;
+
 
     private OptionalInt termId = null;
 
@@ -57,7 +60,6 @@ public class AddCourseViewModel extends CourseViewModelBase {
     public void setStatus(String status) {
         this.status.setValue(status);
         updateCanSave();
-        ;
     }
 
     public void setDate(int year, int month, int dayOfMonth, boolean isStartDate) {
@@ -67,6 +69,12 @@ public class AddCourseViewModel extends CourseViewModelBase {
         calendar.set(year, month, dayOfMonth);
 
         Date selectedDate = Date.from(calendar.toInstant());
+
+        if (isStartDate) {
+            startDate = selectedDate;
+        } else {
+            endDate = selectedDate;
+        }
 
         String formattedDate = dateFormat.format(selectedDate);
         if (isStartDate) {

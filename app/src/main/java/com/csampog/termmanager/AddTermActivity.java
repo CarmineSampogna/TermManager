@@ -8,15 +8,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import com.csampog.termmanager.dataAccess.repositories.CourseRepository;
-import com.csampog.termmanager.viewmodels.AddTermViewModel;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.csampog.termmanager.viewmodels.AddTermViewModel;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AddTermActivity extends AppCompatActivity {
 
@@ -33,34 +32,42 @@ public class AddTermActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_term);
 
-        Toolbar toolbar = findViewById(R.id.add_term_toolbar);
-        toolbar.setTitle(getResources().getString(R.string.add_term_label));
-
-        saveButton = findViewById(R.id.add_term_save);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try{
-                    viewModel.createTerm();
-                    finish();
-                }catch(Exception ex){
-                    Log.e(AddTermActivity.class.getName(), ex.getMessage());
-                }
-            }
-        });
+        initToolbar();
+        initSaveButton();
         initTitleText();
-
         initDateButtons();
         initViewModel();
+    }
+
+    private void initSaveButton() {
+        saveButton = findViewById(R.id.add_term_save);
+        saveButton.setOnClickListener(v -> {
+            try {
+                viewModel.createTerm();
+                finish();
+            } catch (Exception ex) {
+                Log.e(AddTermActivity.class.getName(), ex.getMessage());
+            }
+        });
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.add_term_toolbar);
+        toolbar.setTitle(getResources().getString(R.string.add_term_label));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initTitleText() {
         titleText = findViewById(R.id.term_title_text);
         titleText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -82,28 +89,15 @@ public class AddTermActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(getViewModelStore(), new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(AddTermViewModel.class);
 
-        final Observer<String> startDateObserver = new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                startText.setText(s);
-            }
-        };
+        final Observer<String> startDateObserver = s -> startText.setText(s);
 
-        final Observer<String> endDateObserver = new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                endText.setText(s);
-            }
-        };
+        final Observer<String> endDateObserver = s -> endText.setText(s);
 
-        final Observer<Boolean> canSaveObserver = new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) {
-                    saveButton.show();
-                } else {
-                    saveButton.hide();
-                }
+        final Observer<Boolean> canSaveObserver = aBoolean -> {
+            if (aBoolean) {
+                saveButton.show();
+            } else {
+                saveButton.hide();
             }
         };
 

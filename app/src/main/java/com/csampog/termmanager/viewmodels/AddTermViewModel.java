@@ -64,6 +64,7 @@ public class AddTermViewModel extends TermViewModelBase {
     public void setTitle(String title) {
 
         this.title.setValue(title);
+        updateCanSave();
     }
 
     protected void updateCanSave() {
