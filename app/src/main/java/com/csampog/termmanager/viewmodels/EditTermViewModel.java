@@ -3,7 +3,6 @@ package com.csampog.termmanager.viewmodels;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
@@ -23,6 +22,8 @@ public class EditTermViewModel extends TermViewModelBase {
     public MutableLiveData<String> formattedEndDate;
 
     public MutableLiveData<Boolean> canSave;
+    public Date startDate;
+    public Date endDate;
 
     private LiveData<Term> term;
     private int termId;

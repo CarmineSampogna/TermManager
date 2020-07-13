@@ -17,11 +17,13 @@ import com.csampog.termmanager.viewmodels.AddTermViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.temporal.ChronoUnit;
+
 public class AddTermActivity extends AppCompatActivity {
 
     private MaterialButton startText;
     private MaterialButton endText;
-    private DatePickerDialog datePickerDialog;
+
     private FloatingActionButton saveButton;
     private EditText titleText;
 
@@ -113,12 +115,20 @@ public class AddTermActivity extends AppCompatActivity {
 
             final MaterialButton fView = (MaterialButton) v;
 
-            if (datePickerDialog == null) {
-
-                datePickerDialog = new DatePickerDialog(AddTermActivity.this);
-            }
+            DatePickerDialog datePickerDialog = new DatePickerDialog(AddTermActivity.this);
 
             boolean isStartDate = fView.getId() == R.id.term_start_text;
+            if (isStartDate) {
+
+                if (viewModel.endDate != null) {
+                    datePickerDialog.getDatePicker().setMaxDate(viewModel.endDate.toInstant().minus(1, ChronoUnit.DAYS).toEpochMilli());
+                }
+            } else {
+
+                if (viewModel.startDate != null) {
+                    datePickerDialog.getDatePicker().setMinDate(viewModel.startDate.toInstant().plus(1, ChronoUnit.DAYS).toEpochMilli());
+                }
+            }
 
             datePickerDialog.setOnDateSetListener((view, year, month, dayOfMonth) -> viewModel.setDate(year, month, dayOfMonth, isStartDate));
 

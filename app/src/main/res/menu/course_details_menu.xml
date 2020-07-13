@@ -2,9 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/course_details_edit"
-        android:icon="@drawable/ic_baseline_edit_24"
-        android:iconTint="@android:color/white"
-        android:title="@string/edit_label"
+        android:id="@+id/course_delete_button"
+        android:icon="@drawable/ic_baseline_delete_24"
+        android:title="@string/term_delete_text"
         app:showAsAction="always" />
 </menu>

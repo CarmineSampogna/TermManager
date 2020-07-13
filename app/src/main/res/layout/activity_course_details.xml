@@ -85,20 +85,20 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:text="@string/course_title_text"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/course_details_title_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_event_24"
                         android:drawablePadding="8dp"
-                        android:text="@string/course_title_text"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-
-                    <TextView
-                        android:id="@+id/course_details_title_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
                 </LinearLayout>
 
 
@@ -110,20 +110,44 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:text="@string/status_title"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/course_details_status_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_event_24"
                         android:drawablePadding="8dp"
-                        android:text="@string/status_title"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+                </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/course_details_status_textView"
+                <LinearLayout
+                    android:id="@+id/alertsLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+                        android:paddingBottom="8dp"
+                        android:text="@string/alerts_label"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/course_details_alertsEnabled_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_baseline_notifications_24"
+                        android:drawablePadding="8dp"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -133,20 +157,20 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:text="@string/from_label"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/course_details_start"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_calendar_today_24"
                         android:drawablePadding="8dp"
-                        android:text="@string/from_label"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-
-                    <TextView
-                        android:id="@+id/course_details_start"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -157,22 +181,22 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="8dp"
+                        android:text="@string/anticipated_end"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/course_details_end"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawableStart="@drawable/ic_baseline_calendar_today_24"
                         android:drawablePadding="8dp"
-                        android:text="@string/to_label"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-
-                    <TextView
-                        android:id="@+id/course_details_end"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_weight="1"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
                 </LinearLayout>
 
                 <com.google.android.material.card.MaterialCardView
@@ -186,7 +210,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="match_parent"
@@ -205,7 +228,9 @@
                                 android:id="@+id/noMentorInfo_layout"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:paddingTop="16dp"
+                                android:paddingBottom="16dp">
 
                                 <com.google.android.material.textview.MaterialTextView
                                     android:layout_width="0dp"
@@ -228,12 +253,12 @@
                                     android:id="@+id/course_details_mentorName_text"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
                                     android:drawableStart="@drawable/ic_baseline_person_24"
                                     android:drawablePadding="8dp"
                                     android:gravity="center_vertical"
                                     android:hint="@string/mentor_name_hint"
                                     android:maxLines="1"
-                                    android:layout_marginTop="8dp"
                                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                                     android:textColor="@android:color/black" />
 
@@ -241,12 +266,12 @@
                                     android:id="@+id/course_details_mentorEmail_text"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
                                     android:drawableStart="@drawable/ic_baseline_email_24"
                                     android:drawablePadding="8dp"
                                     android:gravity="center_vertical"
                                     android:hint="@string/mentor_email_hint"
                                     android:maxLines="1"
-                                    android:layout_marginTop="16dp"
                                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                                     android:textColor="@android:color/black" />
 
@@ -254,13 +279,13 @@
                                     android:id="@+id/course_details_mentorPhone_text"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
                                     android:layout_marginBottom="8dp"
                                     android:drawableStart="@drawable/ic_baseline_phone_24"
                                     android:drawablePadding="8dp"
                                     android:gravity="center_vertical"
                                     android:hint="@string/mentor_phone_hint"
                                     android:maxLines="1"
-                                    android:layout_marginTop="16dp"
                                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                                     android:textColor="@android:color/black" />
 
@@ -279,7 +304,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="#ffe9d0"
                 android:orientation="vertical">
@@ -287,7 +312,7 @@
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/courseTabLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/course_primary_details_layout"
@@ -295,20 +320,12 @@
                     app:tabIndicatorColor="@color/courseColorLight"
                     app:tabMode="scrollable">
 
-                    <com.google.android.material.tabs.TabItem
-                        android:id="@+id/assessments_tab_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:foregroundTint="@color/primaryColor"
-                        android:icon="@drawable/ic_baseline_assignment_turned_in_24"
-                        android:text="@string/assessments_title" />
-
                 </com.google.android.material.tabs.TabLayout>
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/courseViewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/courseTabLayout">

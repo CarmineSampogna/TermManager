@@ -4,11 +4,6 @@
     <item
         android:id="@+id/term_delete_button"
         android:title="@string/term_delete_text"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/term_details_edit"
-        android:icon="@drawable/ic_baseline_edit_24"
-        android:iconTint="@android:color/black"
-        android:title="@string/edit_label"
+        android:icon="@drawable/ic_baseline_delete_24"
         app:showAsAction="always" />
 </menu>

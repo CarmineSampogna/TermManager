@@ -54,6 +54,8 @@ public class EditCourseViewModel extends AndroidViewModel {
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy");
     private CourseRepository courseRepository;
+    public Date startDate;
+    public Date endDate;
 
     public EditCourseViewModel(@NonNull Application application) {
         super(application);
@@ -77,6 +79,8 @@ public class EditCourseViewModel extends AndroidViewModel {
             endDateInput = c.getAnticipatedEndDate();
             termId = c.getTermId();
             titleInput = c.getTitle();
+            startDate = c.getStartDate();
+            endDate = c.getAnticipatedEndDate();
             mentorNameInput = c.getMentorName();
             mentorPhoneInput = c.getMentorPhone();
             mentorEmailInput = c.getMentorEmail();
@@ -124,8 +128,8 @@ public class EditCourseViewModel extends AndroidViewModel {
                         mentorPhoneInput,
                         mentorEmailInput,
                         alertsEnabledInput,
-                        alertsEnabledInput && startAlertPending,
-                        alertsEnabledInput && endAlertPending);
+                        alertsEnabledInput,
+                        alertsEnabledInput);
 
                 modifiedCourse.setTermId(termId);
                 courseRepository.insertOrUpdate(modifiedCourse);
@@ -144,6 +148,12 @@ public class EditCourseViewModel extends AndroidViewModel {
 
         Date selectedDate = Date.from(calendar.toInstant());
 
+        if (isStartDate) {
+            startDate = selectedDate;
+        } else {
+            endDate = selectedDate;
+        }
+
         String formattedDate = dateFormat.format(selectedDate);
         if (isStartDate) {
             startDateInput = selectedDate;
@@ -157,7 +167,7 @@ public class EditCourseViewModel extends AndroidViewModel {
 
     protected void updateCanSave() {
 
-        boolean validTitle = titleInput != null && titleInput.length() > 1;
+        boolean validTitle = titleInput != null && !titleInput.isEmpty() && titleInput.length() > 1;
         boolean validDates = endDateInput != null &&
                 startDateInput != null &&
                 endDateInput.after(startDateInput);

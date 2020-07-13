@@ -17,6 +17,8 @@ public class AddTermViewModel extends TermViewModelBase {
     public MutableLiveData<String> formattedStartDate;
     public MutableLiveData<String> formattedEndDate;
     public MutableLiveData<Boolean> canSave;
+    public Date startDate;
+    public Date endDate;
 
     public AddTermViewModel(@NonNull Application application) {
         super(application);

@@ -92,4 +92,9 @@
     <string name="note_text">Note text</string>
     <string name="assessment_save_error_title">Can\'t save Assessment</string>
     <string name="course_title_text">Course Title</string>
+    <string name="course_start_error">Start date must be set.</string>
+    <string name="course_end_error">Anticipated end date must be set</string>
+    <string name="alerts_off">Off</string>
+    <string name="alerts_on">On</string>
+    <string name="anticipated_end">Anticipated End</string>
 </resources>

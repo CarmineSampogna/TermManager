@@ -108,7 +108,7 @@ public class EditAssessmentActivity extends AppCompatActivity {
         viewModel.alertsEnabled.observe(this, alertsObserver);
         viewModel.title.observe(this, titleObserver);
         viewModel.assessmentType.observe(this, s -> {
-            if (s == getString(R.string.assessment_type_objective)) {
+            if (s.contentEquals(getString(R.string.assessment_type_objective))) {
                 objectiveButton.setChecked(true);
             } else {
 

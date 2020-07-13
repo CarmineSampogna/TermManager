@@ -9,7 +9,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -101,12 +100,17 @@ public class AddNewCourseActivity extends AppCompatActivity {
 
                 if (titleText.getText() == null || titleText.getText().length() < 3) {
                     canSave = false;
-                    errorBuilder.append("Title must be at least 3 characters");
+                    errorBuilder.append("Title must be at least 3 characters.\n");
                 }
 
                 if (viewModel.formattedStartDate.getValue() == null) {
                     canSave = false;
-                    errorBuilder.append("Start date must be set");
+                    errorBuilder.append("Start date must be set.\n");
+                }
+
+                if (viewModel.formattedEndDate.getValue() == null) {
+                    canSave = false;
+                    errorBuilder.append("End date must be set.\n");
                 }
 
                 if (canSave) {
@@ -129,12 +133,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
         initTitleText();
 
         alertSwitch = findViewById(R.id.course_alerts_switch);
-        alertSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                viewModel.alertsEnabled.setValue(isChecked);
-            }
-        });
+        alertSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> viewModel.alertsEnabled.setValue(isChecked));
         initMentorFields();
 
         initDateButtons();
@@ -245,17 +244,8 @@ public class AddNewCourseActivity extends AppCompatActivity {
 
         final Observer<String> endDateObserver = s -> endText.setText(s);
 
-        final Observer<Boolean> canSaveObserver = aBoolean -> {
-            if (aBoolean) {
-                saveButton.show();
-            } else {
-                saveButton.hide();
-            }
-        };
-
         viewModel.formattedStartDate.observe(this, startDateObserver);
         viewModel.formattedEndDate.observe(this, endDateObserver);
-        viewModel.canSave.observe(this, canSaveObserver);
 
     }
 
@@ -279,7 +269,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
                     datePickerDialog.getDatePicker().setMinDate(viewModel.startDate.toInstant().plus(1, ChronoUnit.DAYS).toEpochMilli());
                 }
             }
-            
+
             datePickerDialog.setOnDateSetListener((view, year, month, dayOfMonth) -> viewModel.setDate(year, month, dayOfMonth, isStartDate));
 
             int titleId = isStartDate ? R.string.course_start_picker_title : R.string.course_end_picker_title;

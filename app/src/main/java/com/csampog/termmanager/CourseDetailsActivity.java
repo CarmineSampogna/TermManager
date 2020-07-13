@@ -2,6 +2,8 @@ package com.csampog.termmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -43,6 +45,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
     private TextInputLayout statusInputLayout;
     private TextInputEditText statusTextInput;
     private TextView statusTextView;
+    private TextView alertsEnabledTextView;
     private LinearLayout noMentorInfoLayout;
     private LinearLayout mentorInfoLayout;
     private TextInputLayout mentorNameLayout;
@@ -73,11 +76,19 @@ public class CourseDetailsActivity extends AppCompatActivity {
         initObservers();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.course_details_menu, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
+        if (item.getItemId() == R.id.course_delete_button) {
+            viewModel.deleteCourse();
+        }
         finish();
         return true;
     }
@@ -116,14 +127,26 @@ public class CourseDetailsActivity extends AppCompatActivity {
             statusTextView.setText(s);
         };
 
-        final Observer<Boolean> hasMentorInfoObserver = hasInfo ->{
-          if(hasInfo){
-              noMentorInfoLayout.setVisibility(View.GONE);
-              mentorInfoLayout.setVisibility(View.VISIBLE);
-          }else{
-              noMentorInfoLayout.setVisibility(View.VISIBLE);
-              mentorInfoLayout.setVisibility(View.GONE);
-          }
+        final Observer<Boolean> hasMentorInfoObserver = hasInfo -> {
+            if (hasInfo == null || hasInfo) {
+                noMentorInfoLayout.setVisibility(View.GONE);
+                mentorInfoLayout.setVisibility(View.VISIBLE);
+            } else {
+                noMentorInfoLayout.setVisibility(View.VISIBLE);
+                mentorInfoLayout.setVisibility(View.GONE);
+            }
+        };
+
+        final Observer<Boolean> alertsEnabledObserver = alertsEnabled -> {
+            boolean enabled = alertsEnabled != null && alertsEnabled;
+            int textRes = 0;
+            int iconRes = 0;
+
+            textRes = enabled ? R.string.alerts_on : R.string.alerts_off;
+            iconRes = enabled ? R.drawable.ic_baseline_notifications_24 : R.drawable.ic_baseline_notifications_off_24;
+
+            alertsEnabledTextView.setText(getString(textRes));
+            alertsEnabledTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(iconRes, 0, 0, 0);
         };
 
         final Observer<String> mentorNameObserver = s -> {
@@ -157,6 +180,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
         viewModel.formattedStartDate.observe(this, startDateObserver);
         viewModel.formattedEndDate.observe(this, endDateObserver);
         viewModel.status.observe(this, statusObserver);
+        viewModel.alertsEnabled.observe(this, alertsEnabledObserver);
         viewModel.mentorName.observe(this, mentorNameObserver);
         viewModel.mentorEmail.observe(this, mentorEmailObserver);
         viewModel.mentorPhone.observe(this, mentorPhoneObserver);
@@ -192,6 +216,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
         startDateText = findViewById(R.id.course_details_start);
         endDateText = findViewById(R.id.course_details_end);
         statusTextView = findViewById(R.id.course_details_status_textView);
+        alertsEnabledTextView = findViewById(R.id.course_details_alertsEnabled_textView);
         noMentorInfoLayout = findViewById(R.id.noMentorInfo_layout);
         mentorInfoLayout = findViewById(R.id.mentorInfo_layout);
         mentorNameTextView = findViewById(R.id.course_details_mentorName_text);

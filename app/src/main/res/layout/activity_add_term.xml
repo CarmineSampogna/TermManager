@@ -11,7 +11,7 @@
         android:id="@+id/appbar"
         android:gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="192dp">
+        android:layout_height="80dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/add_term_toolbar"

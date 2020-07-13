@@ -1,5 +1,6 @@
 package com.csampog.termmanager;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +24,7 @@ import com.csampog.termmanager.viewmodels.EditCourseViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.temporal.ChronoUnit;
 import java.util.OptionalInt;
 
 public class EditCourseActivity extends AppCompatActivity {
@@ -31,13 +34,14 @@ public class EditCourseActivity extends AppCompatActivity {
 
     private MaterialButton startText;
     private MaterialButton endText;
-    private DatePickerDialog datePickerDialog;
+
     private FloatingActionButton saveButton;
     private EditText titleText;
     private EditText mentorNameText;
     private EditText mentorEmailText;
     private EditText mentorPhoneText;
     private RadioGroup statusRadioGroup;
+    private Switch courseAlertsSwitch;
 
 
     private OptionalInt termId = OptionalInt.empty();
@@ -97,6 +101,9 @@ public class EditCourseActivity extends AppCompatActivity {
             viewModel.statusInput = status;
         });
 
+        courseAlertsSwitch = findViewById(R.id.course_alerts_switch);
+        courseAlertsSwitch.setOnCheckedChangeListener((v, b) -> viewModel.alertsEnabledInput = b);
+
         mentorNameText = findViewById(R.id.course_mentorName_text);
         mentorNameText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -154,8 +161,41 @@ public class EditCourseActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.add_course_save);
         saveButton.setOnClickListener(v -> {
             try {
-                viewModel.saveCourse();
-                finish();
+
+
+                StringBuilder errorBuilder = new StringBuilder();
+                boolean canSave = true;
+
+                if (titleText.getText() == null ||
+                        titleText.getText().toString().length() < 3) {
+                    canSave = false;
+                    errorBuilder.append(getString(R.string.title_error) + "\n");
+                }
+
+                if (viewModel.startDate == null) {
+                    canSave = false;
+                    errorBuilder.append(getString(R.string.course_start_error) + "\n");
+                }
+
+                if (viewModel.endDate == null) {
+                    canSave = false;
+                    errorBuilder.append(getString(R.string.course_end_error) + "\n");
+                }
+
+                if (canSave) {
+
+                    viewModel.saveCourse();
+                    finish();
+                } else {
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                    alertDialogBuilder.setTitle(R.string.assessment_save_error_title);
+                    alertDialogBuilder.setMessage(errorBuilder.toString());
+                    alertDialogBuilder.setPositiveButton(R.string.ok_button_text, (dialog, which) -> dialog.dismiss());
+                    alertDialogBuilder.show();
+                }
+
+
             } catch (Exception ex) {
                 Log.e(AddTermActivity.class.getName(), ex.getMessage());
             }
@@ -233,6 +273,7 @@ public class EditCourseActivity extends AppCompatActivity {
             statusRadioGroup.check(checkedId);
         };
 
+        final Observer<Boolean> alertsEnabledObserver = alertsEnabled -> courseAlertsSwitch.setChecked(alertsEnabled != null ? alertsEnabled : false);
 
         final Observer<Boolean> canSaveObserver = aBoolean -> {
             if (aBoolean) {
@@ -249,6 +290,7 @@ public class EditCourseActivity extends AppCompatActivity {
         viewModel.formattedStartDate.observe(this, startDateObserver);
         viewModel.formattedEndDate.observe(this, endDateObserver);
         viewModel.status.observe(this, statusObserver);
+        viewModel.alertsEnabled.observe(this, alertsEnabledObserver);
         //viewModel.canSave.observe(this, canSaveObserver);
 
     }
@@ -259,13 +301,20 @@ public class EditCourseActivity extends AppCompatActivity {
         public void onClick(View v) {
 
             final MaterialButton fView = (MaterialButton) v;
-
-            if (datePickerDialog == null) {
-
-                datePickerDialog = new DatePickerDialog(EditCourseActivity.this);
-            }
+            DatePickerDialog datePickerDialog = new DatePickerDialog(EditCourseActivity.this);
 
             boolean isStartDate = fView.getId() == R.id.course_start_text;
+            if (isStartDate) {
+
+                if (viewModel.endDate != null) {
+                    datePickerDialog.getDatePicker().setMaxDate(viewModel.endDate.toInstant().minus(1, ChronoUnit.DAYS).toEpochMilli());
+                }
+            } else {
+
+                if (viewModel.startDate != null) {
+                    datePickerDialog.getDatePicker().setMinDate(viewModel.startDate.toInstant().plus(1, ChronoUnit.DAYS).toEpochMilli());
+                }
+            }
 
             datePickerDialog.setOnDateSetListener((view, year, month, dayOfMonth) -> viewModel.setDate(year, month, dayOfMonth, isStartDate));
 

@@ -172,17 +172,17 @@ public class HomeScreenActivity extends AppCompatActivity {
 
             currentCourse = c.isPresent() ? c.get() : null;
 
-                if (currentCourseView == null) {
+            if (currentCourseView == null) {
 
-                    currentCourseView = findViewById(R.id.latest_course_view);
-                    //currentCourseView = getLayoutInflater().inflate(R.layout.course_list_item, currentCourseFrame);
-                    currentCourseView.setOnClickListener(v -> {
+                currentCourseView = findViewById(R.id.latest_course_view);
+                //currentCourseView = getLayoutInflater().inflate(R.layout.course_list_item, currentCourseFrame);
+                currentCourseView.setOnClickListener(v -> {
 
-                        Intent intent = new Intent(HomeScreenActivity.this, CourseDetailsActivity.class);
-                        intent.putExtra(CourseDetailsActivity.COURSE_ID_KEY, currentCourse.getCourseId());
-                        startActivity(intent);
-                    });
-                }
+                    Intent intent = new Intent(HomeScreenActivity.this, CourseDetailsActivity.class);
+                    intent.putExtra(CourseDetailsActivity.COURSE_ID_KEY, currentCourse.getCourseId());
+                    startActivity(intent);
+                });
+            }
 
             TextView courseTitleText = currentCourseView.findViewById(R.id.course_list_item_title);
             courseTitleText.setText(currentCourse != null ? currentCourse.getTitle() : "");
@@ -236,10 +236,17 @@ public class HomeScreenActivity extends AppCompatActivity {
 
             nextAssessment = a.isPresent() ? a.get() : null;
 
-
             if (nextAssessmentView == null) {
 
                 nextAssessmentView = findViewById(R.id.next_assessment);
+                nextAssessmentView.setOnClickListener(v -> {
+                    if (nextAssessment == null) return;
+                    Intent i = new Intent(HomeScreenActivity.this, EditAssessmentActivity.class);
+                    i.putExtra(EditAssessmentActivity.ASSESSMENT_ID_PARAM, nextAssessment.getAssessmentId());
+                    i.putExtra(EditAssessmentActivity.COURSE_ID_PARAM, nextAssessment.getCourseId());
+                    i.putExtra(EditAssessmentActivity.EDIT_MODE_PARAM, true);
+                    startActivity(i);
+                });
                 //nextAssessmentView = getLayoutInflater().inflate(R.layout.assessment_list_item, nextAssessmentFrame);
             }
             TextView titleTextView = nextAssessmentView.findViewById(R.id.assessment_list_item_title);

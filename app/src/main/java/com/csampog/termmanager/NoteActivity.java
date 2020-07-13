@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +42,7 @@ public class NoteActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(!isNewNote){
+        if (!isNewNote) {
 
             getMenuInflater().inflate(R.menu.note_details_menu, menu);
         }
@@ -66,6 +65,8 @@ public class NoteActivity extends AppCompatActivity {
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
             }
+        } else {
+            finish();
         }
 
         return true;
@@ -98,7 +99,7 @@ public class NoteActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                    viewModel.titleInput = s.toString();
+                viewModel.titleInput = s.toString();
             }
         });
 
@@ -131,18 +132,18 @@ public class NoteActivity extends AppCompatActivity {
 
         deleteButton = findViewById(R.id.note_delete_button);
 
-        if(isNewNote){
+        if (isNewNote) {
             courseId = intent.getIntExtra(COURSE_ID_PARAM, 0);
             viewModel.setCourseId(courseId);
-        }else{
+        } else {
 
-            noteId = intent.getIntExtra(NOTE_ID_PARAM,0);
+            noteId = intent.getIntExtra(NOTE_ID_PARAM, 0);
             viewModel.setNoteId(noteId);
         }
-        
+
         initToolbar();
 
-        if(!isNewNote) {
+        if (!isNewNote) {
             final Observer<String> titleObserver = s -> noteTitleText.setText(s);
             final Observer<String> noteObserver = s -> noteTextInput.setText(s);
 
@@ -155,16 +156,18 @@ public class NoteActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.note_toolbar);
 
-        TextView tb = findViewById(R.id.note_title);
+        int titleRes = 0;
 
-        if(isNewNote){
-            tb.setText(R.string.new_note_title);
-        }else if(!isReadOnly){
-            tb.setText(R.string.edit_note_title);
-        }else{
-            tb.setText(R.string.note_details_title);
+        if (isNewNote) {
+            titleRes = R.string.new_note_title;
+        } else if (!isReadOnly) {
+            titleRes = R.string.edit_note_title;
+        } else {
+            titleRes = R.string.note_details_title;
         }
 
+        toolbar.setTitle(titleRes);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

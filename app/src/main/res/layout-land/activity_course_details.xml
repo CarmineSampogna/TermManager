@@ -134,6 +134,30 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/alertsLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_baseline_notifications_24"
+                            android:drawablePadding="8dp"
+                            android:text="@string/alerts_label"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+
+                        <TextView
+                            android:id="@+id/course_details_alertsEnabled_textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="32dp"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -221,12 +245,6 @@
                                     android:layout_weight="1"
                                     android:padding="8dp"
                                     android:text="No mentor info" />
-
-                                <com.google.android.material.button.MaterialButton
-                                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Add mentor info" />
                             </LinearLayout>
 
                             <LinearLayout

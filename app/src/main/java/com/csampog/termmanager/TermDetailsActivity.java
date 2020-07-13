@@ -1,22 +1,10 @@
 package com.csampog.termmanager;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
-import com.csampog.termmanager.adapters.CourseAdapter;
-import com.csampog.termmanager.messaging.interfaces.CourseSelectedListener;
-import com.csampog.termmanager.model.Course;
-import com.csampog.termmanager.viewmodels.TermDetailsViewModel;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -26,6 +14,18 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.csampog.termmanager.adapters.CourseAdapter;
+import com.csampog.termmanager.messaging.interfaces.CourseSelectedListener;
+import com.csampog.termmanager.model.Course;
+import com.csampog.termmanager.viewmodels.TermDetailsViewModel;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TermDetailsActivity extends AppCompatActivity {
 
@@ -43,6 +43,7 @@ public class TermDetailsActivity extends AppCompatActivity {
     private CourseAdapter courseAdapter;
     private TextInputEditText titleEditText;
     private MaterialButton addCourseButton;
+    private FloatingActionButton editButton;
     private int termId;
 
 
@@ -52,25 +53,27 @@ public class TermDetailsActivity extends AppCompatActivity {
         return true;
     }
 
+    private void navToEdit() {
+        Intent i = new Intent(this, EditTermActivity.class);
+        i.putExtra(EditTermActivity.TERM_ID_PARAM, termId);
+        startActivity(i);
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.term_details_edit){
-            Intent i = new Intent(this, EditTermActivity.class);
-            i.putExtra(EditTermActivity.TERM_ID_PARAM, termId);
-            startActivity(i);
-        }else if(item.getItemId() == R.id.term_delete_button){
+        if (item.getItemId() == R.id.term_delete_button) {
 
-            if(viewModel.hasCoursesAssigned()){
+            if (viewModel.hasCoursesAssigned()) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(R.string.term_courses_error);
                 builder.setNeutralButton(R.string.ok_button_text, (dialog, which) -> dialog.dismiss());
                 builder.show();
-            }else{
+            } else {
                 viewModel.deleteTerm();
                 termId = 0;
                 finish();
             }
-        }else{
+        } else {
             finish();
         }
         return true;
@@ -98,7 +101,7 @@ public class TermDetailsActivity extends AppCompatActivity {
             }
         }
 
-        if(termId == 0){
+        if (termId == 0) {
             finish();
         }
 
@@ -141,6 +144,8 @@ public class TermDetailsActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        editButton = findViewById(R.id.term_details_edit_button);
+        editButton.setOnClickListener(v -> navToEdit());
         titleEditText = findViewById(R.id.term_title_text);
         startDateText = findViewById(R.id.term_details_start);
         endDateText = findViewById(R.id.term_details_end);
