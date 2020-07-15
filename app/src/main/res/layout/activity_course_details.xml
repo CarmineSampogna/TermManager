@@ -71,133 +71,174 @@
                 android:layout_height="wrap_content"
                 android:elevation="8dp"
                 android:orientation="vertical"
-                android:padding="8dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
 
                 app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
-                    android:id="@+id/titleLayout"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp">
+                    android:layout_margin="8dp"
+                    android:elevation="8dp"
+                    app:cardCornerRadius="8dp">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="8dp"
-                        android:text="@string/course_title_text"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+                        android:orientation="vertical">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/course_details_title_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_baseline_event_24"
-                        android:drawablePadding="8dp"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-                </LinearLayout>
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/courseColor"
+                            android:padding="8dp"
+                            android:text="@string/course_info_label"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+
+                        <LinearLayout
+                            android:id="@+id/titleLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="8dp"
+                                android:text="@string/course_title_text"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/course_details_title_textView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/ic_baseline_event_24"
+                                android:drawablePadding="8dp"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+                        </LinearLayout>
 
 
-                <LinearLayout
-                    android:id="@+id/statusLayout"
-                    android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/statusLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="8dp"
+                                android:text="@string/status_title"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/course_details_status_textView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/ic_baseline_event_24"
+                                android:drawablePadding="8dp"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp">
+                    android:layout_margin="8dp"
+                    android:elevation="8dp"
+                    app:cardCornerRadius="8dp">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="8dp"
-                        android:text="@string/status_title"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+                        android:orientation="vertical">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/course_details_status_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_baseline_event_24"
-                        android:drawablePadding="8dp"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-                </LinearLayout>
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/courseColor"
+                            android:padding="8dp"
+                            android:text="@string/dates_label"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
-                <LinearLayout
-                    android:id="@+id/alertsLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="8dp"
-                        android:text="@string/alerts_label"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="8dp">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/course_details_alertsEnabled_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_baseline_notifications_24"
-                        android:drawablePadding="8dp"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-                </LinearLayout>
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="8dp"
+                                android:text="@string/from_label"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp">
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/course_details_start"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/ic_baseline_calendar_today_24"
+                                android:drawablePadding="8dp"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+                        </LinearLayout>
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="8dp"
-                        android:text="@string/from_label"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+                        <LinearLayout
+                            android:id="@+id/toDateLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="8dp">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/course_details_start"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_baseline_calendar_today_24"
-                        android:drawablePadding="8dp"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-                </LinearLayout>
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingBottom="8dp"
+                                android:text="@string/anticipated_end"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
-                <LinearLayout
-                    android:id="@+id/toDateLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp">
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/course_details_end"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/ic_baseline_calendar_today_24"
+                                android:drawablePadding="8dp"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+                        </LinearLayout>
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingBottom="8dp"
-                        android:text="@string/anticipated_end"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+                        <LinearLayout
+                            android:id="@+id/alertsLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="8dp">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/course_details_end"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableStart="@drawable/ic_baseline_calendar_today_24"
-                        android:drawablePadding="8dp"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-                </LinearLayout>
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="8dp"
+                                android:text="@string/alerts_label"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/course_details_alertsEnabled_textView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/ic_baseline_notifications_24"
+                                android:drawablePadding="8dp"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -304,15 +345,14 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_height="match_parent"
                 android:background="#ffe9d0"
                 android:orientation="vertical">
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/courseTabLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/course_primary_details_layout"
@@ -325,7 +365,7 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/courseViewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/courseTabLayout">

@@ -22,7 +22,8 @@ public class AddCourseViewModel extends CourseViewModelBase {
     public MutableLiveData<String> mentorEmail;
     public MutableLiveData<Boolean> canSave;
     public MutableLiveData<String> status;
-    public MutableLiveData<Boolean> alertsEnabled;
+    public MutableLiveData<Boolean> startAlertEnabled;
+    public MutableLiveData<Boolean> endAlertEnabled;
 
     public Date startDate;
     public Date endDate;
@@ -41,9 +42,11 @@ public class AddCourseViewModel extends CourseViewModelBase {
         mentorPhone = new MutableLiveData<>();
         mentorEmail = new MutableLiveData<>();
         canSave = new MutableLiveData<>();
-        alertsEnabled = new MutableLiveData<>();
+        startAlertEnabled = new MutableLiveData<>();
+        endAlertEnabled = new MutableLiveData<>();
         canSave.setValue(false);
-        alertsEnabled.setValue(true);
+        startAlertEnabled.setValue(true);
+        endAlertEnabled.setValue(true);
     }
 
     public void setTermId(int termId) {
@@ -117,21 +120,16 @@ public class AddCourseViewModel extends CourseViewModelBase {
                         mentorNameValue,
                         mentorPhoneValue,
                         mentorEmailValue,
-                        alertsEnabled.getValue(),
-                        alertsEnabled.getValue(),
-                        alertsEnabled.getValue());
+                        startAlertEnabled.getValue(),
+                        endAlertEnabled.getValue(),
+                        startAlertEnabled.getValue(),
+                        endAlertEnabled.getValue());
 
                 if (termId.isPresent()) {
                     course.setTermId(termId.getAsInt());
                 }
 
                 courseRepository.insertOrUpdate(course);
-                int size = courseRepository.courses.getValue().size();
-
-                //long ts = startDate.toInstant().minus(1, ChronoUnit.DAYS).toEpochMilli();
-                //DateConverter.fromTimestamp(ts);
-
-
             } catch (Exception ex) {
                 Log.e(AddTermViewModel.class.getName(), ex.getMessage());
                 throw ex;

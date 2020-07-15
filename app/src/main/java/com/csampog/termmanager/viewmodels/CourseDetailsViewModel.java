@@ -61,7 +61,7 @@ public class CourseDetailsViewModel extends CourseViewModelBase {
         formattedStartDate = Transformations.map(course, c -> c != null ? dateFormat.format(c.getStartDate()) : "");
         formattedEndDate = Transformations.map(course, c -> c != null ? dateFormat.format(c.getAnticipatedEndDate()) : "");
         status = Transformations.map(course, c -> c != null ? c.getStatus() : "");
-        alertsEnabled = Transformations.map(course, c -> c != null ? c.getAlertsEnabled() : false);
+        alertsEnabled = Transformations.map(course, c -> c != null ? c.getStartAlertEnabled() : false);
         hasMentorInfo = Transformations.map(course, c -> {
 
             if (c == null) return false;

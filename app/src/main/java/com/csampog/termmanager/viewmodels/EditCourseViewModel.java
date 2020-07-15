@@ -41,8 +41,11 @@ public class EditCourseViewModel extends AndroidViewModel {
 
     public MutableLiveData<Boolean> canSave;
 
-    public LiveData<Boolean> alertsEnabled;
-    public Boolean alertsEnabledInput;
+    public LiveData<Boolean> startAlertEnabled;
+    public Boolean startAlertEnabledInput;
+
+    public LiveData<Boolean> endAlertEnabled;
+    public Boolean endAlertEnabledInput;
 
     private boolean startAlertPending;
     private boolean endAlertPending;
@@ -65,7 +68,7 @@ public class EditCourseViewModel extends AndroidViewModel {
         status = new MutableLiveData<>();
         canSave = new MutableLiveData<>();
         courseRepository = CourseRepository.getInstance(application);
-        alertsEnabledInput = true;
+        startAlertEnabledInput = true;
     }
 
     public void setCourseId(int courseId){
@@ -105,11 +108,11 @@ public class EditCourseViewModel extends AndroidViewModel {
             return c.getMentorPhone();
         });
 
-        alertsEnabled = Transformations.map(course, c-> {
-           startAlertPending = c.getStartAlertPending();
-           endAlertPending = c.getEndAlertPending();
-           alertsEnabledInput = c.getAlertsEnabled();
-           return c.getAlertsEnabled();
+        startAlertEnabled = Transformations.map(course, c -> {
+            startAlertPending = c.getStartAlertPending();
+            endAlertPending = c.getEndAlertPending();
+            startAlertEnabledInput = c.getStartAlertEnabled();
+            return c.getStartAlertEnabled();
         });
     }
 
@@ -127,9 +130,10 @@ public class EditCourseViewModel extends AndroidViewModel {
                         mentorNameInput,
                         mentorPhoneInput,
                         mentorEmailInput,
-                        alertsEnabledInput,
-                        alertsEnabledInput,
-                        alertsEnabledInput);
+                        startAlertEnabledInput,
+                        endAlertEnabledInput,
+                        startAlertEnabledInput,
+                        endAlertEnabledInput);
 
                 modifiedCourse.setTermId(termId);
                 courseRepository.insertOrUpdate(modifiedCourse);

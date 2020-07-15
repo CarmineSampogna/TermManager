@@ -130,15 +130,19 @@ public class NotificationWorkManager extends Worker {
             List<Course> courses = courseRepository.getCoursesForAlerts();
             if (courses != null && !courses.isEmpty()) {
                 courses.stream()
-                        .filter(c -> c.getAlertsEnabled())
                         .forEach(c -> {
+
+                            boolean isBefore = date.before(c.getStartDate());
+
+                            if (!isBefore && !c.getEndAlertEnabled()) return;
+
                             Intent intent = new Intent(getApplicationContext(), CourseDetailsActivity.class);
                             intent.putExtra(CourseDetailsActivity.COURSE_ID_KEY, c.getCourseId());
 
-                            boolean isBefore = date.before(c.getStartDate());
-                            String titleText = isBefore ? "Start" : "End";
-                            String alertText = isBefore ? " starts on " : " ends on ";
-                            Date targetDate = isBefore ? c.getStartDate() : c.getAnticipatedEndDate();
+
+                            String titleText = isBefore && c.getStartAlertEnabled() ? "Start" : "End";
+                            String alertText = isBefore && c.getStartAlertEnabled() ? " starts on " : " ends on ";
+                            Date targetDate = isBefore && c.getStartAlertEnabled() ? c.getStartDate() : c.getAnticipatedEndDate();
 
                             PendingIntent contentPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

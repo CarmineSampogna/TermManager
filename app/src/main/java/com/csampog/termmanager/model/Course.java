@@ -1,11 +1,11 @@
 package com.csampog.termmanager.model;
 
-import java.util.Date;
-
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import java.util.Date;
 
 @Entity(tableName = "Courses", indices = {@Index("termId")})
 public class Course {
@@ -19,7 +19,8 @@ public class Course {
     private String mentorName;
     private String mentorPhone;
     private String mentorEmail;
-    private Boolean alertsEnabled;
+    private Boolean startAlertEnabled;
+    private Boolean endAlertEnabled;
     private Boolean startAlertPending;
     private Boolean endAlertPending;
 
@@ -44,7 +45,7 @@ public class Course {
     }
 
     @Ignore
-    public Course(String title, Date startDate, Date anticipatedEndDate, String status, String mentorName, String mentorPhone, String mentorEmail, Boolean alertsEnabled, Boolean startAlertPending, Boolean endAlertPending){
+    public Course(String title, Date startDate, Date anticipatedEndDate, String status, String mentorName, String mentorPhone, String mentorEmail, Boolean startAlertEnabled, Boolean endAlertEnabled, Boolean startAlertPending, Boolean endAlertPending) {
 
         this.title = title;
         this.startDate = startDate;
@@ -53,12 +54,13 @@ public class Course {
         this.mentorName = mentorName;
         this.mentorPhone = mentorPhone;
         this.mentorEmail = mentorEmail;
-        this.alertsEnabled = alertsEnabled;
+        this.startAlertEnabled = startAlertEnabled;
+        this.endAlertEnabled = endAlertEnabled;
         this.startAlertPending = startAlertPending;
         this.endAlertPending = endAlertPending;
     }
 
-    public Course(int courseId, String title, Date startDate, Date anticipatedEndDate, String status, String mentorName, String mentorPhone, String mentorEmail, Boolean alertsEnabled, Boolean startAlertPending, Boolean endAlertPending){
+    public Course(int courseId, String title, Date startDate, Date anticipatedEndDate, String status, String mentorName, String mentorPhone, String mentorEmail, Boolean startAlertEnabled, Boolean endAlertEnabled, Boolean startAlertPending, Boolean endAlertPending) {
         this.courseId = courseId;
         this.title = title;
         this.startDate = startDate;
@@ -67,7 +69,8 @@ public class Course {
         this.mentorName = mentorName;
         this.mentorPhone = mentorPhone;
         this.mentorEmail = mentorEmail;
-        this.alertsEnabled = alertsEnabled;
+        this.startAlertEnabled = startAlertEnabled;
+        this.endAlertEnabled = endAlertEnabled;
         this.startAlertPending = startAlertPending;
         this.endAlertPending = endAlertPending;
     }
@@ -144,23 +147,31 @@ public class Course {
         this.courseId = courseId;
     }
 
-    public Boolean getAlertsEnabled(){
-        return this.alertsEnabled;
+    public Boolean getStartAlertEnabled() {
+        return this.startAlertEnabled;
     }
 
-    public void setAlertsEnabled(Boolean alertsEnabled){
-        this.alertsEnabled = alertsEnabled;
+    public void setStartAlertEnabled(Boolean startAlertEnabled) {
+        this.startAlertEnabled = startAlertEnabled;
     }
 
-    public Boolean getStartAlertPending(){
+    public Boolean getEndAlertEnabled() {
+        return this.endAlertEnabled;
+    }
+
+    public void setEndAlertEnabled(Boolean endAlertEnabled) {
+        this.endAlertEnabled = endAlertEnabled;
+    }
+
+    public Boolean getStartAlertPending() {
         return this.startAlertPending;
     }
 
-    public void setStartAlertPending(Boolean startAlertPending){
+    public void setStartAlertPending(Boolean startAlertPending) {
         this.startAlertPending = startAlertPending;
     }
 
-    public  Boolean getEndAlertPending(){
+    public Boolean getEndAlertPending() {
         return this.endAlertPending;
     }
 

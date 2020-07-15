@@ -50,7 +50,6 @@
             tools:context=".AddTermActivity">
 
 
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/course_title_layout"
                 android:layout_width="match_parent"
@@ -71,18 +70,7 @@
                     android:maxLines="2" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Switch
-                android:id="@+id/course_alerts_switch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/alerts_label"
-                android:checked="true"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:textStyle="bold"
-                android:paddingTop="16dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="16dp"/>
+
 
             <LinearLayout
                 android:id="@+id/startDateLayout"
@@ -91,17 +79,17 @@
                 android:layout_marginTop="16dp"
                 android:elevation="8dp"
                 android:orientation="vertical"
-                android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/course_title_layout">
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/from_label"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textStyle="bold" />
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/course_start_text"
@@ -135,6 +123,51 @@
                     app:icon="@drawable/ic_baseline_calendar_today_24"
                     app:iconPadding="8dp" />
             </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/primaryColor"
+                        android:padding="8dp"
+                        android:text="@string/notifications_label"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textStyle="bold" />
+
+                    <Switch
+                        android:id="@+id/course_startAlert_switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:paddingStart="8dp"
+                        android:paddingTop="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="16dp"
+                        android:text="@string/start_date_alert_label" />
+
+                    <Switch
+                        android:id="@+id/course_endAlert_switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:paddingStart="8dp"
+                        android:paddingTop="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="16dp"
+                        android:text="@string/end_date_alert_label" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
 
             <com.google.android.material.card.MaterialCardView
@@ -229,7 +262,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/mentor_name_hint"
-                            android:inputType="textPersonName"
+                            android:inputType="textCapWords"
                             android:maxLines="1" />
                     </com.google.android.material.textfield.TextInputLayout>
 

@@ -1,13 +1,12 @@
 package com.csampog.termmanager.dataAccess.interfaces;
 
-import com.csampog.termmanager.model.Course;
-
-import java.util.Date;
-import java.util.List;
-
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Query;
+
+import com.csampog.termmanager.model.Course;
+
+import java.util.List;
 
 @Dao
 public interface CourseDao extends EntityDao<Course> {
@@ -24,7 +23,7 @@ public interface CourseDao extends EntityDao<Course> {
     @Query("SELECT * FROM COURSES WHERE termId = 0")
     LiveData<List<Course>> getCoursesWithoutTerm();
 
-    @Query("SELECT * FROM COURSES WHERE alertsEnabled = 1")
+    @Query("SELECT * FROM COURSES WHERE startAlertEnabled = 1 OR endAlertEnabled = 1")
     List<Course> getCoursesForAlerts();
 
 }

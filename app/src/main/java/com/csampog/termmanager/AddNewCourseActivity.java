@@ -40,8 +40,8 @@ public class AddNewCourseActivity extends AppCompatActivity {
     private EditText mentorEmailText;
     private EditText mentorPhoneText;
     private RadioGroup statusRadioGroup;
-    private Switch alertSwitch;
-
+    private Switch startAlertSwitch;
+    private Switch endAlertSwitch;
 
     private OptionalInt termId = OptionalInt.empty();
     private AddCourseViewModel viewModel;
@@ -132,8 +132,13 @@ public class AddNewCourseActivity extends AppCompatActivity {
         });
         initTitleText();
 
-        alertSwitch = findViewById(R.id.course_alerts_switch);
-        alertSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> viewModel.alertsEnabled.setValue(isChecked));
+        startAlertSwitch = findViewById(R.id.course_startAlert_switch);
+        startAlertSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> viewModel.startAlertEnabled.setValue(isChecked));
+
+        endAlertSwitch = findViewById(R.id.course_endAlert_switch);
+        endAlertSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> viewModel.endAlertEnabled.setValue(isChecked));
+
+
         initMentorFields();
 
         initDateButtons();

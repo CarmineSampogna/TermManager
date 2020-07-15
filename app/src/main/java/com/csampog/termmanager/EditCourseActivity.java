@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -102,9 +103,10 @@ public class EditCourseActivity extends AppCompatActivity {
         });
 
         courseAlertsSwitch = findViewById(R.id.course_alerts_switch);
-        courseAlertsSwitch.setOnCheckedChangeListener((v, b) -> viewModel.alertsEnabledInput = b);
+        courseAlertsSwitch.setOnCheckedChangeListener((v, b) -> viewModel.startAlertEnabledInput = b);
 
         mentorNameText = findViewById(R.id.course_mentorName_text);
+        mentorNameText.setInputType(EditorInfo.TYPE_TEXT_VARIATION_PERSON_NAME);
         mentorNameText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -290,7 +292,7 @@ public class EditCourseActivity extends AppCompatActivity {
         viewModel.formattedStartDate.observe(this, startDateObserver);
         viewModel.formattedEndDate.observe(this, endDateObserver);
         viewModel.status.observe(this, statusObserver);
-        viewModel.alertsEnabled.observe(this, alertsEnabledObserver);
+        viewModel.startAlertEnabled.observe(this, alertsEnabledObserver);
         //viewModel.canSave.observe(this, canSaveObserver);
 
     }

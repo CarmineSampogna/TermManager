@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/pencils_books" />
+                android:src="@drawable/white_book" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/assessment_toolbar"
@@ -54,7 +54,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/assessment_title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:textColorHint="@color/assessmentColor"
+                app:boxStrokeColor="@color/assessmentColor"
+                app:hintTextColor="@color/assessmentColor">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/assessment_title_editText"
@@ -63,6 +66,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:inputType="textCapWords"
+
                     android:hint="@string/assessment_title_hint" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,6 +76,8 @@
                 android:layout_marginEnd="8dp"
                 style="@style/Widget.TermManager.Button.DateLaunchButton"
                 android:text="@string/goal_date_text"
+                android:textColor="@color/assessmentColor"
+                app:iconTint="@color/assessmentColor"
                 app:icon="@drawable/ic_baseline_calendar_today_24"
                 app:iconPadding="8dp" />
 
@@ -92,7 +98,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:elevation="8dp"
-                android:layout_marginTop="8dp">
+                android:layout_margin="8dp"
+                app:cardCornerRadius="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -102,7 +109,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/assessmentColorDark"
+                        android:background="@color/assessmentColor"
                         android:text="Assessment Type"
 android:textColor="@android:color/white"
                         android:padding="8dp"
@@ -142,7 +149,7 @@ android:textColor="@android:color/white"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        app:backgroundTint="?attr/colorSecondary"
+        app:backgroundTint="@color/assessmentColorDark"
         android:src="@android:drawable/ic_menu_save" />"
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

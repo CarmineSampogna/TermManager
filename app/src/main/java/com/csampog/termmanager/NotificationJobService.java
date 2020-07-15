@@ -9,15 +9,12 @@ import android.content.Intent;
 import android.graphics.Color;
 
 import androidx.core.app.NotificationCompat;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.csampog.termmanager.dataAccess.repositories.CourseRepository;
 import com.csampog.termmanager.model.Course;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +34,7 @@ public class NotificationJobService extends JobService {
         if (courseRepository.courses != null) {
             courses = courseRepository.courses.getValue();
             if (courses != null && !courses.isEmpty()) {
-                courses.stream().filter(c -> c.getAlertsEnabled() &&
+                courses.stream().filter(c -> c.getStartAlertEnabled() &&
                         c.getStartAlertPending() &&
                         c.getStartDate().after(date))
                         .forEach(c -> {

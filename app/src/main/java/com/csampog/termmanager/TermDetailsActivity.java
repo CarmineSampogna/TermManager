@@ -37,6 +37,7 @@ public class TermDetailsActivity extends AppCompatActivity {
 
     private CollapsingToolbarLayout toolbarLayout;
     private Toolbar toolbar;
+    private TextView titleTextView;
     private TextView startDateText;
     private TextView endDateText;
     private RecyclerView termCoursesRecyclerView;
@@ -122,6 +123,7 @@ public class TermDetailsActivity extends AppCompatActivity {
 
             toolbarLayout.setTitle(s);
             titleEditText.setText(s);
+            titleTextView.setText(s);
         };
 
         final Observer<String> startDateObserver = s -> startDateText.setText(s);
@@ -146,6 +148,7 @@ public class TermDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         editButton = findViewById(R.id.term_details_edit_button);
         editButton.setOnClickListener(v -> navToEdit());
+        titleTextView = findViewById(R.id.term_details_title_textView);
         titleEditText = findViewById(R.id.term_title_text);
         startDateText = findViewById(R.id.term_details_start);
         endDateText = findViewById(R.id.term_details_end);
