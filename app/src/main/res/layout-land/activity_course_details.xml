@@ -224,7 +224,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/alertsLayout"
+                                android:id="@+id/startAlertsLayout"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
@@ -234,11 +234,34 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:paddingBottom="8dp"
-                                    android:text="@string/alerts_label"
+                                    android:text="@string/start_alerts_label"
                                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
                                 <com.google.android.material.textview.MaterialTextView
-                                    android:id="@+id/course_details_alertsEnabled_textView"
+                                    android:id="@+id/course_details_startAlertsEnabled_textView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableStart="@drawable/ic_baseline_notifications_24"
+                                    android:drawablePadding="8dp"
+                                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/endAlertsLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="8dp">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="8dp"
+                                    android:text="End Alerts"
+                                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/course_details_endAlertsEnabled_textView"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:drawableStart="@drawable/ic_baseline_notifications_24"
@@ -392,6 +415,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:clickable="true"
+        app:backgroundTint="@color/courseColor"
         app:srcCompat="@drawable/ic_baseline_edit_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

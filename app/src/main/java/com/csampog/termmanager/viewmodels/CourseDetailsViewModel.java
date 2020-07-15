@@ -26,7 +26,9 @@ public class CourseDetailsViewModel extends CourseViewModelBase {
     public LiveData<String> mentorEmail;
     public LiveData<List<Assessment>> courseAssessments;
     public LiveData<List<Note>> courseNotes;
-    public LiveData<Boolean> alertsEnabled;
+    public LiveData<Boolean> startAlertsEnabled;
+    public LiveData<Boolean> endAlertsEnabled;
+
 
     private AssessmentRepository assessmentRepository;
     private NoteRepository noteRepository;
@@ -61,7 +63,8 @@ public class CourseDetailsViewModel extends CourseViewModelBase {
         formattedStartDate = Transformations.map(course, c -> c != null ? dateFormat.format(c.getStartDate()) : "");
         formattedEndDate = Transformations.map(course, c -> c != null ? dateFormat.format(c.getAnticipatedEndDate()) : "");
         status = Transformations.map(course, c -> c != null ? c.getStatus() : "");
-        alertsEnabled = Transformations.map(course, c -> c != null ? c.getStartAlertEnabled() : false);
+        startAlertsEnabled = Transformations.map(course, c -> c != null ? c.getStartAlertEnabled() : false);
+        endAlertsEnabled = Transformations.map(course, c -> c != null ? c.getEndAlertEnabled() : false);
         hasMentorInfo = Transformations.map(course, c -> {
 
             if (c == null) return false;

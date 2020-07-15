@@ -31,9 +31,10 @@
                 android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/term_details_toolbar"
+                android:id="@+id/all_assessments_toolbar"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_width="match_parent"></androidx.appcompat.widget.Toolbar>
+                android:layout_width="match_parent"
+                app:layout_collapseMode="pin"></androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -45,7 +45,8 @@ public class CourseDetailsActivity extends AppCompatActivity {
     private TextInputLayout statusInputLayout;
     private TextInputEditText statusTextInput;
     private TextView statusTextView;
-    private TextView alertsEnabledTextView;
+    private TextView startAlertsEnabledTextView;
+    private TextView endAlertsEnabledTextView;
     private LinearLayout noMentorInfoLayout;
     private LinearLayout mentorInfoLayout;
     private TextInputLayout mentorNameLayout;
@@ -137,16 +138,12 @@ public class CourseDetailsActivity extends AppCompatActivity {
             }
         };
 
-        final Observer<Boolean> alertsEnabledObserver = alertsEnabled -> {
-            boolean enabled = alertsEnabled != null && alertsEnabled;
-            int textRes = 0;
-            int iconRes = 0;
+        final Observer<Boolean> startAlertsEnabledObserver = sae -> {
+            updateAlertTextView((sae != null ? sae : false), true);
+        };
 
-            textRes = enabled ? R.string.alerts_on : R.string.alerts_off;
-            iconRes = enabled ? R.drawable.ic_baseline_notifications_24 : R.drawable.ic_baseline_notifications_off_24;
-
-            alertsEnabledTextView.setText(getString(textRes));
-            alertsEnabledTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(iconRes, 0, 0, 0);
+        final Observer<Boolean> endAlertsEnabledObserver = eae -> {
+            updateAlertTextView(eae, false);
         };
 
         final Observer<String> mentorNameObserver = s -> {
@@ -180,11 +177,30 @@ public class CourseDetailsActivity extends AppCompatActivity {
         viewModel.formattedStartDate.observe(this, startDateObserver);
         viewModel.formattedEndDate.observe(this, endDateObserver);
         viewModel.status.observe(this, statusObserver);
-        viewModel.alertsEnabled.observe(this, alertsEnabledObserver);
+        viewModel.startAlertsEnabled.observe(this, startAlertsEnabledObserver);
+        viewModel.endAlertsEnabled.observe(this, endAlertsEnabledObserver);
         viewModel.mentorName.observe(this, mentorNameObserver);
         viewModel.mentorEmail.observe(this, mentorEmailObserver);
         viewModel.mentorPhone.observe(this, mentorPhoneObserver);
         viewModel.hasMentorInfo.observe(this, hasMentorInfoObserver);
+    }
+
+    private void updateAlertTextView(boolean isAlertEnabled, boolean isStartAlert) {
+
+        int textRes = 0;
+        int iconRes = 0;
+
+        TextView targetTextView = isStartAlert ? startAlertsEnabledTextView :
+                endAlertsEnabledTextView;
+
+        textRes = isAlertEnabled ? R.string.alerts_on :
+                R.string.alerts_off;
+
+        iconRes = isAlertEnabled ? R.drawable.ic_baseline_notifications_24 :
+                R.drawable.ic_baseline_notifications_off_24;
+
+        targetTextView.setText(getString(textRes));
+        targetTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(iconRes, 0, 0, 0);
     }
 
     private void initViewModel() {
@@ -216,7 +232,8 @@ public class CourseDetailsActivity extends AppCompatActivity {
         startDateText = findViewById(R.id.course_details_start);
         endDateText = findViewById(R.id.course_details_end);
         statusTextView = findViewById(R.id.course_details_status_textView);
-        alertsEnabledTextView = findViewById(R.id.course_details_alertsEnabled_textView);
+        startAlertsEnabledTextView = findViewById(R.id.course_details_startAlertsEnabled_textView);
+        endAlertsEnabledTextView = findViewById(R.id.course_details_endAlertsEnabled_textView);
         noMentorInfoLayout = findViewById(R.id.noMentorInfo_layout);
         mentorInfoLayout = findViewById(R.id.mentorInfo_layout);
         mentorNameTextView = findViewById(R.id.course_details_mentorName_text);

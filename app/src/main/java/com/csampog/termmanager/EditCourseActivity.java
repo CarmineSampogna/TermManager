@@ -42,7 +42,8 @@ public class EditCourseActivity extends AppCompatActivity {
     private EditText mentorEmailText;
     private EditText mentorPhoneText;
     private RadioGroup statusRadioGroup;
-    private Switch courseAlertsSwitch;
+    private Switch courseStartAlertsSwitch;
+    private Switch courseEndAlertsSwitch;
 
 
     private OptionalInt termId = OptionalInt.empty();
@@ -76,12 +77,21 @@ public class EditCourseActivity extends AppCompatActivity {
             courseId = OptionalInt.of(intent.getIntExtra(COURSE_ID_PARAM, 0));
         }
 
-        Toolbar toolbar = findViewById(R.id.add_course_toolbar);
-        int activityTitleRes = courseId.isPresent() ? R.string.edit_course_title : R.string.add_course_title;
-        toolbar.setTitle(activityTitleRes);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        initViews();
+        initViewModel();
+    }
 
+    private void initViews() {
+        initToolbar();
+        initTitleText();
+        initDateButtons();
+        initStatusRadioGroup();
+        initAlertSwitches();
+        initMentorViews();
+        initSaveButton();
+    }
+
+    private void initStatusRadioGroup() {
         statusRadioGroup = findViewById(R.id.add_course_status_group);
         statusRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             String status = "";
@@ -101,65 +111,17 @@ public class EditCourseActivity extends AppCompatActivity {
             }
             viewModel.statusInput = status;
         });
+    }
 
-        courseAlertsSwitch = findViewById(R.id.course_alerts_switch);
-        courseAlertsSwitch.setOnCheckedChangeListener((v, b) -> viewModel.startAlertEnabledInput = b);
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.add_course_toolbar);
+        int activityTitleRes = courseId.isPresent() ? R.string.edit_course_title : R.string.add_course_title;
+        toolbar.setTitle(activityTitleRes);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
-        mentorNameText = findViewById(R.id.course_mentorName_text);
-        mentorNameText.setInputType(EditorInfo.TYPE_TEXT_VARIATION_PERSON_NAME);
-        mentorNameText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                viewModel.mentorNameInput = s.toString();
-            }
-        });
-
-        mentorEmailText = findViewById(R.id.course_mentorEmail_text);
-        mentorEmailText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                viewModel.mentorEmailInput = s.toString();
-            }
-        });
-
-        mentorPhoneText = findViewById(R.id.course_mentorPhone_text);
-        mentorPhoneText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                viewModel.mentorPhoneInput = s.toString();
-            }
-        });
-
+    private void initSaveButton() {
         saveButton = findViewById(R.id.add_course_save);
         saveButton.setOnClickListener(v -> {
             try {
@@ -203,10 +165,83 @@ public class EditCourseActivity extends AppCompatActivity {
             }
         });
         saveButton.setVisibility(View.VISIBLE);
-        initTitleText();
+    }
 
-        initDateButtons();
-        initViewModel();
+    private void initMentorViews() {
+        initMentorNameView();
+
+        initMentorEmailView();
+
+        initMentorPhoneView();
+    }
+
+    private void initMentorPhoneView() {
+        mentorPhoneText = findViewById(R.id.course_mentorPhone_text);
+        mentorPhoneText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                viewModel.mentorPhoneInput = s.toString();
+            }
+        });
+    }
+
+    private void initMentorEmailView() {
+        mentorEmailText = findViewById(R.id.course_mentorEmail_text);
+        mentorEmailText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                viewModel.mentorEmailInput = s.toString();
+            }
+        });
+    }
+
+    private void initMentorNameView() {
+        mentorNameText = findViewById(R.id.course_mentorName_text);
+        mentorNameText.setInputType(EditorInfo.TYPE_TEXT_VARIATION_PERSON_NAME);
+        mentorNameText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                viewModel.mentorNameInput = s.toString();
+            }
+        });
+    }
+
+    private void initAlertSwitches() {
+        courseStartAlertsSwitch = findViewById(R.id.course_startAlert_switch);
+        courseStartAlertsSwitch.setOnCheckedChangeListener((v, b) -> viewModel.startAlertEnabledInput = b);
+
+        courseEndAlertsSwitch = findViewById(R.id.course_endAlert_switch);
+        courseEndAlertsSwitch.setOnCheckedChangeListener((v, b) -> viewModel.endAlertEnabledInput = b);
     }
 
     private void initTitleText() {
@@ -244,7 +279,7 @@ public class EditCourseActivity extends AppCompatActivity {
             viewModel.termId = termId.getAsInt();
         }
 
-        if(courseId.isPresent()){
+        if (courseId.isPresent()) {
             viewModel.setCourseId(courseId.getAsInt());
         }
 
@@ -263,27 +298,20 @@ public class EditCourseActivity extends AppCompatActivity {
         final Observer<String> statusObserver = s -> {
             int checkedId = 0;
 
-            if(s.contentEquals(Course.PLAN_TO_TAKE)){
+            if (s.contentEquals(Course.PLAN_TO_TAKE)) {
                 checkedId = R.id.add_course_status_planToTake_option;
-            }else if( s.contentEquals(Course.IN_PROGRESS)){
+            } else if (s.contentEquals(Course.IN_PROGRESS)) {
                 checkedId = R.id.add_course_status_inProgress_option;
-            }else if(s.contentEquals(Course.COMPLETED)){
+            } else if (s.contentEquals(Course.COMPLETED)) {
                 checkedId = R.id.add_course_status_completed_option;
-            }else{
+            } else {
                 checkedId = R.id.add_course_status_dropped_option;
             }
             statusRadioGroup.check(checkedId);
         };
 
-        final Observer<Boolean> alertsEnabledObserver = alertsEnabled -> courseAlertsSwitch.setChecked(alertsEnabled != null ? alertsEnabled : false);
-
-        final Observer<Boolean> canSaveObserver = aBoolean -> {
-            if (aBoolean) {
-                saveButton.show();
-            } else {
-                saveButton.hide();
-            }
-        };
+        final Observer<Boolean> startAlertsEnabledObserver = alertsEnabled -> courseStartAlertsSwitch.setChecked(alertsEnabled != null ? alertsEnabled : false);
+        final Observer<Boolean> endAlertsEnabledObserver = alertsEnabled -> courseEndAlertsSwitch.setChecked(alertsEnabled != null ? alertsEnabled : false);
 
         viewModel.title.observe(this, titleObserver);
         viewModel.mentorName.observe(this, mentorNameObserver);
@@ -292,9 +320,8 @@ public class EditCourseActivity extends AppCompatActivity {
         viewModel.formattedStartDate.observe(this, startDateObserver);
         viewModel.formattedEndDate.observe(this, endDateObserver);
         viewModel.status.observe(this, statusObserver);
-        viewModel.startAlertEnabled.observe(this, alertsEnabledObserver);
-        //viewModel.canSave.observe(this, canSaveObserver);
-
+        viewModel.startAlertEnabled.observe(this, startAlertsEnabledObserver);
+        viewModel.endAlertEnabled.observe(this, endAlertsEnabledObserver);
     }
 
     private class DateClickListener implements View.OnClickListener {

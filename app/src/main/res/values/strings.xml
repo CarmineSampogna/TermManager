@@ -104,4 +104,6 @@
     <string name="start_date_alert_label">Start Date Alert</string>
     <string name="end_date_alert_label">End Date Alert</string>
     <string name="notifications_label">Notifications</string>
+    <string name="start_alerts_label">Start Alerts</string>
+    <string name="goal_date_notifications">Goal Date Notifications</string>
 </resources>

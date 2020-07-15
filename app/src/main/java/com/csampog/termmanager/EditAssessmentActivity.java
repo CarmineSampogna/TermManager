@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -19,7 +21,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.csampog.termmanager.viewmodels.EditAssessmentViewModel;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -54,17 +55,22 @@ public class EditAssessmentActivity extends AppCompatActivity {
         courseId = intent.getIntExtra(COURSE_ID_PARAM, 0);
 
         initToolbar();
-
         initViews();
-
         initViewModel();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.edit_assessment_menu, menu);
+        return true;
+    }
+
+
     private void initToolbar() {
-        CollapsingToolbarLayout toolbarLayout = findViewById(R.id.add_assessment_toolbar);
-        toolbarLayout.setTitle(getString(R.string.edit_assessment_text));
 
         Toolbar toolbar = findViewById(R.id.edit_assessment_toolbar);
+        toolbar.setTitle(getString(R.string.edit_assessment_text));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -85,6 +91,11 @@ public class EditAssessmentActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.edit_assessment_delete_button) {
+            viewModel.deleteAssessment();
+        }
+
         finish();
         return true;
     }

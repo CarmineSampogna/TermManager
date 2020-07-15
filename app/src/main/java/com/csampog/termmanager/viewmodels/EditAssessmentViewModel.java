@@ -70,8 +70,8 @@ public class EditAssessmentViewModel extends AndroidViewModel {
         this.assessmentId = assessmentId;
         assessment = assessmentRepository.getAssessmentById(this.assessmentId);
         title = Transformations.map(assessment, a -> {
-            formattedGoalDate.setValue(dateFormat.format(a.getGoalDate()));
-            dateInput = a.getGoalDate();
+            formattedGoalDate.setValue(a != null ? dateFormat.format(a.getGoalDate()) : "");
+            dateInput = a != null ? a.getGoalDate() : null;
             return a != null ? a.getTitle() : "";
         });
 
@@ -81,8 +81,9 @@ public class EditAssessmentViewModel extends AndroidViewModel {
         });
 
         assessmentType = Transformations.map(assessment, a -> {
-            assessmentTypeInput = a.getTestType();
-            return a.getTestType();
+            String testType = a != null ? a.getTestType() : "";
+            assessmentTypeInput = testType;
+            return testType;
         });
     }
 
@@ -133,5 +134,12 @@ public class EditAssessmentViewModel extends AndroidViewModel {
         target.setAssessmentId(assessmentId);
         target.setAlertsEnabled(alertsEnabledInput);
         assessmentRepository.insertOrUpdate(target);
+    }
+
+    public void deleteAssessment() {
+
+        Assessment target = new Assessment();
+        target.setAssessmentId(assessmentId);
+        assessmentRepository.delete(target);
     }
 }

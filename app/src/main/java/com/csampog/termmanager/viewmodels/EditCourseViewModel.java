@@ -69,6 +69,7 @@ public class EditCourseViewModel extends AndroidViewModel {
         canSave = new MutableLiveData<>();
         courseRepository = CourseRepository.getInstance(application);
         startAlertEnabledInput = true;
+        endAlertEnabledInput = true;
     }
 
     public void setCourseId(int courseId){
@@ -113,6 +114,12 @@ public class EditCourseViewModel extends AndroidViewModel {
             endAlertPending = c.getEndAlertPending();
             startAlertEnabledInput = c.getStartAlertEnabled();
             return c.getStartAlertEnabled();
+        });
+
+        endAlertEnabled = Transformations.map(course, c -> {
+            endAlertPending = c.getEndAlertPending();
+            endAlertEnabledInput = c.getEndAlertEnabled();
+            return c.getEndAlertEnabled();
         });
     }
 

@@ -11,7 +11,8 @@
         android:id="@+id/appbar"
         android:gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="wrap_content"
+        android:background="@color/termColor">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/add_term_toolbar"
@@ -38,6 +39,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                app:boxStrokeColor="@color/termColorDark"
+                app:hintTextColor="@color/termColorDark"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -63,18 +67,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/term_title_layout">
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     android:text="@string/from_label" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/term_start_text"
                     style="@style/Widget.TermManager.Button.DateLaunchButton"
                     android:text="@string/start_date_hint"
+                    android:textColor="@color/termColorDark"
+                    app:iconTint="@color/termColorDark"
                     app:icon="@drawable/ic_baseline_calendar_today_24"
-                    app:iconPadding="8dp"/>
+                    app:iconPadding="8dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -86,16 +92,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/startDateLayout">
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     android:text="@string/to_label" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/term_end_text"
                     style="@style/Widget.TermManager.Button.DateLaunchButton"
                     android:text="@string/term_end_hint"
+                    android:textColor="@color/termColorDark"
+                    app:iconTint="@color/termColorDark"
                     app:icon="@drawable/ic_baseline_calendar_today_24"
                     app:iconPadding="8dp" />
             </LinearLayout>
@@ -112,5 +120,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:visibility="invisible"
+        app:backgroundTint="@color/termColor"
         android:src="@android:drawable/ic_menu_save"/>"
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
