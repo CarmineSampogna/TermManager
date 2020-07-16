@@ -2,6 +2,7 @@ package com.csampog.termmanager;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -58,13 +59,12 @@ public class NoteActivity extends AppCompatActivity {
             finish();
         } else if (selectedId == R.id.note_details_share) {
 
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.setData(Uri.parse("smsto:"));
-            intent.putExtra("sms_body", noteTextInput.getText().toString());
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            }
+            Intent sendIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:"));
+            sendIntent.putExtra("sms_body", noteTitleText.getText().toString() + ". " + noteTextInput.getText().toString());
+
+            if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+                sendIntent.setType("vnd.android-dir/mms-sms");
+            startActivity(sendIntent);
         } else {
             finish();
         }

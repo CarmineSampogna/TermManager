@@ -112,9 +112,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/to_label"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textStyle="bold" />
+                    android:text="@string/anticipated_end"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/course_end_text"

@@ -86,13 +86,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/from_label"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textStyle="bold" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/course_start_text"
                     style="@style/Widget.TermManager.Button.DateLaunchButton"
                     android:text="@string/start_date_hint"
+                    app:icon="@drawable/ic_baseline_calendar_today_24"
+                    app:iconPadding="8dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/endDateLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/startDateLayout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/anticipated_end"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/course_end_text"
+                    style="@style/Widget.TermManager.Button.DateLaunchButton"
+                    android:text="@string/term_end_hint"
                     app:icon="@drawable/ic_baseline_calendar_today_24"
                     app:iconPadding="8dp" />
             </LinearLayout>
@@ -141,32 +164,6 @@
                         android:text="@string/end_date_alert_label" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-
-            <LinearLayout
-                android:id="@+id/endDateLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/startDateLayout">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/to_label"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/course_end_text"
-                    style="@style/Widget.TermManager.Button.DateLaunchButton"
-                    android:text="@string/term_end_hint"
-                    app:icon="@drawable/ic_baseline_calendar_today_24"
-                    app:iconPadding="8dp" />
-            </LinearLayout>
-
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"

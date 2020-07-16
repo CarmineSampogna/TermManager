@@ -62,32 +62,6 @@ public class NotificationWorkManager extends Worker {
         AssessmentRepository assessmentRepository = AssessmentRepository.getInstance(getApplicationContext());
         sendAssessmentNotifications(date, assessmentRepository);
         sendCourseNotifications(date, courseRepository);
-
-//        if (courseRepository.courses.getValue() != null) {
-//            List<Course> courses = courseRepository.getCoursesForAlerts();
-//            if (courses != null && !courses.isEmpty()) {
-//                courses.stream()
-//                        //.filter(c -> c.getAlertsEnabled() &&
-//                        //c.getStartAlertPending() &&
-//                        //c.getStartDate().after(date))
-//                        .forEach(c -> {
-//                            Intent intent = new Intent(getApplicationContext(), CourseDetailsActivity.class);
-//                            intent.putExtra(CourseDetailsActivity.COURSE_ID_KEY, c.getCourseId());
-//
-//                            PendingIntent contentPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//                            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), PRIMARY_CHANNEL_ID)
-//                                    .setContentTitle("Course Start Date")
-//                                    .setContentText(c.getTitle() + " starts on " + dateFormat.format(c.getStartDate()))
-//                                    .setContentIntent(contentPendingIntent)
-//                                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-//                                    .setDefaults(NotificationCompat.DEFAULT_ALL)
-//                                    .setSmallIcon(R.drawable.ic_baseline_class_24);
-//
-//                            mNotificationManager.notify(c.getCourseId(), builder.build());
-//                        });
-//            }
-//        }
         return Result.success();
     }
 
@@ -134,7 +108,11 @@ public class NotificationWorkManager extends Worker {
 
                             boolean isBefore = date.before(c.getStartDate());
 
+                            //If the course started already, and there's no end alerts, there's no work to do.
                             if (!isBefore && !c.getEndAlertEnabled()) return;
+
+                            //Don't send end alerts for courses that haven't started yet and don't have start alerts enabled.
+                            if (isBefore && !c.getStartAlertEnabled()) return;
 
                             Intent intent = new Intent(getApplicationContext(), CourseDetailsActivity.class);
                             intent.putExtra(CourseDetailsActivity.COURSE_ID_KEY, c.getCourseId());

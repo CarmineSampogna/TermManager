@@ -1,6 +1,7 @@
 package com.csampog.termmanager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -70,6 +71,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
 
         Toolbar toolbar = findViewById(R.id.course_details_toolbar);
+        toolbar.setTitle(R.string.course_details_title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initViewModel();
@@ -118,7 +120,6 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
         final Observer<String> titleObserver = s -> {
 
-            toolbarLayout.setTitle(s);
             titleTextView.setText(s);
         };
         final Observer<String> startDateObserver = s -> startDateText.setText(s);
@@ -217,7 +218,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        toolbarLayout = findViewById(R.id.course_details_toolbar_layout);
+
         courseDetailsToolbar = findViewById(R.id.course_details_toolbar);
         setSupportActionBar(courseDetailsToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -238,7 +239,28 @@ public class CourseDetailsActivity extends AppCompatActivity {
         mentorInfoLayout = findViewById(R.id.mentorInfo_layout);
         mentorNameTextView = findViewById(R.id.course_details_mentorName_text);
         mentorPhoneTextView = findViewById(R.id.course_details_mentorPhone_text);
+        mentorPhoneTextView.setOnClickListener(v -> {
+            String num = ((TextView) v).getText().toString();
+            if (num != null && !num.isEmpty()) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + num));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
         mentorEmailTextView = findViewById(R.id.course_details_mentorEmail_text);
+        mentorEmailTextView.setOnClickListener(v -> {
+            String email = ((TextView) v).getText().toString();
+            if (email != null && !email.isEmpty()) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setData(Uri.parse("mailto:"));
+                intent.putExtra(Intent.EXTRA_EMAIL, email);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
         courseTabLayout = findViewById(R.id.courseTabLayout);
         courseViewPager = findViewById(R.id.courseViewPager);
         initViewPager();

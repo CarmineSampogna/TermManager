@@ -98,7 +98,7 @@ public class AddNewCourseActivity extends AppCompatActivity {
                 StringBuilder errorBuilder = new StringBuilder();
                 boolean canSave = true;
 
-                if (titleText.getText() == null || titleText.getText().length() < 3) {
+                if (titleText.getText() == null || titleText.getText().toString().trim().length() < 3) {
                     canSave = false;
                     errorBuilder.append("Title must be at least 3 characters.\n");
                 }

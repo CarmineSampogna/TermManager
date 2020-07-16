@@ -120,6 +120,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:visibility="invisible"
-        app:backgroundTint="@color/termColor"
         android:src="@android:drawable/ic_menu_save"/>"
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
