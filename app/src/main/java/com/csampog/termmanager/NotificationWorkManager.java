@@ -112,9 +112,11 @@ public class NotificationWorkManager extends Worker {
                             Intent intent = new Intent(getApplicationContext(), CourseDetailsActivity.class);
                             intent.putExtra(CourseDetailsActivity.COURSE_ID_KEY, c.getCourseId());
 
-                            String titleText = !isAfter && c.getStartAlertEnabled() ? "Start" : "End";
-                            String alertText = !isAfter && c.getStartAlertEnabled() ? " starts on " : " ends on ";
-                            Date targetDate = !isAfter && c.getStartAlertEnabled() ? c.getStartDate() : c.getAnticipatedEndDate();
+                            boolean useStartAlert = (!isAfter && c.getStartAlertEnabled()) || !c.getEndAlertEnabled();
+
+                            String titleText = useStartAlert ? "Start" : "End";
+                            String alertText = useStartAlert ? " starts on " : " ends on ";
+                            Date targetDate = useStartAlert ? c.getStartDate() : c.getAnticipatedEndDate();
 
                             PendingIntent contentPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
