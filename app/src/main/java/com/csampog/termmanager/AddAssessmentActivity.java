@@ -2,7 +2,6 @@ package com.csampog.termmanager;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -116,7 +115,7 @@ public class AddAssessmentActivity extends AppCompatActivity {
             boolean canSave = true;
 
             if (titleEditText.getText() == null ||
-                    titleEditText.getText().toString().length() < 3) {
+                    titleEditText.getText().toString().trim().length() < 3) {
                 canSave = false;
                 errorBuilder.append(getString(R.string.title_error) + "\n");
             }
@@ -135,12 +134,7 @@ public class AddAssessmentActivity extends AppCompatActivity {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
                 alertDialogBuilder.setTitle(R.string.assessment_save_error_title);
                 alertDialogBuilder.setMessage(errorBuilder.toString());
-                alertDialogBuilder.setPositiveButton(R.string.ok_button_text, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+                alertDialogBuilder.setPositiveButton(R.string.ok_button_text, (dialog, which) -> dialog.dismiss());
                 alertDialogBuilder.show();
             }
         });

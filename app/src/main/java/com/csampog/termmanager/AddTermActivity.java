@@ -1,5 +1,6 @@
 package com.csampog.termmanager;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
@@ -45,8 +46,34 @@ public class AddTermActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.add_term_save);
         saveButton.setOnClickListener(v -> {
             try {
-                viewModel.createTerm();
-                finish();
+                StringBuilder errorBuilder = new StringBuilder();
+                boolean canSave = true;
+
+                if (titleText.getText() == null || titleText.getText().toString().trim().length() < 3) {
+                    canSave = false;
+                    errorBuilder.append("Title must be at least 3 characters.\n");
+                }
+
+                if (viewModel.formattedStartDate.getValue() == null) {
+                    canSave = false;
+                    errorBuilder.append("Start date must be set.\n");
+                }
+
+                if (viewModel.formattedEndDate.getValue() == null) {
+                    canSave = false;
+                    errorBuilder.append("End date must be set.\n");
+                }
+
+                if (canSave) {
+                    viewModel.createTerm();
+                    finish();
+                } else {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                    alertDialogBuilder.setTitle(R.string.term_save_error);
+                    alertDialogBuilder.setMessage(errorBuilder.toString());
+                    alertDialogBuilder.setPositiveButton(R.string.ok_button_text, (dialog, which) -> dialog.dismiss());
+                    alertDialogBuilder.show();
+                }
             } catch (Exception ex) {
                 Log.e(AddTermActivity.class.getName(), ex.getMessage());
             }
@@ -105,7 +132,7 @@ public class AddTermActivity extends AppCompatActivity {
 
         viewModel.formattedStartDate.observe(this, startDateObserver);
         viewModel.formattedEndDate.observe(this, endDateObserver);
-        viewModel.canSave.observe(this, canSaveObserver);
+        //viewModel.canSave.observe(this, canSaveObserver);
     }
 
     private class DateClickListener implements View.OnClickListener {

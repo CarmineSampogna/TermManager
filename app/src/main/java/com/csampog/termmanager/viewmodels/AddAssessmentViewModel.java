@@ -88,7 +88,7 @@ public class AddAssessmentViewModel extends AndroidViewModel {
     public void saveAssessment() {
 
         Assessment target =  new Assessment();
-        target.setTitle(titleInput.getValue());
+        target.setTitle(titleInput.getValue().trim());
         target.setGoalDate(goalDate);
         target.setTestType(assessmentType);
         target.setCourseId(courseId);

@@ -108,4 +108,7 @@
     <string name="goal_date_notifications">Goal Date Notifications</string>
     <string name="course_details_title">Course Details</string>
     <string name="assessments_and_notes_label">Assessments and Notes</string>
+    <string name="note_save_error">Can\'t Save Note</string>
+    <string name="term_save_error">Can\'t Save Term</string>
+    <string name="term_details">Term Details</string>
 </resources>

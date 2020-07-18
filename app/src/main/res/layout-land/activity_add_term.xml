@@ -10,13 +10,14 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:gravity="bottom">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/add_term_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></androidx.appcompat.widget.Toolbar>
+            android:layout_height="wrap_content"
+            android:background="@color/termColor" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView

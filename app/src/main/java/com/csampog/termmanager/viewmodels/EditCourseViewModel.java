@@ -130,13 +130,13 @@ public class EditCourseViewModel extends AndroidViewModel {
 
             try {
                 Course modifiedCourse = new Course(courseId,
-                        titleInput,
+                        titleInput.trim(),
                         startDateInput,
                         endDateInput,
                         statusInput,
-                        mentorNameInput,
-                        mentorPhoneInput,
-                        mentorEmailInput,
+                        mentorNameInput != null ? mentorNameInput.trim() : null,
+                        mentorPhoneInput != null ? mentorPhoneInput.trim() : null,
+                        mentorEmailInput != null ? mentorEmailInput.trim() : null,
                         startAlertEnabledInput,
                         endAlertEnabledInput,
                         startAlertEnabledInput,

@@ -131,7 +131,7 @@ public class EditCourseActivity extends AppCompatActivity {
                 boolean canSave = true;
 
                 if (titleText.getText() == null ||
-                        titleText.getText().toString().length() < 3) {
+                        titleText.getText().toString().trim().length() < 3) {
                     canSave = false;
                     errorBuilder.append(getString(R.string.title_error) + "\n");
                 }

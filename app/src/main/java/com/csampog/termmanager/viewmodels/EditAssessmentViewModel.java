@@ -112,7 +112,7 @@ public class EditAssessmentViewModel extends AndroidViewModel {
         boolean isCourseIdValid = courseId > 0;
 
         boolean isTitleValid = titleInput != null &&
-                titleInput.length() > 2;
+                titleInput.trim().length() > 2;
 
         boolean isDateValid = dateInput != null;
 
@@ -127,7 +127,7 @@ public class EditAssessmentViewModel extends AndroidViewModel {
     public void saveAssessment() {
 
         Assessment target = new Assessment();
-        target.setTitle(titleInput);
+        target.setTitle(titleInput.trim());
         target.setGoalDate(dateInput);
         target.setTestType(assessmentTypeInput);
         target.setCourseId(courseId);

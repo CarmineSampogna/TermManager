@@ -1,5 +1,6 @@
 package com.csampog.termmanager;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -84,8 +85,35 @@ public class EditTermActivity extends AppCompatActivity {
         saveButton.setVisibility(View.VISIBLE);
         saveButton.setOnClickListener(v -> {
             try {
-                viewModel.saveTerm();
-                finish();
+
+                StringBuilder errorBuilder = new StringBuilder();
+                boolean canSave = true;
+
+                if (titleTextView.getText() == null || titleTextView.getText().toString().trim().length() < 3) {
+                    canSave = false;
+                    errorBuilder.append("Title must be at least 3 characters.\n");
+                }
+
+                if (viewModel.formattedStartDate.getValue() == null) {
+                    canSave = false;
+                    errorBuilder.append("Start date must be set.\n");
+                }
+
+                if (viewModel.formattedEndDate.getValue() == null) {
+                    canSave = false;
+                    errorBuilder.append("End date must be set.\n");
+                }
+
+                if (canSave) {
+                    viewModel.saveTerm();
+                    finish();
+                } else {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                    alertDialogBuilder.setTitle(R.string.term_save_error);
+                    alertDialogBuilder.setMessage(errorBuilder.toString());
+                    alertDialogBuilder.setPositiveButton(R.string.ok_button_text, (dialog, which) -> dialog.dismiss());
+                    alertDialogBuilder.show();
+                }
             } catch (Exception ex) {
                 Log.e(AddTermActivity.class.getName(), ex.getMessage());
             }

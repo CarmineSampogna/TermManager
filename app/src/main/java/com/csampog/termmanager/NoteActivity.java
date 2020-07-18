@@ -1,5 +1,6 @@
 package com.csampog.termmanager;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -123,8 +124,29 @@ public class NoteActivity extends AppCompatActivity {
 
         saveButton = findViewById(R.id.note_save_button);
         saveButton.setOnClickListener(v -> {
-            viewModel.saveNote();
-            finish();
+            StringBuilder errorBuilder = new StringBuilder();
+            boolean canSave = true;
+
+            if (noteTitleText.getText() == null || noteTitleText.getText().toString().trim().length() < 3) {
+                canSave = false;
+                errorBuilder.append("Title must be at least 3 characters.\n");
+            }
+
+            if (noteTextInput.getText() == null || noteTextInput.getText().toString().trim().length() < 3) {
+                canSave = false;
+                errorBuilder.append("Note text must be at least 3 characters.\n");
+            }
+
+            if (canSave) {
+                viewModel.saveNote();
+                finish();
+            } else {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle(R.string.note_save_error);
+                alertDialogBuilder.setMessage(errorBuilder.toString());
+                alertDialogBuilder.setPositiveButton(R.string.ok_button_text, (dialog, which) -> dialog.dismiss());
+                alertDialogBuilder.show();
+            }
         });
 
         cancelButton = findViewById(R.id.note_cancel_button);

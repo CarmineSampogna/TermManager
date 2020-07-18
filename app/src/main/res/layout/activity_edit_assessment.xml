@@ -95,9 +95,7 @@
                         android:paddingEnd="16dp"
                         android:paddingBottom="16dp"
                         android:text="@string/goal_date_notifications"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                        android:thumbTint="@color/assessmentColor"
-                        android:trackTint="@color/assessmentColorLight" />
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

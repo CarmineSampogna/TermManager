@@ -22,7 +22,6 @@ import com.csampog.termmanager.viewmodels.TermDetailsViewModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,6 @@ public class TermDetailsActivity extends AppCompatActivity {
     private TextView endDateText;
     private RecyclerView termCoursesRecyclerView;
     private CourseAdapter courseAdapter;
-    private TextInputEditText titleEditText;
     private MaterialButton addCourseButton;
     private FloatingActionButton editButton;
     private int termId;
@@ -120,9 +118,6 @@ public class TermDetailsActivity extends AppCompatActivity {
         };
 
         final Observer<String> titleObserver = s -> {
-
-            toolbarLayout.setTitle(s);
-            titleEditText.setText(s);
             titleTextView.setText(s);
         };
 
@@ -141,22 +136,21 @@ public class TermDetailsActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        toolbarLayout = findViewById(R.id.term_details_toolbar_layout);
-        toolbar = findViewById(R.id.term_details_toolbar);
 
+        toolbar = findViewById(R.id.term_details_toolbar);
+        toolbar.setTitle(R.string.term_details);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         editButton = findViewById(R.id.term_details_edit_button);
         editButton.setOnClickListener(v -> navToEdit());
         titleTextView = findViewById(R.id.term_details_title_textView);
-        titleEditText = findViewById(R.id.term_title_text);
         startDateText = findViewById(R.id.term_details_start);
         endDateText = findViewById(R.id.term_details_end);
         addCourseButton = findViewById(R.id.add_course_button);
         addCourseButton.setOnClickListener(v -> {
 
             viewModel.updateHasCoursesAvailable();
-            Intent intent = null;
+            Intent intent;
             if (!this.coursesAvailable) {
 
                 intent = new Intent(TermDetailsActivity.this, AddNewCourseActivity.class);

@@ -70,13 +70,13 @@ public class EditTermViewModel extends TermViewModelBase {
 
     public void saveTerm(){
 
-        Term term = new Term(termId, titleInput, startDate, endDate);
+        Term term = new Term(termId, titleInput.trim(), startDate, endDate);
         termRepository.insertOrUpdate(term);
     }
 
     protected void updateCanSave() {
 
-        boolean validTitle = title != null && title.getValue().length() > 1;
+        boolean validTitle = title != null && title.getValue() != null && title.getValue().trim().length() > 2;
         boolean validDates = endDate != null &&
                 startDate != null &&
                 endDate.after(startDate);

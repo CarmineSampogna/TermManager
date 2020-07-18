@@ -46,7 +46,7 @@ public class NoteViewModel extends AndroidViewModel {
 
         title = Transformations.map(note, n-> {
             if(n != null) {
-                textInput = n.getTitle();
+                textInput = n.getText();
                 courseId = OptionalInt.of(n.getCourseId());
                 return n.getTitle();
             }
@@ -62,13 +62,16 @@ public class NoteViewModel extends AndroidViewModel {
         });
     }
 
-    public void updateCanSave(){
+    public void updateCanSave() {
 
-        boolean validTitle = titleInput != null && titleInput.length() > 2;
+        boolean validTitle = titleInput != null && titleInput.trim().length() > 2;
+        boolean validText = textInput != null && textInput.trim().length() > 2;
+
+        canSave.setValue(validTitle && validText);
     }
 
     public void saveNote() {
-        Note entity = new Note(titleInput, textInput, courseId.getAsInt());
+        Note entity = new Note(titleInput.trim(), textInput.trim(), courseId.getAsInt());
         if(noteId.isPresent()){
             entity.setNoteId(noteId.getAsInt());
         }

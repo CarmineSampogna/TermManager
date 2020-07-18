@@ -93,7 +93,7 @@ public class AddCourseViewModel extends CourseViewModelBase {
     public void updateCanSave() {
 
         boolean validTitle = title.getValue() != null &&
-                title.getValue().length() > 1;
+                title.getValue().trim().length() > 2;
         boolean validDates = endDate != null &&
                 startDate != null &&
                 endDate.after(startDate);
@@ -108,12 +108,12 @@ public class AddCourseViewModel extends CourseViewModelBase {
             canSave.setValue(false);
 
 
-            String mentorNameValue = mentorName == null ? null : mentorName.getValue();
-            String mentorPhoneValue = mentorPhone == null ? null : mentorPhone.getValue();
-            String mentorEmailValue = mentorEmail == null ? null : mentorEmail.getValue();
+            String mentorNameValue = mentorName.getValue() == null ? null : mentorName.getValue().trim();
+            String mentorPhoneValue = mentorPhone.getValue() == null ? null : mentorPhone.getValue().trim();
+            String mentorEmailValue = mentorEmail.getValue() == null ? null : mentorEmail.getValue().trim();
 
             try {
-                Course course = new Course(title.getValue(),
+                Course course = new Course(title.getValue().trim(),
                         startDate,
                         endDate,
                         status.getValue(),

@@ -35,7 +35,7 @@ public class AddTermViewModel extends TermViewModelBase {
         if(canSave.getValue()){
             canSave.setValue(false);
             try {
-                Term newTerm = new Term(title.getValue(), startDate, endDate);
+                Term newTerm = new Term(title.getValue().trim(), startDate, endDate);
                 termRepository.insertOrUpdate(newTerm);
             } catch (Exception ex) {
                 Log.e(AddTermViewModel.class.getName(), ex.getMessage());
@@ -65,13 +65,13 @@ public class AddTermViewModel extends TermViewModelBase {
 
     public void setTitle(String title) {
 
-        this.title.setValue(title);
+        this.title.setValue(title == null ? null : title.trim());
         updateCanSave();
     }
 
     protected void updateCanSave() {
 
-        boolean validTitle = title != null && title.getValue() != null && title.getValue().length() > 2;
+        boolean validTitle = title != null && title.getValue() != null && title.getValue().trim().length() > 2;
         boolean validDates = endDate != null &&
                 startDate != null &&
                 endDate.after(startDate);
