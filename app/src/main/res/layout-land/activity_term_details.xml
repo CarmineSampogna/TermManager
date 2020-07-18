@@ -42,7 +42,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:elevation="8dp"
+                app:cardElevation="8dp"
                 app:cardCornerRadius="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -136,7 +136,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginBottom="32dp"
                 android:elevation="8dp"
                 app:cardCornerRadius="8dp"
@@ -144,10 +144,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/course_primary_details_layout">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#efffff">
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:id="@+id/coursesHeader"
@@ -155,10 +155,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/courseColor"
                         android:elevation="4dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:orientation="horizontal">
 
 
                         <com.google.android.material.textview.MaterialTextView
@@ -189,11 +186,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/coursesHeader" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.textfield.TextInputLayout

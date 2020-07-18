@@ -101,7 +101,7 @@
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingBottom="8dp"
+                                android:paddingBottom="4dp"
                                 android:text="@string/status_title"
                                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
@@ -344,7 +344,8 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="16dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp">
 
@@ -364,16 +365,14 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#ffe9d0"
                         android:orientation="vertical">
 
                         <com.google.android.material.tabs.TabLayout
                             android:id="@+id/courseTabLayout"
                             android:layout_width="match_parent"
+                            android:background="@color/grey_100"
+                            android:elevation="4dp"
                             android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/course_primary_details_layout"
                             app:tabGravity="center"
                             app:tabMode="scrollable">
 
@@ -382,10 +381,7 @@
                         <androidx.viewpager2.widget.ViewPager2
                             android:id="@+id/courseViewPager"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/courseTabLayout">
+                            android:layout_height="match_parent">
 
                         </androidx.viewpager2.widget.ViewPager2>
                     </LinearLayout>
