@@ -15,8 +15,8 @@ import com.csampog.termmanager.model.Course;
 import com.csampog.termmanager.model.Term;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -68,7 +68,7 @@ public class HomeScreenViewModel extends AndroidViewModel {
     private void initAssessment() {
 
         nextAssessment = Transformations.map(assessmentRepository.getAllAssessments(), a -> a.stream()
-                .filter(a2 -> !a2.getGoalDate().before(Date.from(Instant.now())))
+                .filter(a2 -> !a2.getGoalDate().before(Date.from(Instant.now().minus(1, ChronoUnit.DAYS))))
                 .sorted((o1, o2) -> {
                     if (o1.getGoalDate().before(o2.getGoalDate())) {
                         return -1;
