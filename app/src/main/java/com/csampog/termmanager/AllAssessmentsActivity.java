@@ -2,14 +2,17 @@ package com.csampog.termmanager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.LayoutParams;
 
 import com.csampog.termmanager.adapters.AssessmentAdapter;
 import com.csampog.termmanager.model.Assessment;
@@ -21,7 +24,6 @@ import java.util.List;
 
 public class AllAssessmentsActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
     private List<Assessment> assessments;
     private AssessmentAdapter assessmentAdapter;
 
@@ -40,11 +42,15 @@ public class AllAssessmentsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        recyclerView = findViewById(R.id.all_assessments_recycler);
+        NestedScrollView scrollView = findViewById(R.id.assessments_scroll_view);
+
+        RecyclerView recyclerView = new RecyclerView(this);
+        recyclerView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         recyclerView.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.grid_layout_columns)));
         assessments = new ArrayList<>();
         assessmentAdapter = new AssessmentAdapter(this, R.layout.assessment_list_item, assessments, this);
         recyclerView.setAdapter(assessmentAdapter);
+        scrollView.addView(recyclerView);
 
         CollapsingToolbarLayout tbl = findViewById(R.id.assessments_toolbar);
         tbl.setTitle(getString(R.string.assessments_title));
